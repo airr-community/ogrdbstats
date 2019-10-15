@@ -209,7 +209,11 @@ read_inferred_sequences = function(inferred_filename, segment, ref_genes) {
   if(segment == 'V') {
     inferred_seqs = sapply(names(inferred_seqs), imgt_gap_inferred, seqs=inferred_seqs, ref_genes=ref_genes)
   }
+
+  return(inferred_seqs)
 }
+
+
 
 #' Read annotated input sequences and convert format to CHANGEO-style, filling in as many gaps in what we get from the inference tool as we can
 #' @param filename Name of file containing annotated reads in AIRR, CHANGEO or IgDiscover format. The format is detected automatically
@@ -357,7 +361,7 @@ gap_input_sequences = function(input_sequences, inferred_seqs, ref_genes) {
   input_sequences$SEG_REF_IMGT = sapply(input_sequences$SEG_CALL, find_template)
 
   if(!('SEQUENCE_IMGT' %in% names(input_sequences))) {
-    s$SEQUENCE_IMGT = mapply(imgt_gap, input_sequences$SEQUENCE,input_sequences$CDR3_IMGT, input_sequences$JUNCTION_START, input_sequences$SEG_REF_IMGT)
+    input_sequences$SEQUENCE_IMGT = mapply(imgt_gap, input_sequences$SEQUENCE,input_sequences$CDR3_IMGT, input_sequences$JUNCTION_START, input_sequences$SEG_REF_IMGT)
   }
 
   input_sequences$SEQUENCE_IMGT = toupper(input_sequences$SEQUENCE_IMGT)

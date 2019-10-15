@@ -141,8 +141,8 @@ write_plot_file = function(filename, input_sequences, end_composition_grobs, who
     if(length(whole_composition_grobs) > 0) {
       x=print(marrangeGrob(whole_composition_grobs, nrow=3, ncol=1,top=NULL))
     }
-    if(length(triplet_grobs) > 0) {
-      x=print(marrangeGrob(triplet_grobs, nrow=3, ncol=1,top=NULL))
+    if(length(triplet_composition_grobs) > 0) {
+      x=print(marrangeGrob(triplet_composition_grobs, nrow=3, ncol=1,top=NULL))
     }
   }
 

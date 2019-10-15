@@ -5,15 +5,16 @@
 #' Collect parameters from the command line and use them to create a report and CSV file for OGRDB
 #' @param test Run a simple preconfigured test (files must be in the current directory)
 #' @return Nothing
+#' @export
 genotype_statistics_cmd = function(test = F) {
 
   p = arg_parser('Create genotype statistics')
-  p = add_argument(p, 'ref_filename', help='reference set filename')
-  p = add_argument(p, 'species', help=' species name used in field 3 of the IMGT reference set header, with spaces removed, e.g. Homosapiens for Human')
-  p = add_argument(p, 'filename', help='name of file containing annotated reads in AIRR, CHANGEO, IMPRE or IgDiscover format')
-  p = add_argument(p, 'chain', help='one of VH, VK, VL, D, JH, JK, JL')
-  p = add_argument(p, '--inf', help='sequences of inferred novel alleles (FASTA format)')
-  p = add_argument(p, '--hap', help='haplotyping gene, e.g. IGHJ6')
+  p = add_argument(p, 'REF_FILE', help='reference set filename')
+  p = add_argument(p, 'SPECIES', help=' species name used in field 3 of the IMGT reference set header, with spaces removed, e.g. Homosapiens for Human')
+  p = add_argument(p, 'READ_FILE', help='name of file containing annotated reads in AIRR, CHANGEO, IMPRE or IgDiscover format')
+  p = add_argument(p, 'CHAIN', help='one of VH, VK, VL, D, JH, JK, JL')
+  p = add_argument(p, '--inf_file', help='sequences of inferred novel alleles (FASTA format)')
+  p = add_argument(p, '--hap_gene', help='haplotyping gene, e.g. IGHJ6')
 
 
   if(!test) {
@@ -23,12 +24,12 @@ genotype_statistics_cmd = function(test = F) {
     # setwd('D:\\Research\\ogrdbstats\\testdata\\VH_tigger')
   }
 
-  ref_filename = argv$ref_filename
-  species = argv$species
-  inferred_filename = argv$inf
-  filename = argv$filename
-  chain = argv$chain
-  hap_gene = argv$hap
+  ref_filename = argv$REF_FILE
+  species = argv$SPECIES
+  inferred_filename = argv$INF_FILE
+  filename = argv$READ_FILE
+  chain = argv$CHAIN
+  hap_gene = argv$HAP_GENE
 
   if(!(chain %in% c('VH', 'VK', 'VL', 'DH', 'JH', 'JK', 'JL'))) {
     stop('Unrecognised chain name.')
@@ -58,6 +59,7 @@ genotype_statistics_cmd = function(test = F) {
 #' Generate OGRDB reports using test data
 #' @param full If false, run a single set. Otherwise run all sets we have.
 #' @return Nothing
+#' @export
 genotype_statistics_test = function(full=F) {
 
   setwd('D:\\Research\\ogrdbstats')

@@ -1,27 +1,32 @@
 Package: ogrdbstats
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Standardised reporting of genotype statistics
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Author: William Lees
+Maintainer: William Lees <william@lees.org.uk>
+Description: Multiple tools are now available for inferring the personalised Ig genotype from an immune repertoire. 
+    Ogrdbstats can read the output from a number of these tools, converting to a standard format and 
+    supplementing with additional rich data such as usage and characterisation of 'novel' alleles. Reports 
+    and charts can be created for review and upload to ORGDB (https://ogrdb.airr-community.org).
 License: CC BY-SA 4.0
 Encoding: UTF-8
 LazyData: true
 Depends:
 bicViews:
 Imports:
-  tigger,
-  alakazam,
-  stringr,
+  tigger (>= 0.4.0),
+  alakazam (>= 0.3.0),
+  stringr (>= 1.4.0),
   grid,
-  gridExtra,
-  tidyr,
-  dplyr,
-  stringdist,
-  RColorBrewer,
-  Biostrings,
-  argparser,
-  ggplot2
+  gridExtra (>= 2.3),
+  tidyr (>= 1.0.0),
+  dplyr (>= 0.8.3),
+  stringdist (>= 0.9.5.2),
+  RColorBrewer (>= 1.1-2),
+  Biostrings (>= 2.52.0),
+  argparser (>= 0.4),
+  ggplot2 (>= 3.2.1)
+Suggests:
+  knitr
+VignetteBuilder: knitr
 RoxygenNote: 6.1.1
