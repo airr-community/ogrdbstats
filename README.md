@@ -334,7 +334,7 @@ generates the genotype file and plots.
 
 #### Customising and Extending the Reports
 
-`generate_ogrdb_report()` reads and parses the input files. It returns a
+`read_input_files()` reads and parses the input files. It returns a
 representation of the genotype file in memory, as well as a number of
 other structures containing related information.
 

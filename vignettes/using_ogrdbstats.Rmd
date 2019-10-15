@@ -254,7 +254,7 @@ novel inferences provided by IMPre
 
 #### Customising and Extending the Reports
 
-`generate_ogrdb_report()` reads and parses the input files. It returns a representation of the genotype file in memory, as 
+`read_input_files()` reads and parses the input files. It returns a representation of the genotype file in memory, as 
 well as a number of other structures containing related information.
 
 `make_barplot_grobs()`, `make_novel_base_grobs()` and `make_haplo_grobs()` create the plots: each function returns a list of grobs that can be used as you wish, or passed to `write_plot_file()` to create a the standard file of plots.

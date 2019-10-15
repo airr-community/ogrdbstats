@@ -727,7 +727,7 @@ body {
 <h4 id="creating-reports-programmatically">Creating reports programmatically</h4>
 <p><code>generate_ogrdb_report()</code> takes equivalent arguments to ogrdbstats.R and generates the genotype file and plots.</p>
 <h4 id="customising-and-extending-the-reports">Customising and Extending the Reports</h4>
-<p><code>generate_ogrdb_report()</code> reads and parses the input files. It returns a representation of the genotype file in memory, as well as a number of other structures containing related information.</p>
+<p><code>read_input_files()</code> reads and parses the input files. It returns a representation of the genotype file in memory, as well as a number of other structures containing related information.</p>
 <p><code>make_barplot_grobs()</code>, <code>make_novel_base_grobs()</code> and <code>make_haplo_grobs()</code> create the plots: each function returns a list of grobs that can be used as you wish, or passed to <code>write_plot_file()</code> to create a the standard file of plots.</p>
 <p>The use of these functions is demonstrated in the source code for generate_ogrdb_report():</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">generate_ogrdb_report =<span class="st"> </span><span class="cf">function</span>(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type) {</a>
