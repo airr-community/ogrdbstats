@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style type="text/css">
+@font-face {
+font-family: octicons-link;
+src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
+}
+body {
+-webkit-text-size-adjust: 100%;
+text-size-adjust: 100%;
+color: #333;
+font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+font-size: 16px;
+line-height: 1.6;
+word-wrap: break-word;
+}
+a {
+background-color: transparent;
+}
+a:active,
+a:hover {
+outline: 0;
+}
+strong {
+font-weight: bold;
+}
+h1 {
+font-size: 2em;
+margin: 0.67em 0;
+}
+img {
+border: 0;
+}
+hr {
+box-sizing: content-box;
+height: 0;
+}
+pre {
+overflow: auto;
+}
+code,
+kbd,
+pre {
+font-family: monospace, monospace;
+font-size: 1em;
+}
+input {
+color: inherit;
+font: inherit;
+margin: 0;
+}
+html input[disabled] {
+cursor: default;
+}
+input {
+line-height: normal;
+}
+input[type="checkbox"] {
+box-sizing: border-box;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+border-spacing: 0;
+}
+td,
+th {
+padding: 0;
+}
+* {
+box-sizing: border-box;
+}
+input {
+font: 13px / 1.4 Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+a {
+color: #4078c0;
+text-decoration: none;
+}
+a:hover,
+a:active {
+text-decoration: underline;
+}
+hr {
+height: 0;
+margin: 15px 0;
+overflow: hidden;
+background: transparent;
+border: 0;
+border-bottom: 1px solid #ddd;
+}
+hr:before {
+display: table;
+content: "";
+}
+hr:after {
+display: table;
+clear: both;
+content: "";
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+margin-top: 15px;
+margin-bottom: 15px;
+line-height: 1.1;
+}
+h1 {
+font-size: 30px;
+}
+h2 {
+font-size: 21px;
+}
+h3 {
+font-size: 16px;
+}
+h4 {
+font-size: 14px;
+}
+h5 {
+font-size: 12px;
+}
+h6 {
+font-size: 11px;
+}
+blockquote {
+margin: 0;
+}
+ul,
+ol {
+padding: 0;
+margin-top: 0;
+margin-bottom: 0;
+}
+ol ol,
+ul ol {
+list-style-type: lower-roman;
+}
+ul ul ol,
+ul ol ol,
+ol ul ol,
+ol ol ol {
+list-style-type: lower-alpha;
+}
+dd {
+margin-left: 0;
+}
+code {
+font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+font-size: 12px;
+}
+pre {
+margin-top: 0;
+margin-bottom: 0;
+font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+.select::-ms-expand {
+opacity: 0;
+}
+.octicon {
+font: normal normal normal 16px/1 octicons-link;
+display: inline-block;
+text-decoration: none;
+text-rendering: auto;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+.octicon-link:before {
+content: '\f05c';
+}
+.markdown-body:before {
+display: table;
+content: "";
+}
+.markdown-body:after {
+display: table;
+clear: both;
+content: "";
+}
+.markdown-body>*:first-child {
+margin-top: 0 !important;
+}
+.markdown-body>*:last-child {
+margin-bottom: 0 !important;
+}
+a:not([href]) {
+color: inherit;
+text-decoration: none;
+}
+.anchor {
+display: inline-block;
+padding-right: 2px;
+margin-left: -18px;
+}
+.anchor:focus {
+outline: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+margin-top: 1em;
+margin-bottom: 16px;
+font-weight: bold;
+line-height: 1.4;
+}
+h1 .octicon-link,
+h2 .octicon-link,
+h3 .octicon-link,
+h4 .octicon-link,
+h5 .octicon-link,
+h6 .octicon-link {
+color: #000;
+vertical-align: middle;
+visibility: hidden;
+}
+h1:hover .anchor,
+h2:hover .anchor,
+h3:hover .anchor,
+h4:hover .anchor,
+h5:hover .anchor,
+h6:hover .anchor {
+text-decoration: none;
+}
+h1:hover .anchor .octicon-link,
+h2:hover .anchor .octicon-link,
+h3:hover .anchor .octicon-link,
+h4:hover .anchor .octicon-link,
+h5:hover .anchor .octicon-link,
+h6:hover .anchor .octicon-link {
+visibility: visible;
+}
+h1 {
+padding-bottom: 0.3em;
+font-size: 2.25em;
+line-height: 1.2;
+border-bottom: 1px solid #eee;
+}
+h1 .anchor {
+line-height: 1;
+}
+h2 {
+padding-bottom: 0.3em;
+font-size: 1.75em;
+line-height: 1.225;
+border-bottom: 1px solid #eee;
+}
+h2 .anchor {
+line-height: 1;
+}
+h3 {
+font-size: 1.5em;
+line-height: 1.43;
+}
+h3 .anchor {
+line-height: 1.2;
+}
+h4 {
+font-size: 1.25em;
+}
+h4 .anchor {
+line-height: 1.2;
+}
+h5 {
+font-size: 1em;
+}
+h5 .anchor {
+line-height: 1.1;
+}
+h6 {
+font-size: 1em;
+color: #777;
+}
+h6 .anchor {
+line-height: 1.1;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table,
+pre {
+margin-top: 0;
+margin-bottom: 16px;
+}
+hr {
+height: 4px;
+padding: 0;
+margin: 16px 0;
+background-color: #e7e7e7;
+border: 0 none;
+}
+ul,
+ol {
+padding-left: 2em;
+}
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+margin-top: 0;
+margin-bottom: 0;
+}
+li>p {
+margin-top: 16px;
+}
+dl {
+padding: 0;
+}
+dl dt {
+padding: 0;
+margin-top: 16px;
+font-size: 1em;
+font-style: italic;
+font-weight: bold;
+}
+dl dd {
+padding: 0 16px;
+margin-bottom: 16px;
+}
+blockquote {
+padding: 0 15px;
+color: #777;
+border-left: 4px solid #ddd;
+}
+blockquote>:first-child {
+margin-top: 0;
+}
+blockquote>:last-child {
+margin-bottom: 0;
+}
+table {
+display: block;
+width: 100%;
+overflow: auto;
+word-break: normal;
+word-break: keep-all;
+}
+table th {
+font-weight: bold;
+}
+table th,
+table td {
+padding: 6px 13px;
+border: 1px solid #ddd;
+}
+table tr {
+background-color: #fff;
+border-top: 1px solid #ccc;
+}
+table tr:nth-child(2n) {
+background-color: #f8f8f8;
+}
+img {
+max-width: 100%;
+box-sizing: content-box;
+background-color: #fff;
+}
+code {
+padding: 0;
+padding-top: 0.2em;
+padding-bottom: 0.2em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(0,0,0,0.04);
+border-radius: 3px;
+}
+code:before,
+code:after {
+letter-spacing: -0.2em;
+content: "\00a0";
+}
+pre>code {
+padding: 0;
+margin: 0;
+font-size: 100%;
+word-break: normal;
+white-space: pre;
+background: transparent;
+border: 0;
+}
+.highlight {
+margin-bottom: 16px;
+}
+.highlight pre,
+pre {
+padding: 16px;
+overflow: auto;
+font-size: 85%;
+line-height: 1.45;
+background-color: #f7f7f7;
+border-radius: 3px;
+}
+.highlight pre {
+margin-bottom: 0;
+word-break: normal;
+}
+pre {
+word-wrap: normal;
+}
+pre code {
+display: inline;
+max-width: initial;
+padding: 0;
+margin: 0;
+overflow: initial;
+line-height: inherit;
+word-wrap: normal;
+background-color: transparent;
+border: 0;
+}
+pre code:before,
+pre code:after {
+content: normal;
+}
+kbd {
+display: inline-block;
+padding: 3px 5px;
+font-size: 11px;
+line-height: 10px;
+color: #555;
+vertical-align: middle;
+background-color: #fcfcfc;
+border: solid 1px #ccc;
+border-bottom-color: #bbb;
+border-radius: 3px;
+box-shadow: inset 0 -1px 0 #bbb;
+}
+.pl-c {
+color: #969896;
+}
+.pl-c1,
+.pl-s .pl-v {
+color: #0086b3;
+}
+.pl-e,
+.pl-en {
+color: #795da3;
+}
+.pl-s .pl-s1,
+.pl-smi {
+color: #333;
+}
+.pl-ent {
+color: #63a35c;
+}
+.pl-k {
+color: #a71d5d;
+}
+.pl-pds,
+.pl-s,
+.pl-s .pl-pse .pl-s1,
+.pl-sr,
+.pl-sr .pl-cce,
+.pl-sr .pl-sra,
+.pl-sr .pl-sre {
+color: #183691;
+}
+.pl-v {
+color: #ed6a43;
+}
+.pl-id {
+color: #b52a1d;
+}
+.pl-ii {
+background-color: #b52a1d;
+color: #f8f8f8;
+}
+.pl-sr .pl-cce {
+color: #63a35c;
+font-weight: bold;
+}
+.pl-ml {
+color: #693a17;
+}
+.pl-mh,
+.pl-mh .pl-en,
+.pl-ms {
+color: #1d3e81;
+font-weight: bold;
+}
+.pl-mq {
+color: #008080;
+}
+.pl-mi {
+color: #333;
+font-style: italic;
+}
+.pl-mb {
+color: #333;
+font-weight: bold;
+}
+.pl-md {
+background-color: #ffecec;
+color: #bd2c00;
+}
+.pl-mi1 {
+background-color: #eaffea;
+color: #55a532;
+}
+.pl-mdr {
+color: #795da3;
+font-weight: bold;
+}
+.pl-mo {
+color: #1d3e81;
+}
+kbd {
+display: inline-block;
+padding: 3px 5px;
+font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+line-height: 10px;
+color: #555;
+vertical-align: middle;
+background-color: #fcfcfc;
+border: solid 1px #ccc;
+border-bottom-color: #bbb;
+border-radius: 3px;
+box-shadow: inset 0 -1px 0 #bbb;
+}
+.task-list-item {
+list-style-type: none;
+}
+.task-list-item+.task-list-item {
+margin-top: 3px;
+}
+.task-list-item input {
+margin: 0 0.35em 0.25em -1.6em;
+vertical-align: middle;
+}
+:checked+.radio-label {
+z-index: 1;
+position: relative;
+border-color: #4078c0;
+}
+.sourceLine {
+display: inline-block;
+}
+code .kw { color: #000000; }
+code .dt { color: #ed6a43; }
+code .dv { color: #009999; }
+code .bn { color: #009999; }
+code .fl { color: #009999; }
+code .ch { color: #009999; }
+code .st { color: #183691; }
+code .co { color: #969896; }
+code .ot { color: #0086b3; }
+code .al { color: #a61717; }
+code .fu { color: #63a35c; }
+code .er { color: #a61717; background-color: #e3d2d2; }
+code .wa { color: #000000; }
+code .cn { color: #008080; }
+code .sc { color: #008080; }
+code .vs { color: #183691; }
+code .ss { color: #183691; }
+code .im { color: #000000; }
+code .va {color: #008080; }
+code .cf { color: #000000; }
+code .op { color: #000000; }
+code .bu { color: #000000; }
+code .ex { color: #000000; }
+code .pp { color: #999999; }
+code .at { color: #008080; }
+code .do { color: #969896; }
+code .an { color: #008080; }
+code .cv { color: #008080; }
+code .in { color: #008080; }
+</style>
+<style>
+body {
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 45px;
+  padding-top: 0px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1 id="using-ogrdbstats">Using ogrdbstats</h1>
+<p>William Lees 2019-10-15</p>
+<p>rmarkdown::render(“MyDocument.Rmd”, params = list( year = 2017, region = “Asia”, printcode = FALSE, file = “file2.csv” ))</p>
+<h1 id="conducting-a-genotype-analysis-with-ogrdbstats">Conducting a Genotype Analysis with ogrdbstats</h1>
+<p><a href="https://github.com/airr-community/ogrdbstats">ogrdbstats</a> is an R package that can be used to create an analysis of gene usage in a receptor repertoire. The analysis consists of <a href="https://github.com/airr-community/ogrdbstats/example_ogrdbstats_genotype.csv">usage statistics</a> and <a href="https://github.com/airr-community/ogrdbstats/example_ogrdbstats_plots.pdf">plots</a>. The package is intended to be used in conjunction with a tool that infers a ‘personalised genotype’. Currently the following tools are supported:</p>
+<ul>
+<li><a href="https://tigger.readthedocs.io/en/stable/">TIgGER</a></li>
+<li><a href="http://docs.igdiscover.se/en/stable/">IgDiscover</a></li>
+<li><a href="https://github.com/psathyrella/partis">partis</a></li>
+<li><a href="https://github.com/zhangwei2015/IMPre">IMPre</a></li>
+</ul>
+<h3 id="package-installation">Package Installation</h3>
+<p>To install, please download the package <a href="https://github.com/airr-community/ogrdbstats/ogrdbstats_0.1.0.tar.gz">ogrdbstats_0.1.0.tar.gz</a>, open an R console and type</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">install.packages</span>(<span class="st">&#39;ogrdbstats_0.1.0.tar.gz&#39;</span>, <span class="dt">repos=</span><span class="ot">NULL</span>, <span class="dt">type=</span><span class="st">&quot;source&quot;</span>).</a></code></pre></div>
+<p>The package requires R version 3.6.1 or above.</p>
+<h3 id="using-the-package">Using The Package</h3>
+<p>It’s easiest to use the package from the command line. To do this, download <a href="https://github.com/airr-community/ogrdbstats/ogrdbstats.R">ogrdbstats.R</a> and copy to the directory in which you wish to conduct the analysis.</p>
+<p><em>Command Syntax (see following section for detailed description of file formats)</em></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" title="1"><span class="ex">Rscript</span> ogrdbstats.R [--inf_file INF_FILE] [--hap_gene HAP_GENE] REF_FILE SPECIES READ_FILE CHAIN</a></code></pre></div>
+<p>Positional Arguments:</p>
+<p><code>REF_FILE</code> - pathname of a FASTA file containing IMGT gap-aligned reference germline sequences. Usually this would be <a href="http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP">downloaded from IMGT</a>.</p>
+<p><code>SPECIES</code> - should contain the species name used in field 3 of the IMGT reference file FASTA header, with spaces removed, e.g. Homosapiens for Human. If you are not using an IMGT reference file, you can use any single word for the species here, and the reference file should only contain genes for that species.</p>
+<p><code>READ_FILE</code> - pathname of a tab-separated file containing the annotated reads used to infer the genotype, in MiAIRR, CHANGEO or IgDiscover format</p>
+<p><code>CHAIN</code> is one of <code>VH, VK, VL, D, JH, JK, JL</code>. It should correspond to the sequence type provided in the <code>INF_FILE</code> - or the sequence type you would like analysed, if there are no novel alleles.</p>
+<p>Optional Arguments:</p>
+<p><code>INF_FILE</code> - pathname of a FASTA file containing sequences of inferred novel alleles. This file must be provided if the read file contains assignments to alleles that are not listed in the reference file.</p>
+<p><code>HAP_GENE</code> - the gene to be used for haplotyping analysis (see haplotyping section below)</p>
+<p>Detailed descriptions of the required input files are given in the next section, but for quick usage with a supported tool, please skip to the Usage Notes for that tool towards the end of this document.</p>
+<p>The package provides functions to allow you to create the reports programmatically, or use the information it reads from input files for your own purposes. Please refer to the ‘ogrdbstats API’ section for a brief overview.</p>
+<h3 id="detailed-description-of-input-files">Detailed Description of Input Files</h3>
+<h4 id="ref_file---fasta-file-containing-the-imgt-gap-aligned-reference-germline-sequences">REF_FILE - FASTA file containing the IMGT gap-aligned reference germline sequences.</h4>
+<ul>
+<li>All sequences that are called in the read file (apart from those of novel alleles) should be included.</li>
+<li>The sequences must be IMGT gap-aligned</li>
+<li>The FASTA header can either be in IMGT’s germline library format, or simply consist of the allele name</li>
+<li>The IMGT set can be <a href="http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP">downloaded</a> and used as-is: the script will filter out the records for the nominated species. As the IMGT set changes from time to time, please make sure that the same version is used by the inference tool and by this script.</li>
+<li>A warning will be given if any V-calls in the read file do not have a corresponding sequence in the reference file or the inferred novel alleles file. Unmutated counts will not be provided for thse sequences.</li>
+</ul>
+<h4 id="read_file---a-tab-separated-file-containing-the-annotated-reads-used-to-infer-the-genotype-in-miairr-changeo-or-igdiscover-format">READ_FILE - A tab-separated file containing the annotated reads used to infer the genotype, in MiAIRR, CHANGEO or IgDiscover format.</h4>
+<ul>
+<li><p>The format will be determined automatically by the script.</p></li>
+<li><p>MiAIRR format files must contain at least the following columns: <code>sequence_id, v_call_genotyped, d_call, j_call, sequence_alignment, cdr3</code>. For J or D inferences they must also contain <code>J_sequence_start</code>, <code>J_sequence_end</code>, <code>J_germline_start</code>, <code>J_germline_end</code>, or the equivalent fields for D genes. <a href="https://www.ncbi.nlm.nih.gov/igblast/">IgBLAST</a>’s <code>--format airr</code> creates compatible MiAIRR format files.</p></li>
+<li><p>CHANGEO files must contain at least the following columns: <code>SEQUENCE_ID, V_CALL_GENOTYPED, D_CALL, J_CALL, SEQUENCE_IMGT, CDR3_IMGT</code>, <code>V_MUT_NC</code>, <code>D_MUT_NC</code>, <code>J_MUT_NC</code>, <code>SEQUENCE</code>, <code>JUNCTION_START</code>, <code>V_SEQ</code>, <code>D_SEQ</code>, <code>J_SEQ</code>. If you would like to process files from IMGT V-Quest, please <a href="https://changeo.readthedocs.io/en/stable/examples/imgt.html">parse them with CHANGEO</a> to convert them to CHANGEO format.</p></li>
+<li><p>D- related fields are only required for heavy chain records.</p></li>
+<li><p>In both the above file formats, <code>v_call_genotyped/V_CALL_GENOTYPED</code> should contain the V calls made after the subject’s V-gene genotype has been inferred (including calls of the novel alleles). Sequences may be either unagpped or IMGT gap-aligned. Determining the personalised V-gene genotype is recommended when processing D or J gene inferences, so that V-gene usage counts are accurate. However, this step can be omitted for D or J gene processing by providing a V_CALL field instead of V_CALL_GENOTYPED.</p></li>
+<li><p>For IgDiscover, the file ‘final/filtered.tab’ should be used - see section below.</p></li>
+</ul>
+<h4 id="inf_file---fasta-file-containing-the-inferred-novel-alleles">INF_FILE - FASTA file containing the inferred novel alleles</h4>
+<ul>
+<li>Sequences in the inferred file should all be of the same type: VH, VK, VL, D, JH, JK, or JL</li>
+<li>The header should simply consist of the allele name as assigned by the tool.</li>
+<li>V-gene sequences may either be IMGT gap-aligned or not aligned. If they are not aligned, the script will determine the nearest reference gene and use it as a template. If you are not satisfied with the resulting alignment, just align the sequence in the inferred file as you prefer.</li>
+<li>If a gene with the same name is present in both the germline file and the inferred file, its presence in the inferred file will be ignored. This makes it easier to use the script with inference tools that do not write the inferred sequences to a separate file.</li>
+</ul>
+<h3 id="output">Output</h3>
+<ul>
+<li><code>&lt;READ_FILE&gt;_ogrdb_report.csv</code> - the Genotype File ready to be uploaded to OGRDB.</li>
+<li><code>&lt;READ_FILE&gt;_ogrdb_plots.csv</code> - plots (see next section for details).</li>
+</ul>
+<p><code>READ_FILE</code> is used as a prefix to the output file names. They will be written to the directory containing the read file.</p>
+<p>If you are submitting inferences to OGRDB, you will be prompted to upload the genotype file. Please also upload the plots file as an attachment to the Notes section of your submission.</p>
+<h3 id="plots">Plots</h3>
+<p>The script produces the following plots:</p>
+<ul>
+<li>For each allele used in the the read file, a histogram showing the number of mutated and unmutated sequences</li>
+<li>Barcharts showing nucleotide usage at locations in the IMGT-aligned sequence: both across the sequence as a whole, and in more detail at the 3’ end</li>
+<li>A barchart showing usage of the alleles of potential haplotyping genes, across the whole genotype. This can be used to identify a suitable gene for haplotyping analysis.</li>
+<li>For each potential haplotyping candidate (selected by the tool from the usage chart above), a plot comparing the usage of the two most frequently used alleles of that gene.</li>
+</ul>
+<p>The nucleotide usage plots are not produced from IgDiscover output, as aligned V-sequences are not available.</p>
+<h3 id="haplotyping">Haplotyping</h3>
+<p>The script should first be run without the optional <code>HAP_GENE</code> parameter. If, having consulted the plots, you identify a suitable gene for haplotyping, please run the script again, with this gene specified as <code>HAP_GENE</code>. The haplotyping_gene and haplotyping_ratio columns of the genotype file will be appropriately populated. A J-gene should be used with V- and D- gene inferences, and a V-gene with J-gene inferences.</p>
+<h3 id="example">Example</h3>
+<p>To download the IMGT reference file and complete an analysis using <a href="https://github.com/airr-community/ogrdbstats/testdata/VH_tigger/">example files</a>, run the following commands:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" title="1"><span class="fu">wget</span> -O IMGT_REF_GAPPED.fasta http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="ex">Rscript</span> ogrdbstats.R --inf_file TWO01A_naive_novel_ungapped.fasta --hap_gene IGHJ6 IMGT_REF_GAPPED.fasta Homosapiens TWO01A_naive_genotyped.tsv VH</a></code></pre></div>
+<h3 id="usage-notes">Usage Notes</h3>
+<p>Usage notes are indicative only and are not intended to discount other approaches. Notes for other tools will follow.</p>
+<h3 id="usage-notes---tigger">Usage Notes - TIgGER</h3>
+<p>To conduct a V-gene analysis with TIgGER:</p>
+<ul>
+<li>Use <code>findNovelAlleles</code> to identify novel alleles in a Change-O-formatted data set. Write these to a FASTA file.</li>
+<li>Use <code>inferGenotype</code> or <code>inferGenotypeBayesian</code> to infer the genotype.</li>
+<li>Use <code>reassignAlleles</code> to correct allele calls in the data set, based on the inferred genotype</li>
+<li>Provide the resulting Change-O file, together with the FASTA file containing the novel alleles, to <code>ogrdbstats</code>.</li>
+</ul>
+<p>Note that <code>inferGenotype</code> will not necessarily include every inferred allele produced by <code>findNovelAlleles</code> in the genotype that it produces. Only those alleles included in the genotype will be considered by <code>genotype_statistics.R</code> because, leaving other considerations aside, no sequences are assigned to other alleles.</p>
+<p>TIgGER provides additonal information, including its own plots and statistics We encourage you to take these into consideration, and to upload them as attachments to your submission if they are informative.</p>
+<h3 id="usage-notes---igdiscover">Usage Notes - IgDiscover</h3>
+<p>Assuming that you have copied the script file to IgDiscover’s <code>final</code> directory following an IgDiscover run, the commands below will download the IMGT reference file and run a VH gene analysis. Please note that all commands should be run in the <code>final</code> directory.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" title="1">$ <span class="fu">wget</span> -O IMGT_REF_GAPPED.fasta http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP</a>
+<a class="sourceLine" id="cb4-2" title="2">$ <span class="fu">unzip</span> final.tab.gz</a>
+<a class="sourceLine" id="cb4-3" title="3">$ <span class="ex">Rscript</span> ogrdbstats.R --inf_file database/V.fasta IMGT_REF_GAPPED.fasta Homosapiens filtered.tab VH</a></code></pre></div>
+<p>alternatively, to produce a JH gene analysis:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" title="1">$ <span class="ex">Rscript</span> ogrdbstats.R --inf_file database/J.fasta IMGT_REF_GAPPED.fasta Homosapiens filtered.tab JH</a></code></pre></div>
+<h3 id="usage-notes---partis">Usage Notes - partis</h3>
+<p>The information required by generate_statstics.R is split between partis’s normal yaml output and that provided by the ‘presto-output’ mode. A python script, <a href="https://github.com/airr-community/ogrdbstats/convert_partis.py">convert_partis.py</a>, is is provided. This will combine output from partis’s yaml and presto annotations, producing CHANGEO format annotations and a FASTA file of genotype V-sequences. These files can then passed to generate_statistics.R. convert_partis.py is written in python 2.7 for compatibility with partis, and can be run from the command line in the same virtual environment.</p>
+<p>Usage of convert_partis.py:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" title="1"><span class="ex">python</span> convert_partis.py [-h] partis_yaml partis_tsv ogrdb_recs ogrdb_vs</a>
+<a class="sourceLine" id="cb6-2" title="2"></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="ex">positional</span> arguments:</a>
+<a class="sourceLine" id="cb6-4" title="4">  <span class="ex">partis_yaml</span>  .yaml file created by partis</a>
+<a class="sourceLine" id="cb6-5" title="5">  <span class="ex">partis_tsv</span>   .tsv file created by partis presto-output mode</a>
+<a class="sourceLine" id="cb6-6" title="6">  <span class="ex">ogrdb_recs</span>   annotation output file (.tsv)</a>
+<a class="sourceLine" id="cb6-7" title="7">  <span class="ex">ogrdb_vs</span>     v_gene sequences (.fasta)</a>
+<a class="sourceLine" id="cb6-8" title="8"></a>
+<a class="sourceLine" id="cb6-9" title="9"><span class="ex">optional</span> arguments:</a>
+<a class="sourceLine" id="cb6-10" title="10">  <span class="ex">-h</span>, --help   show this help message and exit</a></code></pre></div>
+<p>Although partis must be run twice - once without the presto-output option, and once with it - it will use cached information provided other parameters remain the same, so that the overall impact on run time is low. Typical processing steps are shown below. Note that –presto-output requires an IMGT-gapped V-gene germline file. This can be extracted from the full germline library downloaded from IMGT (see ‘Prerequisites’ above), but partis will report as an error any duplicated identical sequences in the library: duplicates must be removed from the file before processing will complete successfully. Note in the examples below the –extra-annotations option. The CDR3 is required by generate_statistics.R: the other fields are included for reference.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># Run partis to produce annotations in YAML format</span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="ex">partis</span> annotate --extra-annotation-columns cdr3_seqs:invalid:in_frames:stops --infname TW01A.fasta --outfname TW01A.yaml --n-procs 5</a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="co"># Run partis again with additional --presto-output option. This will produce TSV-formatted output from cached data</span></a>
+<a class="sourceLine" id="cb7-4" title="4"><span class="ex">partis</span> annotate --extra-annotation-columns cdr3_seqs:invalid:in_frames:stops --infname TW01A.fasta --outfname TW01A.tsv --presto-output \</a>
+<a class="sourceLine" id="cb7-5" title="5"> --aligned-germline-fname IMGT_REF_GAPPED_DEDUPED.fasta --n-procs 5</a>
+<a class="sourceLine" id="cb7-6" title="6"><span class="co"># Extract and merge required information from YAML and TSV files</span></a>
+<a class="sourceLine" id="cb7-7" title="7"><span class="ex">python</span> convert_partis.py TW01A.yaml TW01A.tsv TW01A_OGRDB.tsv TW01A_V_OGRDB.fasta</a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="co"># Process the resulting output to produce the genotye file and plots</span></a>
+<a class="sourceLine" id="cb7-9" title="9"><span class="ex">Rscript</span> ogrdbstats.R --inf_file TW01A_V_OGRDB.fasta IMGT_REF_GAPPED.fasta Homosapiens TW01A_OGRDB.tsv VH</a></code></pre></div>
+<h3 id="usage-notes---impre">Usage Notes - IMPre</h3>
+<p>IMPre does not provide a set of sequences annotated with the novel allele calls. The sequences must be annotated by a separate tool in order to provide the information needed for the OGRDB genotype. One possible approach is as follows:</p>
+<ul>
+<li>Annotate with IgBLAST using a custom germline set that includes the novel alleles inferred by IMPre. Details for creating IgBLAST’s germline database are given in the <a href="https://ncbi.github.io/igblast/cook/How-to-set-up.html">setup notes</a>. The novel alleles inferred by IMPre can be added to the germline sequences downloaded from IMGT, before running makeblastdb.</li>
+<li>Select the AIRR output format, and provide the resulting annotion file to genotype_statistics.R, along with the novel inferences provided by IMPre</li>
+</ul>
+<h3 id="ogrdbstats-api">ogrdbstats API</h3>
+<h4 id="creating-reports-programmatically">Creating reports programmatically</h4>
+<p><code>generate_ogrdb_report()</code> takes equivalent arguments to ogrdbstats.R and generates the genotype file and plots.</p>
+<h4 id="customising-and-extending-the-reports">Customising and Extending the Reports</h4>
+<p><code>generate_ogrdb_report()</code> reads and parses the input files. It returns a representation of the genotype file in memory, as well as a number of other structures containing related information.</p>
+<p><code>make_barplot_grobs()</code>, <code>make_novel_base_grobs()</code> and <code>make_haplo_grobs()</code> create the plots: each function returns a list of grobs that can be used as you wish, or passed to <code>write_plot_file()</code> to create a the standard file of plots.</p>
+<p>The use of these functions is demonstrated in the source code for generate_ogrdb_report():</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">generate_ogrdb_report =<span class="st"> </span><span class="cf">function</span>(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type) {</a>
+<a class="sourceLine" id="cb8-2" title="2">  <span class="kw">report</span>(<span class="st">&#39;Processing started&#39;</span>)</a>
+<a class="sourceLine" id="cb8-3" title="3">  <span class="kw">pdf</span>(<span class="ot">NULL</span>) <span class="co"># this seems to stop an empty Rplots.pdf from being created. I don&#39;t know why.</span></a>
+<a class="sourceLine" id="cb8-4" title="4"></a>
+<a class="sourceLine" id="cb8-5" title="5">  rd =<span class="st"> </span><span class="kw">read_input_files</span>(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)</a>
+<a class="sourceLine" id="cb8-6" title="6"></a>
+<a class="sourceLine" id="cb8-7" title="7">  file_prefix =<span class="st"> </span><span class="kw">basename</span>(<span class="kw">strsplit</span>(filename, <span class="st">&#39;.&#39;</span>, <span class="dt">fixed=</span>T)[[<span class="dv">1</span>]][<span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb8-8" title="8"></a>
+<a class="sourceLine" id="cb8-9" title="9">  <span class="kw">report</span>(<span class="st">&#39;writing genotype file&#39;</span>)</a>
+<a class="sourceLine" id="cb8-10" title="10">  <span class="kw">write_genotype_file</span>(<span class="kw">paste0</span>(file_prefix, <span class="st">&#39;_ogrdb_report.csv&#39;</span>), segment, chain_type, rd<span class="op">$</span>genotype)</a>
+<a class="sourceLine" id="cb8-11" title="11"></a>
+<a class="sourceLine" id="cb8-12" title="12">  <span class="kw">report</span>(<span class="st">&#39;plotting bar charts&#39;</span>)</a>
+<a class="sourceLine" id="cb8-13" title="13">  barplot_grobs =<span class="st"> </span><span class="kw">make_barplot_grobs</span>(rd<span class="op">$</span>input_sequences, rd<span class="op">$</span>genotype_db, rd<span class="op">$</span>inferred_seqs, rd<span class="op">$</span>genotype, segment, rd<span class="op">$</span>calculated_NC)</a>
+<a class="sourceLine" id="cb8-14" title="14"></a>
+<a class="sourceLine" id="cb8-15" title="15">  <span class="kw">report</span>(<span class="st">&#39;plotting novel base composition&#39;</span>)</a>
+<a class="sourceLine" id="cb8-16" title="16">  nbgrobs =<span class="st"> </span><span class="kw">make_novel_base_grobs</span>(rd<span class="op">$</span>inferred_seqs, rd<span class="op">$</span>input_sequences, segment)</a>
+<a class="sourceLine" id="cb8-17" title="17"></a>
+<a class="sourceLine" id="cb8-18" title="18">  <span class="kw">report</span>(<span class="st">&#39;plotting haplotyping charts&#39;</span>)</a>
+<a class="sourceLine" id="cb8-19" title="19">  haplo_grobs =<span class="st"> </span><span class="kw">make_haplo_grobs</span>(segment, rd<span class="op">$</span>haplo_details)</a>
+<a class="sourceLine" id="cb8-20" title="20"></a>
+<a class="sourceLine" id="cb8-21" title="21">  <span class="kw">report</span>(<span class="st">&#39;writing plot file&#39;</span>)</a>
+<a class="sourceLine" id="cb8-22" title="22">  <span class="kw">write_plot_file</span>(<span class="kw">paste0</span>(file_prefix, <span class="st">&#39;_ogrdb_plots.pdf&#39;</span>), rd<span class="op">$</span>input_sequences, nbgrobs<span class="op">$</span>end, nbgrobs<span class="op">$</span>whole, nbgrobs<span class="op">$</span>triplet, barplot_grobs,     haplo_grobs<span class="op">$</span>aplot, haplo_grobs<span class="op">$</span>haplo)</a>
+<a class="sourceLine" id="cb8-23" title="23">}</a></code></pre></div>
+<p>Please use help(package=“ogrdbstats”) or ? to find function-level documentation within R.</p>
+<h3 id="acknowledgements">Acknowledgements</h3>
+<p>Some functions are adapted from <a href="https://tigger.readthedocs.io">TIgGER</a> with thanks to the authors.</p>
+<p>The example annotated reads and inferences in this directory are taken from the data of <a href="https://www.ncbi.nlm.nih.gov/pubmed/?term=27005435">Rubelt et al</a> and were downloaded from <a href="https://vdjserver.org/">VDJServer</a>. The genotype was inferred by <a href="https://tigger.readthedocs.io">TIgGER</a>. A small number of light-chain records were removed from the data set.</p>
+
+</body>
+</html>

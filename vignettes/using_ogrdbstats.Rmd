@@ -1,18 +1,27 @@
 ---
 title: "Using ogrdbstats"
 author: 'William Lees'
-output: rmarkdown::html_vignette
+output: 
+    github_document: default
+    rmarkdown::html_vignette: default
 date: "`r Sys.Date()`"
-
 vignette: >
   %\VignetteIndexEntry{Using ogrdbstats}
-  %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+
+rmarkdown::render("MyDocument.Rmd", params = list(
+  year = 2017,
+  region = "Asia",
+  printcode = FALSE,
+  file = "file2.csv"
+))
 
 # Conducting a Genotype Analysis with ogrdbstats
 
