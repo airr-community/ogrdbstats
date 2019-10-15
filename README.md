@@ -3,17 +3,14 @@ Using ogrdbstats
 William Lees
 2019-10-15
 
-rmarkdown::render(“MyDocument.Rmd”, params = list( year = 2017, region =
-“Asia”, printcode = FALSE, file = “file2.csv” ))
-
 # Conducting a Genotype Analysis with ogrdbstats
 
 [ogrdbstats](https://github.com/airr-community/ogrdbstats) is an R
 package that can be used to create an analysis of gene usage in a
 receptor repertoire. The analysis consists of [usage
-statistics](https://github.com/airr-community/ogrdbstats/example_ogrdbstats_genotype.csv)
+statistics](https://github.com/airr-community/ogrdbstats/blob/master/example_ogrdbstats_genotype.csv)
 and
-[plots](https://github.com/airr-community/ogrdbstats/example_ogrdbstats_plots.pdf).
+[plots](https://github.com/airr-community/ogrdbstats/blob/master/example_ogrdbstats_plots.pdf).
 The package is intended to be used in conjunction with a tool that
 infers a ‘personalised genotype’. Currently the following tools are
 supported:
@@ -26,7 +23,7 @@ supported:
 ### Package Installation
 
 To install, please download the package
-[ogrdbstats\_0.1.0.tar.gz](https://github.com/airr-community/ogrdbstats/ogrdbstats_0.1.0.tar.gz),
+[ogrdbstats\_0.1.0.tar.gz](https://github.com/airr-community/ogrdbstats/blob/master/ogrdbstats_0.1.0.tar.gz),
 open an R console and type
 
 ``` r
@@ -39,7 +36,7 @@ The package requires R version 3.6.1 or above.
 
 It’s easiest to use the package from the command line. To do this,
 download
-[ogrdbstats.R](https://github.com/airr-community/ogrdbstats/ogrdbstats.R)
+[ogrdbstats.R](https://raw.githubusercontent.com/airr-community/ogrdbstats/master/ogrdbstats.R)
 and copy to the directory in which you wish to conduct the analysis.
 
 *Command Syntax (see following section for detailed description of file
@@ -204,7 +201,7 @@ inferences.
 
 To download the IMGT reference file and complete an analysis using
 [example
-files](https://github.com/airr-community/ogrdbstats/testdata/VH_tigger/),
+files](https://github.com/airr-community/ogrdbstats/tree/master/testdata/VH_tigger),
 run the following commands:
 
 ``` bash
@@ -264,8 +261,8 @@ $ Rscript ogrdbstats.R --inf_file database/J.fasta IMGT_REF_GAPPED.fasta Homosap
 The information required by generate\_statstics.R is split between
 partis’s normal yaml output and that provided by the ‘presto-output’
 mode. A python script,
-[convert\_partis.py](https://github.com/airr-community/ogrdbstats/convert_partis.py),
-is is provided. This will combine output from partis’s yaml and presto
+[convert\_partis.py](https://github.com/airr-community/ogrdbstats/blob/master/convert_partis.py),
+is provided. This will combine output from partis’s yaml and presto
 annotations, producing CHANGEO format annotations and a FASTA file of
 genotype V-sequences. These files can then passed to
 generate\_statistics.R. convert\_partis.py is written in python 2.7 for

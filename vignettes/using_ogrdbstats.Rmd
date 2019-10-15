@@ -16,18 +16,11 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-rmarkdown::render("MyDocument.Rmd", params = list(
-  year = 2017,
-  region = "Asia",
-  printcode = FALSE,
-  file = "file2.csv"
-))
-
 # Conducting a Genotype Analysis with ogrdbstats
 
 [ogrdbstats](https://github.com/airr-community/ogrdbstats) is an R package 
 that can be used to create an analysis of gene usage in a receptor repertoire. The analysis consists of 
-[usage statistics](https://github.com/airr-community/ogrdbstats/example_ogrdbstats_genotype.csv) and  [plots](https://github.com/airr-community/ogrdbstats/example_ogrdbstats_plots.pdf). 
+[usage statistics](https://github.com/airr-community/ogrdbstats/blob/master/example_ogrdbstats_genotype.csv) and  [plots](https://github.com/airr-community/ogrdbstats/blob/master/example_ogrdbstats_plots.pdf). 
 The package is intended to be used in conjunction with a tool that infers a 'personalised genotype'. Currently the
 following tools are supported:
 
@@ -38,7 +31,7 @@ following tools are supported:
 
 ### Package Installation
 
-To install, please download the package [ogrdbstats_0.1.0.tar.gz](https://github.com/airr-community/ogrdbstats/ogrdbstats_0.1.0.tar.gz),
+To install, please download the package [ogrdbstats_0.1.0.tar.gz](https://github.com/airr-community/ogrdbstats/blob/master/ogrdbstats_0.1.0.tar.gz),
 open an R console and type
 
 
@@ -50,7 +43,7 @@ The package requires R version 3.6.1 or above.
 
 ### Using The Package
 
-It's easiest to use the package from the command line. To do this, download [ogrdbstats.R](https://github.com/airr-community/ogrdbstats/ogrdbstats.R) and copy to the directory in which you wish to conduct the 
+It's easiest to use the package from the command line. To do this, download [ogrdbstats.R](https://raw.githubusercontent.com/airr-community/ogrdbstats/master/ogrdbstats.R) and copy to the directory in which you wish to conduct the 
 analysis. 
 
 *Command Syntax (see following section for detailed description of file formats)*
@@ -152,7 +145,7 @@ will be appropriately populated.  A J-gene should be used with V- and D- gene in
 
 ### Example
 
-To download the IMGT reference file and complete an analysis using [example files](https://github.com/airr-community/ogrdbstats/testdata/VH_tigger/), run the following commands:
+To download the IMGT reference file and complete an analysis using [example files](https://github.com/airr-community/ogrdbstats/tree/master/testdata/VH_tigger), run the following commands:
 
 ```bash
 wget -O IMGT_REF_GAPPED.fasta http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP
@@ -200,7 +193,7 @@ $ Rscript ogrdbstats.R --inf_file database/J.fasta IMGT_REF_GAPPED.fasta Homosap
 
 The information required by generate_statstics.R is split between partis's normal yaml output and that provided by 
 the 'presto-output' mode. A python script,
-[convert_partis.py](https://github.com/airr-community/ogrdbstats/convert_partis.py), is is provided. This will combine output from partis's yaml and presto annotations, producing
+[convert_partis.py](https://github.com/airr-community/ogrdbstats/blob/master/convert_partis.py), is provided. This will combine output from partis's yaml and presto annotations, producing
 CHANGEO format annotations and a FASTA file of genotype V-sequences. These files can then passed to generate_statistics.R.
 convert_partis.py is written in python 2.7 for compatibility with partis, and can be run from the command line in the same virtual 
 environment.
