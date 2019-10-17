@@ -4,9 +4,11 @@
 \alias{genotype_statistics_test}
 \title{Generate OGRDB reports using test data}
 \usage{
-genotype_statistics_test(full = F)
+genotype_statistics_test(testdir, full = F)
 }
 \arguments{
+\item{testdir}{Directory containing test data sets}
+
 \item{full}{If false, run a single set. Otherwise run all sets we have.}
 }
 \value{

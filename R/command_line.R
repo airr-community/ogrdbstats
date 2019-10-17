@@ -20,16 +20,16 @@ genotype_statistics_cmd = function(test = F) {
   if(!test) {
     argv = parse_args(p, commandArgs(trailingOnly=TRUE))
   } else {
-    argv = parse_args(p, c('IMGT_REF_GAPPED.fasta', 'Homosapiens', 'TWO01A_naive_genotyped.tsv', 'VH', '--inf', 'TWO01A_naive_novel_ungapped.fasta', '--hap', 'IGHJ6'))
+    argv = parse_args(p, c('IMGT_REF_GAPPED.fasta', 'Homosapiens', 'TWO01A_naive_genotyped.tsv', 'VH', '--inf_file', 'TWO01A_naive_novel_ungapped.fasta', '--hap_gene', 'IGHJ6'))
     # setwd('D:\\Research\\ogrdbstats\\testdata\\VH_tigger')
   }
 
   ref_filename = argv$REF_FILE
   species = argv$SPECIES
-  inferred_filename = argv$INF_FILE
+  inferred_filename = argv$inf_file
   filename = argv$READ_FILE
   chain = argv$CHAIN
-  hap_gene = argv$HAP_GENE
+  hap_gene = argv$hap_gene
 
   if(!(chain %in% c('VH', 'VK', 'VL', 'DH', 'JH', 'JK', 'JL'))) {
     stop('Unrecognised chain name.')
@@ -47,26 +47,27 @@ genotype_statistics_cmd = function(test = F) {
     }
   }
 
-  if(!is.na(argv$inf)) {
-    inferred_file = argv$inf
+  if(!is.na(inferred_filename)) {
+    inferred_filename = argv$inf_file
   } else {
-    inferred_file = '-'
+    inferred_filename = '-'
   }
 
   generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
 }
 
 #' Generate OGRDB reports using test data
+#' @param testdir Directory containing test data sets
 #' @param full If false, run a single set. Otherwise run all sets we have.
 #' @return Nothing
 #' @export
-genotype_statistics_test = function(full=F) {
-
-  setwd('D:\\Research\\ogrdbstats')
+genotype_statistics_test = function(testdir, full=F) {
+  Sys.setenv('R_MAX_VSIZE'=32000000000)  # this setting may not be effective in Rstudio
+  setwd(testdir)
 
   # VH - tigger (Example in Readme)
   report('VH - tigger')
-  setwd('testdata/VH_tigger')
+  setwd('VH_tigger')
   ref_filename = 'IMGT_REF_GAPPED.fasta'
   species = 'Homosapiens'
   inferred_filename = 'TWO01A_naive_novel_ungapped.fasta'
@@ -76,13 +77,13 @@ genotype_statistics_test = function(full=F) {
   segment = 'V'
   chain_type = 'H'
   generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
-  setwd('D:\\Research\\ogrdbstats')
+  setwd('..')
 
   if(full) {
 
     # VH - tigger with truncated sequences in IMGT alignment
     report('VH - tigger with truncated sequences in IMGT alignment')
-    setwd('testdata/V_tigger_truncated')
+    setwd('V_tigger_truncated')
     ref_filename = 'IMGT_REF_GAPPED.fasta'
     species = 'Homosapiens'
     inferred_filename = 'TWO01A_naive_novel_ungapped.fasta'
@@ -92,11 +93,12 @@ genotype_statistics_test = function(full=F) {
     segment = 'V'
     chain_type = 'H'
     generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
-    setwd('D:\\Research\\ogrdbstats')
+    setwd('..')
+    gc()
 
     # JH - tigger
     report('JH - tigger')
-    setwd('testdata/JH_tigger')
+    setwd('JH_tigger')
     ref_filename = 'IMGT_REF_GAPPED_J_CHANGES.fasta'
     species = 'Homosapiens'
     inferred_filename = 'TWO01A_naive_novel.fasta'
@@ -106,11 +108,12 @@ genotype_statistics_test = function(full=F) {
     segment = 'J'
     chain_type = 'H'
     generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
-    setwd('D:\\Research\\ogrdbstats')
+    setwd('..')
+    gc()
 
     # D - tigger
     report('D - tigger')
-    setwd('testdata/D_tigger')
+    setwd('D_tigger')
     ref_filename = 'IMGT_REF_GAPPED_D_1_26_01_removed.fasta'
     species = 'Homosapiens'
     inferred_filename = 'TWO01A_naive_novel.fasta'
@@ -120,11 +123,12 @@ genotype_statistics_test = function(full=F) {
     segment = 'D'
     chain_type = 'H'
     generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
-    setwd('D:\\Research\\ogrdbstats')
+    setwd('..')
+    gc()
 
     # JH - igdiscover
     report('JH - igdiscover')
-    setwd('testdata/JH_igdiscover')
+    setwd('JH_igdiscover')
     ref_filename = 'IMGT_REF_GAPPED_fake_j.fasta'
     species = 'Homosapiens'
     inferred_filename = 'J.fasta'
@@ -134,12 +138,13 @@ genotype_statistics_test = function(full=F) {
     segment = 'J'
     chain_type = 'H'
     generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
-    setwd('D:\\Research\\ogrdbstats')
+    setwd('..')
+    gc()
 
     # JL - igdiscover
     # just a fake based on JH
     report('JL - igdiscover')
-    setwd('testdata/JL_igdiscover')
+    setwd('JL_igdiscover')
     ref_filename = 'IMGT_REF_GAPPED_fake_j_fake_JK.fasta'
     species = 'Homosapiens'
     inferred_filename = 'J.fasta'
@@ -149,12 +154,13 @@ genotype_statistics_test = function(full=F) {
     segment = 'J'
     chain_type = 'L'
     generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
-    setwd('D:\\Research\\ogrdbstats')
+    setwd('..')
+    gc()
 
     # VH - partis
     # This takes a lot of memory and does not run comfortably in RStudio
     # report('VH - partis')
-    # setwd('testdata/VH_partis')
+    # setwd('VH_partis')
     # ref_filename = 'IMGT_REF_GAPPED.fasta'
     # species = 'Homosapiens'
     # inferred_filename = 'TW02A_V_OGRDB.fasta'
@@ -164,11 +170,12 @@ genotype_statistics_test = function(full=F) {
     # segment = 'V'
     # chain_type = 'H'
     # generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
-    # setwd('D:\\Research\\ogrdbstats')
+    # setwd('..')
+    gc()
 
     # JK - igDiscover
     report('JK - igdiscover')
-    setwd('testdata/private/PRJEB30386 - Kappa')
+    setwd('private/PRJEB30386 - Kappa')
     ref_filename = 'IMGT_REF_GAPPED.fasta'
     species = 'Homosapiens'
     inferred_filename = 'Inferred_file.fasta'
@@ -176,10 +183,8 @@ genotype_statistics_test = function(full=F) {
     chain = 'VK'
     hap_gene = 'IGHJ6'
     segment = 'V'
-    chain_type = 'L'
+    chain_type = 'K'
     generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
-    setwd('D:\\Research\\ogrdbstats')
+    setwd('..')
   }
-
-  setwd('../..')
 }
