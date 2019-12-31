@@ -32,7 +32,7 @@ globalVariables(c('A_CALL', 'CDR3_nt', 'D_CALL', 'D_MUT_NC', 'D_SEQ', 'D_errors'
                   'sequences', 'setNames', 'triplet', 'triplet_grobs', 'unique_cdr3s', 'unique_cdr3s_unmutated',
                   'unique_ds', 'unique_ds_unmutated', 'unique_js', 'unique_js_unmutated', 'unique_vs',
                   'unique_vs_unmutated', 'unmutated_frequency', 'unmutated_sequences',
-                  'unmutated_umis'))
+                  'unmutated_umis', 'warnings'))
 
 
 # Timestamped progress report
@@ -41,6 +41,15 @@ report = function(x) {
   cat(paste0(Sys.time(), ':', x, '\n'))
 }
 
+# Warning messages (echoed to pdf)
+
+pkg.globals = new.env()
+pkg.globals$report_warnings = ""
+
+report_warn = function(x) {
+  cat(x)
+  pkg.globals$report_warnings = paste(pkg.globals$report_warnings, x, sep='\n')
+}
 
 #' Generate OGRDB reports from specified files
 #' @param ref_filename Name of file containing IMGT-aligned reference genes in FASTA format
@@ -51,9 +60,10 @@ report = function(x) {
 #' @param hap_gene The haplotyping columns will be completed based on the usage of the two most frequent alleles of this gene. If NA, the column will be blank
 #' @param segment one of V, D, J
 #' @param chain_type one of H, L
+#' @param plot_unmutated Plot base composition using only unmutated sequences (V-chains only)
 #' @return Nothing
 #' @export
-generate_ogrdb_report = function(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type) {
+generate_ogrdb_report = function(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, plot_unmutated) {
   report('Processing started')
   pdf(NULL) # this seems to stop an empty Rplots.pdf from being created. I don't know why.
 
@@ -68,13 +78,22 @@ generate_ogrdb_report = function(ref_filename, inferred_filename, species, filen
   barplot_grobs = make_barplot_grobs(rd$input_sequences, rd$genotype_db, rd$inferred_seqs, rd$genotype, segment, rd$calculated_NC)
 
   report('plotting novel base composition')
-  nbgrobs = make_novel_base_grobs(rd$inferred_seqs, rd$input_sequences, segment)
+  if(segment == 'V' && plot_unmutated) {
+    nbgrobs = make_novel_base_grobs(rd$inferred_seqs, rd$input_sequences[rd$input_sequences$SEG_MUT_NC==0,], segment)
+  } else {
+    nbgrobs = make_novel_base_grobs(rd$inferred_seqs, rd$input_sequences, segment)
+  }
 
   report('plotting haplotyping charts')
   haplo_grobs = make_haplo_grobs(segment, rd$haplo_details)
 
   report('writing plot file')
-  write_plot_file(paste0(file_prefix, '_ogrdb_plots.pdf'), rd$input_sequences, nbgrobs$end, nbgrobs$whole, nbgrobs$triplet, barplot_grobs, haplo_grobs$aplot, haplo_grobs$haplo)
+
+  if(plot_unmutated) {
+    report_warn("Base plots are calculated from unmutated sequences only.")
+  }
+
+  write_plot_file(paste0(file_prefix, '_ogrdb_plots.pdf'), rd$input_sequences, nbgrobs$end, nbgrobs$whole, nbgrobs$triplet, barplot_grobs, haplo_grobs$aplot, haplo_grobs$haplo, pkg.globals$report_warnings)
 }
 
 #' Read input files into memory
@@ -182,7 +201,7 @@ read_reference_genes = function(ref_filename, species, chain, segment) {
   }
 
   if(length(ref_genes) < 1) {
-    cat('Warning: no reference genes were found.')
+    report_warn('Warning: no reference genes were found.')
   }
 
   return(ref_genes)
@@ -325,7 +344,7 @@ make_genotype_db = function(input_sequences, inferred_seqs, ref_genes) {
   missing = inferred_seqs[!(names(inferred_seqs) %in% genotype_alleles)]
 
   if(length(missing) >= 1) {
-    cat(paste('Novel sequence(s)', paste0(names(missing), collapse=' '), 'are not listed in the genotype and will be ignored.', sep=' ', '\n'))
+    report_warn(paste('Novel sequence(s)', paste0(names(missing), collapse=' '), 'are not listed in the genotype and will be ignored.', sep=' ', '\n'))
     inferred_seqs = inferred_seqs[(names(inferred_seqs) %in% genotype_alleles)]
   }
 
@@ -338,7 +357,7 @@ make_genotype_db = function(input_sequences, inferred_seqs, ref_genes) {
   # otherwise - one of these two is incomplete!
 
   if(any(is.na(genotype_db))) {
-    cat(paste0("Warning: sequence(s) for allele(s) ", names(genotype_db[is.na(genotype_db)]), " can't be found in the reference set or the novel alleles file.\n"))
+    report_warn(paste0("Warning: sequence(s) for allele(s) ", names(genotype_db[is.na(genotype_db)]), " can't be found in the reference set or the novel alleles file.\n"))
   }
 
   return(genotype_db)
@@ -504,7 +523,7 @@ calc_genotype = function(segment, chain_type, s, ref_genes, inferred_seqs, genot
   # Inferred D alleles should be aligned for best match (if this is an allele of an existing D-gene, align against a knon allele of that gene)
 
   if (length(inferred_seqs) == 0) {
-    cat('Warning - no inferred sequences found.\n')
+    report_warn('Warning - no inferred sequences found.\n')
 
     genotype$reference_closest = NA
     genotype$host_closest = NA
@@ -552,7 +571,7 @@ calc_genotype = function(segment, chain_type, s, ref_genes, inferred_seqs, genot
   }
 
   warn_dupes = function(x) {
-    cat(paste0('Warning: ', x, ' have identical germline sequences.\n'))
+    report_warn(paste0('Warning: ', x, ' have identical germline sequences.\n'))
   }
 
   dupes = aggregate(genotype["sequence_id"], by=genotype["nt_sequence"], FUN=concat_names)

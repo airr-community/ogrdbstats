@@ -15,13 +15,14 @@ genotype_statistics_cmd = function(test = F) {
   p = add_argument(p, 'CHAIN', help='one of VH, VK, VL, D, JH, JK, JL')
   p = add_argument(p, '--inf_file', help='sequences of inferred novel alleles (FASTA format)')
   p = add_argument(p, '--hap_gene', help='haplotyping gene, e.g. IGHJ6')
+  p = add_argument(p, '--plot_unmutated', flag=T, help='Plot base composition using only unmutated sequences (V-chains only)')
 
 
   if(!test) {
     argv = parse_args(p, commandArgs(trailingOnly=TRUE))
   } else {
-    argv = parse_args(p, c('IMGT_REF_GAPPED.fasta', 'Homosapiens', 'TWO01A_naive_genotyped.tsv', 'VH', '--inf_file', 'TWO01A_naive_novel_ungapped.fasta', '--hap_gene', 'IGHJ6'))
-    # setwd('D:\\Research\\ogrdbstats\\testdata\\VH_tigger')
+    argv = parse_args(p, c('IMGT_REF_GAPPED.fasta', 'Homosapiens', 'TWO01A_naive_genotyped.tsv', 'VH', '--inf_file', 'TWO01A_naive_novel_ungapped.fasta', '--hap_gene', 'IGHJ6', '--plot_unmutated'))
+    setwd('D:\\Research\\ogrdbstats\\testdata\\VH_tigger')
   }
 
   ref_filename = argv$REF_FILE
@@ -30,9 +31,14 @@ genotype_statistics_cmd = function(test = F) {
   filename = argv$READ_FILE
   chain = argv$CHAIN
   hap_gene = argv$hap_gene
+  plot_unmutated = argv$plot_unmutated
 
   if(!(chain %in% c('VH', 'VK', 'VL', 'DH', 'JH', 'JK', 'JL'))) {
     stop('Unrecognised chain name.')
+  }
+
+  if(!(chain %in% c('VH', 'VK', 'VL')) && plot_unmutated) {
+    stop('The plot_unmutated option can only be used with V chains.')
   }
 
   segment = substr(chain, 1, 1)
@@ -53,7 +59,7 @@ genotype_statistics_cmd = function(test = F) {
     inferred_filename = '-'
   }
 
-  generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
+  generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, plot_unmutated)
 }
 
 #' Generate OGRDB reports using test data

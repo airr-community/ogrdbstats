@@ -4,8 +4,16 @@
 \alias{generate_ogrdb_report}
 \title{Generate OGRDB reports from specified files}
 \usage{
-generate_ogrdb_report(ref_filename, inferred_filename, species, filename,
-  chain, hap_gene, segment, chain_type)
+generate_ogrdb_report(
+  ref_filename,
+  inferred_filename,
+  species,
+  filename,
+  chain,
+  hap_gene,
+  segment,
+  chain_type
+)
 }
 \arguments{
 \item{ref_filename}{Name of file containing IMGT-aligned reference genes in FASTA format}

@@ -4,8 +4,16 @@
 \alias{read_input_files}
 \title{Read input files into memory}
 \usage{
-read_input_files(ref_filename, inferred_filename, species, filename, chain,
-  hap_gene, segment, chain_type)
+read_input_files(
+  ref_filename,
+  inferred_filename,
+  species,
+  filename,
+  chain,
+  hap_gene,
+  segment,
+  chain_type
+)
 }
 \arguments{
 \item{ref_filename}{Name of file containing IMGT-aligned reference genes in FASTA format}

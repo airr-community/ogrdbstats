@@ -4,8 +4,16 @@
 \alias{calc_genotype}
 \title{Build the genotype data required in the OGRDB genotype file}
 \usage{
-calc_genotype(segment, chain_type, s, ref_genes, inferred_seqs,
-  genotype_db, hap_gene, haplo_details)
+calc_genotype(
+  segment,
+  chain_type,
+  s,
+  ref_genes,
+  inferred_seqs,
+  genotype_db,
+  hap_gene,
+  haplo_details
+)
 }
 \arguments{
 \item{segment}{one of V, D, J}

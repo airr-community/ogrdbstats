@@ -4,8 +4,14 @@
 \alias{make_barplot_grobs}
 \title{Create a barplot for each allele, showing number of reads distributed by mutation count}
 \usage{
-make_barplot_grobs(input_sequences, genotype_db, inferred_seqs, genotype,
-  segment, calculated_NC)
+make_barplot_grobs(
+  input_sequences,
+  genotype_db,
+  inferred_seqs,
+  genotype,
+  segment,
+  calculated_NC
+)
 }
 \arguments{
 \item{input_sequences}{the input_sequences data frame}

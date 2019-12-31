@@ -4,9 +4,16 @@
 \alias{write_plot_file}
 \title{Create the OGRDB style plot file}
 \usage{
-write_plot_file(filename, input_sequences, end_composition_grobs,
-  whole_composition_grobs, triplet_composition_grobs, barplot_grobs,
-  a_allele_plot, haplo_grobs)
+write_plot_file(
+  filename,
+  input_sequences,
+  end_composition_grobs,
+  whole_composition_grobs,
+  triplet_composition_grobs,
+  barplot_grobs,
+  a_allele_plot,
+  haplo_grobs
+)
 }
 \arguments{
 \item{filename}{name of file to create (pdf)}

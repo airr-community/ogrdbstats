@@ -101,7 +101,7 @@ brief overview.
     this script.
   - A warning will be given if any V-calls in the read file do not have
     a corresponding sequence in the reference file or the inferred novel
-    alleles file. Unmutated counts will not be provided for thse
+    alleles file. Unmutated counts will not be provided for these
     sequences.
 
 #### READ\_FILE - A tab-separated file containing the annotated reads used to infer the genotype, in MiAIRR, CHANGEO or IgDiscover format.
@@ -128,11 +128,12 @@ brief overview.
 
   - In both the above file formats, `v_call_genotyped/V_CALL_GENOTYPED`
     should contain the V calls made after the subject’s V-gene genotype
-    has been inferred (including calls of the novel alleles). Sequences
-    may be either unagpped or IMGT gap-aligned. Determining the
-    personalised V-gene genotype is recommended when processing D or J
-    gene inferences, so that V-gene usage counts are accurate. However,
-    this step can be omitted for D or J gene processing by providing a
+    has been inferred (including calls of the novel alleles). V-sequences
+    may be either ungapped or IMGT gap-aligned. Determining the
+    personalised V-gene genotype is required when processing V chains, 
+    and recommended when processing D or J
+    chains, in order that the V-gene usage counts are accurate. However,
+    the step can be omitted for D or J gene processing by providing a
     V\_CALL field instead of V\_CALL\_GENOTYPED.
 
   - For IgDiscover, the file ‘final/filtered.tab’ should be used - see
