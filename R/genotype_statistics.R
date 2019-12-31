@@ -360,6 +360,14 @@ make_genotype_db = function(input_sequences, inferred_seqs, ref_genes) {
     report_warn(paste0("Warning: sequence(s) for allele(s) ", names(genotype_db[is.na(genotype_db)]), " can't be found in the reference set or the novel alleles file.\n"))
   }
 
+  # CHeck that a reasonable number of genes in the reference set are not called in the sequence set
+
+  unused_ref = length(setdiff(names(ref_genes), names(genotype_db)))
+
+  if(unused_ref < (length(names(ref_genes))/10)) {
+    report_warn("Warning: Over 90% of reference genes are called in the repertoire. This suggests that either the reference set is incomplete, or the genotype has not been personalised.")
+  }
+
   return(genotype_db)
 }
 

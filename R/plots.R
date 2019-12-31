@@ -129,7 +129,7 @@ make_haplo_grobs = function(segment, haplo_details) {
 #' @param barplot_grobs barplot grobs created by make_barplot_grons
 #' @param a_allele_plot a_allele_plot grob created by make_haplo_grobs
 #' @param haplo_grobs haplo_grobs created by make_haplo_grobs
-#' @param message text message to display at top of report
+#' @param message text message to display at end of report
 #' @return nothing
 write_plot_file = function(filename, input_sequences, end_composition_grobs, whole_composition_grobs, triplet_composition_grobs, barplot_grobs, a_allele_plot, haplo_grobs, message) {
   # Save all graphics to plot file
