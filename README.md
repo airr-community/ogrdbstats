@@ -43,7 +43,7 @@ and copy to the directory in which you wish to conduct the analysis.
 formats)*
 
 ``` bash
-Rscript ogrdbstats.R [--inf_file INF_FILE] [--hap_gene HAP_GENE] REF_FILE SPECIES READ_FILE CHAIN
+Rscript ogrdbstats.R [--inf_file INF_FILE] [--hap_gene HAP_GENE] [--plot_unmutated] REF_FILE SPECIES READ_FILE CHAIN
 ```
 
 Positional Arguments:
@@ -74,6 +74,10 @@ assignments to alleles that are not listed in the reference file.
 
 `HAP_GENE` - the gene to be used for haplotyping analysis (see
 haplotyping section below)
+
+`--plot_mutated` - if present, only unmutated sequences will be used to
+create the base composition plots (3-prime end plots and whole sequence plots)
+of V-genes (the switch is not valid for other chains).
 
 Detailed descriptions of the required input files are given in the next
 section, but for quick usage with a supported tool, please skip to the
