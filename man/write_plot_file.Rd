@@ -12,7 +12,8 @@ write_plot_file(
   triplet_composition_grobs,
   barplot_grobs,
   a_allele_plot,
-  haplo_grobs
+  haplo_grobs,
+  message
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ write_plot_file(
 \item{a_allele_plot}{a_allele_plot grob created by make_haplo_grobs}
 
 \item{haplo_grobs}{haplo_grobs created by make_haplo_grobs}
+
+\item{message}{text message to display at end of report}
 }
 \value{
 nothing

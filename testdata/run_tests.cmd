@@ -19,7 +19,7 @@ Rscript ../../ogrdbstats.R IMGT_REF_GAPPED_fake_j.fasta Homosapiens filtered.tab
 cd ..
 
 cd JL_igdiscover
-Rscript ../../ogrdbstats.R IMGT_REF_GAPPED_fake_j_fake_JK.fasta Homosapiens filtered.tab JH --inf_file J.fasta  --hap_gene IGHV2-5
+Rscript ../../ogrdbstats.R IMGT_REF_GAPPED_fake_j_fake_JK.fasta Homosapiens filtered.tab JK --inf_file J.fasta  --hap_gene IGHV2-5
 cd ..
 
 cd VH_partis

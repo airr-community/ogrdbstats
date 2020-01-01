@@ -23,11 +23,11 @@ supported:
 ### Package Installation
 
 To install, please download the package
-[ogrdbstats\_0.1.0.tar.gz](https://github.com/airr-community/ogrdbstats/blob/master/ogrdbstats_0.1.0.tar.gz),
+[ogrdbstats\_0.2.0.tar.gz](https://github.com/airr-community/ogrdbstats/blob/master/ogrdbstats_0.2.0.tar.gz),
 open an R console and type
 
 ``` r
-install.packages('ogrdbstats_0.1.0.tar.gz', repos=NULL, type="source").
+install.packages('ogrdbstats_0.2.0.tar.gz', repos=NULL, type="source")
 ```
 
 The package requires R version 3.6.1 or above.
@@ -51,6 +51,8 @@ Positional Arguments:
 `REF_FILE` - pathname of a FASTA file containing IMGT gap-aligned
 reference germline sequences. Usually this would be [downloaded from
 IMGT](http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP).
+Please note that this file should contain the complete set of reference genes for the species concerned, which is
+why it is usual to use the IMGT set.
 
 `SPECIES` - should contain the species name used in field 3 of the IMGT
 reference file FASTA header, with spaces removed, e.g. Homosapiens for

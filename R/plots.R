@@ -157,7 +157,7 @@ write_plot_file = function(filename, input_sequences, end_composition_grobs, who
   x=print(marrangeGrob(haplo_grobs, nrow=1, ncol=1,top=NULL))
 
   if(str_length(message) > 0) {
-    grid.arrange(textGrob(message, just="left", x = unit(0, "npc"), y = unit(0.9, "npc")))
+    grid.arrange(textGrob(message, just="left", x = unit(0, "npc"), y = unit(0.9, "npc"), gp=gpar(fontsize=5)))
   }
 
   x=dev.off()

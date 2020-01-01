@@ -26,7 +26,7 @@ globalVariables(c('A_CALL', 'CDR3_nt', 'D_CALL', 'D_MUT_NC', 'D_SEQ', 'D_errors'
                   'allelic_percentage', 'assigned_unmutated_frequency', 'closest_host',
                   'closest_reference', 'dev.off', 'haplotyping_gene', 'haplotyping_ratio',
                   'host_aa_difference', 'host_aa_subs', 'host_closest', 'host_difference',
-                  'host_nt_diffs', 'name', 'nt_diff', 'nt_diff_host', 'nt_sequence', 'nt_substitutions',
+                  'host_nt_diffs', 'name', 'nt_diff', 'nt_diff_host', 'nt_sequence', 'nt_sequence_gapped', 'nt_substitutions',
                   'nuc', 'pdf', 'percent', 'read.delim', 'reference_aa_difference', 'reference_aa_subs',
                   'reference_closest', 'reference_difference', 'reference_nt_diffs', 'sequence_id',
                   'sequences', 'setNames', 'triplet', 'triplet_grobs', 'unique_cdr3s', 'unique_cdr3s_unmutated',
@@ -48,7 +48,7 @@ pkg.globals$report_warnings = ""
 
 report_warn = function(x) {
   cat(x)
-  pkg.globals$report_warnings = paste(pkg.globals$report_warnings, x, sep='\n')
+  pkg.globals$report_warnings = paste(pkg.globals$report_warnings, x, sep='\n', collapse='\n')
 }
 
 #' Generate OGRDB reports from specified files

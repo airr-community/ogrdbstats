@@ -12,7 +12,8 @@ generate_ogrdb_report(
   chain,
   hap_gene,
   segment,
-  chain_type
+  chain_type,
+  plot_unmutated
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ generate_ogrdb_report(
 \item{segment}{one of V, D, J}
 
 \item{chain_type}{one of H, L}
+
+\item{plot_unmutated}{Plot base composition using only unmutated sequences (V-chains only)}
 }
 \value{
 Nothing
