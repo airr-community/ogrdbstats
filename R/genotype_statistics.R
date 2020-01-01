@@ -558,6 +558,7 @@ calc_genotype = function(segment, chain_type, s, ref_genes, inferred_seqs, genot
                            aa_substitutions=reference_aa_subs)
 
   genotype$unmutated_umis = ''
+  genotype$nt_sequence_gapped = genotype$nt_sequence
   genotype$nt_sequence = gsub('-', '', genotype$nt_sequence, fixed=T)
   genotype$nt_sequence = gsub('.', '', genotype$nt_sequence, fixed=T)
   genotype = unnest(genotype, cols = c(closest_reference, nt_diff, nt_substitutions, aa_diff, aa_substitutions,
@@ -652,7 +653,7 @@ write_genotype_file = function(filename, segment, chain_type, genotype) {
     if(segment == 'V') {
       g = select(genotype, sequence_id, sequences, closest_reference, closest_host, nt_diff, nt_diff_host, nt_substitutions, aa_diff,
                aa_substitutions, assigned_unmutated_frequency, unmutated_frequency, unmutated_sequences, unmutated_umis, allelic_percentage, unique_ds,
-               unique_js,unique_cdr3s, unique_ds_unmutated, unique_js_unmutated, unique_cdr3s_unmutated, haplotyping_gene, haplotyping_ratio, nt_sequence)
+               unique_js,unique_cdr3s, unique_ds_unmutated, unique_js_unmutated, unique_cdr3s_unmutated, haplotyping_gene, haplotyping_ratio, nt_sequence, nt_sequence_gapped)
     } else if(segment == 'D') {
       g = select(genotype, sequence_id, sequences, closest_reference, closest_host, nt_diff, nt_diff_host, nt_substitutions, aa_diff,
                  aa_substitutions, assigned_unmutated_frequency, unmutated_frequency, unmutated_sequences, unmutated_umis, allelic_percentage, unique_vs,
@@ -666,7 +667,7 @@ write_genotype_file = function(filename, segment, chain_type, genotype) {
     if(segment == 'V') {
       g = select(genotype, sequence_id, sequences, closest_reference, closest_host, nt_diff, nt_diff_host, nt_substitutions, aa_diff,
                  aa_substitutions, assigned_unmutated_frequency, unmutated_frequency, unmutated_sequences, unmutated_umis, allelic_percentage,
-                 unique_js,unique_cdr3s, unique_js_unmutated, unique_cdr3s_unmutated, haplotyping_gene, haplotyping_ratio, nt_sequence)
+                 unique_js,unique_cdr3s, unique_js_unmutated, unique_cdr3s_unmutated, haplotyping_gene, haplotyping_ratio, nt_sequence, nt_sequence_gapped)
     } else if(segment == 'J') {
       g = select(genotype, sequence_id, sequences, closest_reference, closest_host, nt_diff, nt_diff_host, nt_substitutions, aa_diff,
                  aa_substitutions, assigned_unmutated_frequency, unmutated_frequency, unmutated_sequences, unmutated_umis, allelic_percentage, unique_vs,
