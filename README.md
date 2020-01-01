@@ -1,18 +1,18 @@
 Using ogrdbstats
 ================
 William Lees
-2019-10-15
+2020-01-01
 
 # Conducting a Genotype Analysis with ogrdbstats
 
 [ogrdbstats](https://github.com/airr-community/ogrdbstats) is an R
-package that can be used to create an analysis of gene usage in a
+package that can be used to create an analysis of gene usage in a B-cell
 receptor repertoire. The analysis consists of [usage
 statistics](https://github.com/airr-community/ogrdbstats/blob/master/example_ogrdbstats_genotype.csv)
 and
 [plots](https://github.com/airr-community/ogrdbstats/blob/master/example_ogrdbstats_plots.pdf).
 The package is intended to be used in conjunction with a tool that
-infers a ‘personalised genotype’. Currently the following tools are
+infers a ‘personalised genotype’. Currently the following inference tools are
 supported:
 
   - [TIgGER](https://tigger.readthedocs.io/en/stable/)
@@ -109,6 +109,8 @@ brief overview.
     a corresponding sequence in the reference file or the inferred novel
     alleles file. Unmutated counts will not be provided for these
     sequences.
+  - Some statistics determined by OGRDBSTATS require access to all known germline sequences, not just those in the 
+    personalised genotype. For accurate results, the set of sequences in this file should be complete.
 
 #### READ\_FILE - A tab-separated file containing the annotated reads used to infer the genotype, in MiAIRR, CHANGEO or IgDiscover format.
 
