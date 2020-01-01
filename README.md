@@ -244,7 +244,7 @@ sequences are assigned to other alleles.
 
 TIgGER provides additonal information, including its own plots and
 statistics We encourage you to take these into consideration, and to
-upload them as attachments to your submission if they are informative.
+upload them as attachments to your OGDRB submission if they are informative.
 
 ### Usage Notes - IgDiscover
 
