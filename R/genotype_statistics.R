@@ -675,6 +675,7 @@ write_genotype_file = function(filename, segment, chain_type, genotype) {
     }
   }
 
+  g[] = lapply(g, as.character)
   g[is.na(g)] = ''
 
   write.csv(g, filename, row.names=F)
