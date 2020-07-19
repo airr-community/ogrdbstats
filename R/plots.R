@@ -37,9 +37,15 @@ make_barplot_grobs =function(input_sequences, genotype_db, inferred_seqs, genoty
 #'     triplet \tab   3' end triplet usage plots \cr
 #'}
 make_novel_base_grobs = function(inferred_seqs, input_sequences, segment) {
+
+  if(length(inferred_seqs) < 1) {
+    return(list('whole'=list(), 'end'=list(), 'triplet'=list()))
+  }
+
   whole_composition_grobs = c()
   end_composition_grobs = c()
   triplet_grobs = c()
+  composition_heatmaps = c()
 
   if('SEQUENCE_IMGT' %in% names(input_sequences)) {
     if(segment == 'V') {
@@ -54,6 +60,8 @@ make_novel_base_grobs = function(inferred_seqs, input_sequences, segment) {
 
       triplet_grobs = mapply(plot_trailing_triplet, names(inferred_seqs), recs, refs)
       triplet_grobs = triplet_grobs[!is.na(triplet_grobs)]
+
+      # mapply(plot_base_heatmap, names(inferred_seqs), recs, refs, pos=1, end_pos=318)
     } else if(segment == 'J') {
       recs = lapply(names(inferred_seqs), function(x) {input_sequences[input_sequences$SEG_CALL==x,]$SEG_SEQ})
       refs = lapply(names(inferred_seqs), function(x) {inferred_seqs[x]})
@@ -287,6 +295,34 @@ plot_base_composition = function(gene_name, recs, ref, pos=1, filter=T, end_pos=
   }
 
   return(ggplotGrob(g))
+}
+
+# As above, but plot a heatmap
+plot_base_heatmap = function(gene_name, recs, ref, pos=1, end_pos=999, r_justify=F) {
+  max_pos = nchar(ref)
+
+  if(max_pos < pos || length(recs) < 1) {
+    return(NA)
+  }
+
+  max_pos = min(max_pos, end_pos)
+  min_pos = max(pos, 1)
+
+  if(r_justify) {
+    recs = str_pad(recs, max_pos-min_pos+1, 'left')
+  }
+
+  recs = strsplit(recs, "")
+  ref = strsplit(ref, "")
+
+  m=sapply(recs,function(x) {head(x,end_pos)})
+  m=t(m)
+  n=m[sample(nrow(m),size=200,replace=TRUE),]
+  h=Heatmap(n, name='', clustering_distance_rows=function(x,y){sum(stringdist(x,y,method='hamming'))}, row_dend_width = unit(50, "mm"), column_title=gene_name)
+
+  pdf(file=paste0('heatmap_', gsub('*', '_', gene_name, fixed=T), '.pdf'))
+  draw(h)
+  dev.off()
 }
 
 

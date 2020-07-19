@@ -1,3 +1,7 @@
+cd VH_airr_no_novel
+Rscript ../../ogrdbstats.R IMGT_REF_GAPPED.fasta Homosapiens P8_I1_S1_airr.tsv VH
+cd..
+
 cd VH_tigger
 Rscript ../../ogrdbstats.R IMGT_REF_GAPPED.fasta Homosapiens TWO01A_naive_genotyped.tsv VH --inf_file TWO01A_naive_novel_ungapped.fasta --hap_gene IGHJ6
 cd ..

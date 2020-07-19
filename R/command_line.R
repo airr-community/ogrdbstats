@@ -21,8 +21,15 @@ genotype_statistics_cmd = function(test = F) {
   if(!test) {
     argv = parse_args(p, commandArgs(trailingOnly=TRUE))
   } else {
-    argv = parse_args(p, c('IMGT_REF_GAPPED.fasta', 'Homosapiens', 'TWO01A_naive_genotyped.tsv', 'VH', '--inf_file', 'TWO01A_naive_novel_ungapped.fasta', '--hap_gene', 'IGHJ6', '--plot_unmutated'))
-    setwd('D:\\Research\\ogrdbstats\\testdata\\VH_tigger')
+    #argv = parse_args(p, c('IMGT_REF_GAPPED.fasta', 'Homosapiens', 'TWO01A_naive_genotyped.tsv', 'VH', '--inf_file', 'TWO01A_naive_novel_ungapped.fasta', '--hap_gene', 'IGHJ6', '--plot_unmutated'))
+    #setwd('D:\\Research\\ogrdbstats\\testdata\\VH_tigger')
+
+    #argv = parse_args(p, c('..\\..\\IMGT_REF_GAPPED.fasta', 'Homosapiens', 'filtered.tab', 'VL', '--inf_file', 'database/V.fasta'))
+    #setwd('D:\\Research\\from_martin_corcoran\\VL_second_analysis_2-14_combined\\final')
+
+    argv = parse_args(p, c('IMGT_REF_GAPPED.fasta', 'Homosapiens', 'P8_I1_S1_airr.tsv', 'VH'))
+    setwd('D:\\Research\\ogrdbstats\\testdata\\VH_no_novel')
+
   }
 
   ref_filename = argv$REF_FILE

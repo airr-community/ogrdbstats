@@ -13,6 +13,7 @@
 #' @import RColorBrewer
 #' @import argparser
 #' @import ggplot2
+#' @import ComplexHeatmap
 
 #' @importFrom Biostrings pairwiseAlignment
 #' @importFrom gridExtra grid.arrange
@@ -269,8 +270,10 @@ read_input_sequences = function(filename, segment, chain_type) {
     s = select(s, req_names)
     names(s) = col_names
 
-    s$SEG_SEQ_LENGTH = s$SEG_SEQ_END - s$SEG_SEQ_START + 1
-    s$SEG_GERM_LENGTH = s$SEG_GERM_END - s$SEG_GERM_START + 1
+    if(segment != 'V') {
+      s$SEG_SEQ_LENGTH = s$SEG_SEQ_END - s$SEG_SEQ_START + 1
+      s$SEG_GERM_LENGTH = s$SEG_GERM_END - s$SEG_GERM_START + 1
+    }
 
   } else if('V_gene' %in% names(s)) {
     # IgDiscover format
@@ -540,6 +543,9 @@ calc_genotype = function(segment, chain_type, s, ref_genes, inferred_seqs, genot
     genotype$reference_aa_difference = NA
     genotype$reference_aa_subs = NA
     genotype$host_difference = NA
+    genotype$host_nt_diffs = NA
+    genotype$host_aa_difference = NA
+    genotype$host_aa_subs = NA
   } else {
     nearest_ref = data.frame(t(sapply(seq_along(inferred_seqs), find_nearest, ref_genes=ref_genes, prefix='reference', inferred_seqs=inferred_seqs, segment=segment)))
     nearest_ref$SEG_CALL = names(inferred_seqs)

@@ -127,7 +127,8 @@ brief overview.
   - CHANGEO files must contain at least the following columns:
     `SEQUENCE_ID, V_CALL_GENOTYPED, D_CALL, J_CALL, SEQUENCE_IMGT,
     CDR3_IMGT`, `V_MUT_NC`, `D_MUT_NC`, `J_MUT_NC`, `SEQUENCE`,
-    `JUNCTION_START`, `V_SEQ`, `D_SEQ`, `J_SEQ`. If you would like to
+    `JUNCTION_START`, `V_SEQ`, `D_SEQ`, `J_SEQ`. For J or D inferences they must also contain
+    `J_SEQ_START`, `J_SEQ_LENGTH`, `J_GERM_START`, `J_GERM_END`, or the equivalent fields for D genes.If you would like to
     process files from IMGT V-Quest, please [parse them with
     CHANGEO](https://changeo.readthedocs.io/en/stable/examples/imgt.html)
     to convert them to CHANGEO format.

@@ -12,7 +12,7 @@ License: CC BY-SA 4.0
 Encoding: UTF-8
 LazyData: true
 Depends:
-bicViews:
+biocViews:
 Imports:
   tigger (>= 0.4.0),
   alakazam (>= 0.3.0),
@@ -25,7 +25,8 @@ Imports:
   RColorBrewer (>= 1.1-2),
   Biostrings (>= 2.52.0),
   argparser (>= 0.4),
-  ggplot2 (>= 3.2.1)
+  ggplot2 (>= 3.2.1),
+  ComplexHeatmap
 Suggests:
   knitr
 VignetteBuilder: knitr
