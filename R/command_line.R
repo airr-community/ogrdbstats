@@ -30,8 +30,11 @@ genotype_statistics_cmd = function(test = F) {
     #argv = parse_args(p, c('IMGT_REF_GAPPED.fasta', 'Homosapiens', 'P8_I1_S1_airr.tsv', 'VH'))
     #setwd('D:\\Research\\ogrdbstats\\testdata\\VH_no_novel')
 
-    argv = parse_args(p, c('IMGT_REF_GAPPED.fasta', 'Homosapiens', 'TW02A_OGRDB.tsv', 'VH', '--inf_file', 'TW02A_V_OGRDB.fasta', '--hap_gene', 'IGHJ6'))
-    setwd('D:\\Research\\ogrdbstats\\testdata\\VH_partis')
+    #argv = parse_args(p, c('IMGT_REF_GAPPED.fasta', 'Homosapiens', 'TW02A_OGRDB.tsv', 'VH', '--inf_file', 'TW02A_V_OGRDB.fasta', '--hap_gene', 'IGHJ6'))
+    #setwd('D:\\Research\\ogrdbstats\\testdata\\VH_partis')
+
+    argv = parse_args(p, c('IMGT_REF_GAPPED.fasta', 'Homosapiens', 'Read_file.tab', 'VK', '--inf_file', 'Inferred_file.fasta', '--hap_gene', 'IGHJ6'))
+    setwd('D:\\Research\\ogrdbstats\\testdata\\private\\PRJEB30386 - Kappa')
   }
 
   ref_filename = argv$REF_FILE

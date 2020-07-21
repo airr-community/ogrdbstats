@@ -261,9 +261,6 @@ label_5_nuc = function(pos, ref) {
 # if pos is negative, SEQUENCE_IMGT contains a certain number of trailing nucleotides. Plot them all.
 
 plot_base_composition = function(gene_name, recs, ref, pos=1, filter=T, end_pos=999, r_justify=F) {
-
-  print(paste0('plot base cmposition: ', gene_name))
-
   max_pos = nchar(ref)
 
 
@@ -272,7 +269,7 @@ plot_base_composition = function(gene_name, recs, ref, pos=1, filter=T, end_pos=
   }
 
   if(length(recs) < 1) {
-    print(paste0("Warning: no sequences found for ", gene_name, "(check SEQUENCE_IMGT in input file)"))
+    cat(paste0("Warning: no sequences found for ", gene_name, "(check SEQUENCE_IMGT in input file)"))
     return(NA)
   }
 

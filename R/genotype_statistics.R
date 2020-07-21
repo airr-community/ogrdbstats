@@ -329,16 +329,6 @@ read_input_sequences = function(filename, segment, chain_type) {
   s = s[!grepl(',', s$SEG_CALL),]
   s = s[!(s$SEG_CALL == ''),]
 
-  # remove any sequences that do not have an aligned sequence
-
-  s$SEQ_LEN=str_length(s$SEQUENCE_IMGT)
-  count_zero = length(s$SEQ_LEN[s$SEQ_LEN==0])
-
-  if(count_zero > 0) {
-    print(paste0('Warning: removing ', count_zero, ' sequences with no SEQUENCE_IMGT'))
-    s = s[s$SEQ_LEN>0,]
-  }
-
   # At this point, s contains Changeo-named columns with all data required for calculations
 
   return(s)
@@ -402,6 +392,16 @@ gap_input_sequences = function(input_sequences, inferred_seqs, ref_genes) {
 
   if(!('SEQUENCE_IMGT' %in% names(input_sequences))) {
     input_sequences$SEQUENCE_IMGT = mapply(imgt_gap, input_sequences$SEQUENCE,input_sequences$CDR3_IMGT, input_sequences$JUNCTION_START, input_sequences$SEG_REF_IMGT)
+  } else {
+    # remove any sequences that do not have an aligned sequence
+
+    input_sequences$SEQ_LEN=str_length(input_sequences$SEQUENCE_IMGT)
+    count_zero = length(input_sequences$SEQ_LEN[input_sequences$SEQ_LEN==0])
+
+    if(count_zero > 0) {
+      print(paste0('Warning: removing ', count_zero, ' sequences with no SEQUENCE_IMGT'))
+      input_sequences = input_sequences[input_sequences$SEQ_LEN>0,]
+    }
   }
 
   input_sequences$SEQUENCE_IMGT = toupper(input_sequences$SEQUENCE_IMGT)
