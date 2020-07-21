@@ -329,6 +329,16 @@ read_input_sequences = function(filename, segment, chain_type) {
   s = s[!grepl(',', s$SEG_CALL),]
   s = s[!(s$SEG_CALL == ''),]
 
+  # remove any sequences that do not have an aligned sequence
+
+  s$SEQ_LEN=str_length(s$SEQUENCE_IMGT)
+  count_zero = length(s$SEQ_LEN[s$SEQ_LEN==0])
+
+  if(count_zero > 0) {
+    print(paste0('Warning: removing ', count_zero, ' sequences with no SEQUENCE_IMGT'))
+    s = s[s$SEQ_LEN>0,]
+  }
+
   # At this point, s contains Changeo-named columns with all data required for calculations
 
   return(s)
