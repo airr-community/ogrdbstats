@@ -428,7 +428,13 @@ calc_haplo_details = function(segment, input_sequences) {
   }
 
   sa$a_gene = sapply(sa$A_CALL, function(x) {strsplit(x, '*', fixed=T)[[1]][[1]]})
-  sa$a_allele = sapply(sa$A_CALL, function(x) {strsplit(x, '*', fixed=T)[[1]][[2]]})
+  sa$a_allele = sapply(sa$A_CALL, function(x) {
+      if (grepl('*', x, fixed = T)) {
+        strsplit(x, '*', fixed=T)[[1]][[2]]
+      } else {
+        'X'
+      }
+    })
   sa$a_gene = factor(sa$a_gene, sort_alleles(unique(sa$a_gene)))
 
   su = select(sa, A_CALL, a_gene, a_allele)

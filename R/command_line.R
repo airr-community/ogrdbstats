@@ -33,8 +33,14 @@ genotype_statistics_cmd = function(test = F) {
     #argv = parse_args(p, c('IMGT_REF_GAPPED.fasta', 'Homosapiens', 'TW02A_OGRDB.tsv', 'VH', '--inf_file', 'TW02A_V_OGRDB.fasta', '--hap_gene', 'IGHJ6'))
     #setwd('D:\\Research\\ogrdbstats\\testdata\\VH_partis')
 
-    argv = parse_args(p, c('IMGT_REF_GAPPED.fasta', 'Homosapiens', 'Read_file.tab', 'VK', '--inf_file', 'Inferred_file.fasta', '--hap_gene', 'IGHJ6'))
-    setwd('D:\\Research\\ogrdbstats\\testdata\\private\\PRJEB30386 - Kappa')
+    #argv = parse_args(p, c('IMGT_REF_GAPPED.fasta', 'Homosapiens', 'Read_file.tab', 'VK', '--inf_file', 'Inferred_file.fasta', '--hap_gene', 'IGHJ6'))
+    #setwd('D:\\Research\\ogrdbstats\\testdata\\private\\PRJEB30386 - Kappa')
+
+    #argv = parse_args(p, c('human_gl_IGHmakedb_F+ORF+in-frame_P.fasta', 'Homosapiens', 'P1_I1_S1.tsv', 'VH', '--inf_file', 'P1_I1_S1_novel_gapped.fasta', '--hap_gene', 'IGHJ6'))
+    #setwd('D:\\Research\\ogrdbstats\\testdata\\private\\ogrdbstats_in_vdjbase')
+
+    setwd('D:\\Research\\ogrdbstats\\testdata\\private\\hamster_IGH_through_igdiscover')
+    argv = parse_args(p, c('gene_ref_gapped_V.fasta', 'Hamster', 'filtered.tab', 'VH', '--inf_file', 'V.fasta'))
   }
 
   ref_filename = argv$REF_FILE
