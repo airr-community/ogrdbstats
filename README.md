@@ -256,7 +256,7 @@ commands should be run in the `final` directory.
 
 ``` bash
 $ wget -O IMGT_REF_GAPPED.fasta http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP
-$ unzip final.tab.gz
+$ unzip filtered.tab.gz
 $ Rscript ogrdbstats.R --inf_file database/V.fasta IMGT_REF_GAPPED.fasta Homosapiens filtered.tab VH
 ```
 
