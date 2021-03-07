@@ -170,6 +170,8 @@ read_reference_genes = function(ref_filename, species, chain, segment) {
     }
 
     names(ref_genes) = sapply(names(ref_genes), gene_name)
+  } else {
+    ref_genes = ref_genes[grepl(set, names(ref_genes),fixed=T)]
   }
 
   # Crude fix for two misaligned human IGHJ reference genes
@@ -245,6 +247,18 @@ read_input_sequences = function(filename, segment, chain_type) {
   # TODO - check and give nice error message if any columns are missing
 
   s = read.delim(filename, stringsAsFactors=F)
+
+  # Fallback in airr,changeo if no v_call_genotyped fied is present
+
+  if(!('V_CALL_GENOTYPED' %in% names(s)) && !('v_call_genotyped' %in% names(s)) && ( ('V_CALL' %in% names(s)) || ('v_call' %in% names(s)))) {
+    report_warn('No v_call_genotyped field found. Falling back to v_call (please see notes on genotyping).')
+    if('V_CALL' %in% names(s))
+    {
+      s = rename(s, V_CALL_GENOTYPED=V_CALL)
+    } else {
+      s = rename(s, v_call_genotyped=v_call)
+    }
+  }
 
   if('sequence_id' %in% names(s))
   {
