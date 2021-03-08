@@ -30,8 +30,9 @@ make_barplot_grobs =function(input_sequences, genotype_db, inferred_seqs, genoty
 #' @param inferred_seqs named list of novel gene sequences
 #' @param input_sequences the input_sequences data frame
 #' @param segment one of V, D, J
-#' @return named list containing the following lements:
+#' @return named list containing the following elements:
 #' \tabular{ll}{
+#'     cdr3_dist \tab cdr3 length distribution plots
 #'     whole \tab     whole-length usage plots \cr
 #'     end  \tab     3' end usage plots \cr
 #'     triplet \tab   3' end triplet usage plots \cr
@@ -51,6 +52,9 @@ make_novel_base_grobs = function(inferred_seqs, input_sequences, segment) {
     if(segment == 'V') {
       recs = lapply(names(inferred_seqs), function(x) {input_sequences[input_sequences$SEG_CALL==x,]$SEQUENCE_IMGT})
       refs = lapply(names(inferred_seqs), function(x) {inferred_seqs[x]})
+
+      cdr3_distribution_grobs = sapply(names(inferred_seqs), plot_cdr3_lengths, seqs=input_sequences)
+      cdr3_distribution_grobs = cdr3_distribution_grobs[!is.na(cdr3_distribution_grobs)]
 
       end_composition_grobs = mapply(plot_base_composition, names(inferred_seqs), recs, refs, pos=313, filter=T)
       end_composition_grobs = end_composition_grobs[!is.na(end_composition_grobs)]
@@ -77,7 +81,7 @@ make_novel_base_grobs = function(inferred_seqs, input_sequences, segment) {
     }
   }
 
-  return(list('whole'=whole_composition_grobs, 'end'=end_composition_grobs, 'triplet'=triplet_grobs))
+  return(list('cdr3_dist'=cdr3_distribution_grobs, 'whole'=whole_composition_grobs, 'end'=end_composition_grobs, 'triplet'=triplet_grobs))
 }
 
 
@@ -131,6 +135,7 @@ make_haplo_grobs = function(segment, haplo_details) {
 #' @export
 #' @param filename name of file to create (pdf)
 #' @param input_sequences the input_sequences data frame
+#' @param cdr3_dist_grobs cdr3 length distribution grobs created by make_novel_base_grob
 #' @param end_composition_grobs end composition grobs created by make_novel_base_grobs
 #' @param whole_composition_grobs whole composition grobs created by make_novel_base_grobs
 #' @param triplet_composition_grobs triplet composition grobs created by make_novel_base_grobs
@@ -139,10 +144,12 @@ make_haplo_grobs = function(segment, haplo_details) {
 #' @param haplo_grobs haplo_grobs created by make_haplo_grobs
 #' @param message text message to display at end of report
 #' @return nothing
-write_plot_file = function(filename, input_sequences, end_composition_grobs, whole_composition_grobs, triplet_composition_grobs, barplot_grobs, a_allele_plot, haplo_grobs, message) {
+write_plot_file = function(filename, input_sequences, cdr3_dist_grobs, end_composition_grobs, whole_composition_grobs, triplet_composition_grobs, barplot_grobs, a_allele_plot, haplo_grobs, message) {
   # Save all graphics to plot file
 
   x=pdf(filename, width=210/25,height=297/25)
+
+  x=print(marrangeGrob(cdr3_dist_grobs, nrow=3, ncol=2,top=NULL))
 
   if('SEQUENCE_IMGT' %in% names(input_sequences)) {
     if(length(end_composition_grobs) > 0) {
@@ -211,6 +218,31 @@ plot_allele_seqs = function(allele, s, inferred_seqs, genotype, segment) {
     theme_classic(base_size=12) +
     theme(aspect.ratio = 1/1, plot.subtitle=element_text(size=8))
 
+
+  return(ggplotGrob(g))
+}
+
+# -- CDR3 length distribution --
+
+plot_cdr3_lengths = function(allele, seqs) {
+  r = seqs[seqs$SEG_CALL==allele,]
+
+  if(nrow(r) == 0) {
+    return(NA)
+  }
+
+  r$CDR3_LEN = sapply(r$CDR3_IMGT, nchar)
+  r = r[!is.na(r$CDR3_LEN),]
+  r$CDR3_LEN = round(r$CDR3_LEN/3)
+  r$CDR3_LEN = as.factor(r$CDR3_LEN)
+
+  g = ggplot(data=r, aes(x=CDR3_LEN)) +
+    geom_bar(width=1.0) +
+    labs(x='CDR3 AA Length',
+         y='Count',
+         title=allele,
+         theme_classic(base_size=12)) +
+           theme(aspect.ratio = 1/1, plot.subtitle=element_text(size=8))
 
   return(ggplotGrob(g))
 }

@@ -94,7 +94,7 @@ generate_ogrdb_report = function(ref_filename, inferred_filename, species, filen
     report_warn("Base plots are calculated from unmutated sequences only.")
   }
 
-  write_plot_file(paste0(file_prefix, '_ogrdb_plots.pdf'), rd$input_sequences, nbgrobs$end, nbgrobs$whole, nbgrobs$triplet, barplot_grobs, haplo_grobs$aplot, haplo_grobs$haplo, pkg.globals$report_warnings)
+  write_plot_file(paste0(file_prefix, '_ogrdb_plots.pdf'), rd$input_sequences, nbgrobs$cdr3_dist, nbgrobs$end, nbgrobs$whole, nbgrobs$triplet, barplot_grobs, haplo_grobs$aplot, haplo_grobs$haplo, pkg.globals$report_warnings)
 }
 
 #' Read input files into memory
