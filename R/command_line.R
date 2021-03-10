@@ -16,6 +16,7 @@ genotype_statistics_cmd = function(test = F) {
   p = add_argument(p, '--inf_file', help='sequences of inferred novel alleles (FASTA format)')
   p = add_argument(p, '--hap_gene', help='haplotyping gene, e.g. IGHJ6')
   p = add_argument(p, '--plot_unmutated', flag=T, help='Plot base composition using only unmutated sequences (V-chains only)')
+  p = add_argument(p, '--all_novel', flag=T, help='Treat all alleles in reference set as if novel')
 
 
   if(!test) {
@@ -50,6 +51,7 @@ genotype_statistics_cmd = function(test = F) {
   chain = argv$CHAIN
   hap_gene = argv$hap_gene
   plot_unmutated = argv$plot_unmutated
+  all_inferred = argv$all_novel
 
   if(!(chain %in% c('VH', 'VK', 'VL', 'DH', 'JH', 'JK', 'JL'))) {
     stop('Unrecognised chain name.')
@@ -77,7 +79,7 @@ genotype_statistics_cmd = function(test = F) {
     inferred_filename = '-'
   }
 
-  generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, plot_unmutated)
+  generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, plot_unmutated, all_inferred)
 }
 
 #' Generate OGRDB reports using test data

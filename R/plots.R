@@ -30,6 +30,7 @@ make_barplot_grobs =function(input_sequences, genotype_db, inferred_seqs, genoty
 #' @param inferred_seqs named list of novel gene sequences
 #' @param input_sequences the input_sequences data frame
 #' @param segment one of V, D, J
+#' @param all_inferred true if user has requested all alleles in reference set plotted - will suppress some warnings
 #' @return named list containing the following elements:
 #' \tabular{ll}{
 #'     cdr3_dist \tab cdr3 length distribution plots
@@ -37,7 +38,7 @@ make_barplot_grobs =function(input_sequences, genotype_db, inferred_seqs, genoty
 #'     end  \tab     3' end usage plots \cr
 #'     triplet \tab   3' end triplet usage plots \cr
 #'}
-make_novel_base_grobs = function(inferred_seqs, input_sequences, segment) {
+make_novel_base_grobs = function(inferred_seqs, input_sequences, segment, all_inferred) {
 
   if(length(inferred_seqs) < 1) {
     return(list('whole'=list(), 'end'=list(), 'triplet'=list()))
@@ -48,18 +49,18 @@ make_novel_base_grobs = function(inferred_seqs, input_sequences, segment) {
   triplet_grobs = c()
   composition_heatmaps = c()
 
+  cdr3_distribution_grobs = sapply(names(inferred_seqs), plot_cdr3_lengths, seqs=input_sequences)
+  cdr3_distribution_grobs = cdr3_distribution_grobs[!is.na(cdr3_distribution_grobs)]
+
   if('SEQUENCE_IMGT' %in% names(input_sequences)) {
     if(segment == 'V') {
       recs = lapply(names(inferred_seqs), function(x) {input_sequences[input_sequences$SEG_CALL==x,]$SEQUENCE_IMGT})
       refs = lapply(names(inferred_seqs), function(x) {inferred_seqs[x]})
 
-      cdr3_distribution_grobs = sapply(names(inferred_seqs), plot_cdr3_lengths, seqs=input_sequences)
-      cdr3_distribution_grobs = cdr3_distribution_grobs[!is.na(cdr3_distribution_grobs)]
-
-      end_composition_grobs = mapply(plot_base_composition, names(inferred_seqs), recs, refs, pos=313, filter=T)
+      end_composition_grobs = mapply(plot_base_composition, names(inferred_seqs), recs, refs, pos=313, filter=T, all_inferred=all_inferred)
       end_composition_grobs = end_composition_grobs[!is.na(end_composition_grobs)]
 
-      whole_composition_grobs = mapply(plot_base_composition, names(inferred_seqs), recs, refs, pos=1, filter=F)
+      whole_composition_grobs = mapply(plot_base_composition, names(inferred_seqs), recs, refs, pos=1, filter=F, all_inferred=all_inferred)
       whole_composition_grobs = whole_composition_grobs[!is.na(whole_composition_grobs)]
 
       triplet_grobs = mapply(plot_trailing_triplet, names(inferred_seqs), recs, refs)
@@ -149,7 +150,9 @@ write_plot_file = function(filename, input_sequences, cdr3_dist_grobs, end_compo
 
   x=pdf(filename, width=210/25,height=297/25)
 
-  x=print(marrangeGrob(cdr3_dist_grobs, nrow=3, ncol=2,top=NULL))
+  if(length(cdr3_dist_grobs) > 0) {
+    x=print(marrangeGrob(cdr3_dist_grobs, nrow=3, ncol=3,top=NULL))
+  }
 
   if('SEQUENCE_IMGT' %in% names(input_sequences)) {
     if(length(end_composition_grobs) > 0) {
@@ -226,6 +229,7 @@ plot_allele_seqs = function(allele, s, inferred_seqs, genotype, segment) {
 
 plot_cdr3_lengths = function(allele, seqs) {
   r = seqs[seqs$SEG_CALL==allele,]
+  r = r[r$SEG_MUT_NC==0,]
 
   if(nrow(r) == 0) {
     return(NA)
@@ -238,7 +242,7 @@ plot_cdr3_lengths = function(allele, seqs) {
 
   g = ggplot(data=r, aes(x=CDR3_LEN)) +
     geom_bar(width=1.0) +
-    labs(x='CDR3 AA Length',
+    labs(x='CDR3 AA Length (unmutated)',
          y='Count',
          title=allele,
          theme_classic(base_size=12)) +
@@ -292,7 +296,7 @@ label_5_nuc = function(pos, ref) {
 # Only include gaps, n nucleotides if filter=F
 # if pos is negative, SEQUENCE_IMGT contains a certain number of trailing nucleotides. Plot them all.
 
-plot_base_composition = function(gene_name, recs, ref, pos=1, filter=T, end_pos=999, r_justify=F) {
+plot_base_composition = function(gene_name, recs, ref, pos=1, filter=T, end_pos=999, r_justify=F, all_inferred=F) {
   max_pos = nchar(ref)
 
 
@@ -301,7 +305,9 @@ plot_base_composition = function(gene_name, recs, ref, pos=1, filter=T, end_pos=
   }
 
   if(length(recs) < 1) {
-    cat(paste0("Warning: no sequences found for ", gene_name, "(check SEQUENCE_IMGT in input file)"))
+    if (!all_inferred) {
+      cat(paste0("Warning: no sequences found for ", gene_name, "(check SEQUENCE_IMGT in input file)"))
+    }
     return(NA)
   }
 

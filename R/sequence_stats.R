@@ -176,6 +176,7 @@ find_nearest = function(sequence_ind, ref_genes, prefix, inferred_seqs, segment)
   sequence = inferred_seqs[[sequence_ind]]
   seq_name = names(inferred_seqs)[[sequence_ind]]
   r = data.frame(GENE=names(ref_genes),SEQ=ref_genes, stringsAsFactors = F)
+  r = r[r$GENE != seq_name, ]
 
   # pad all Js so that they align on the right
 

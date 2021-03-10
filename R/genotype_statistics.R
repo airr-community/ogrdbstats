@@ -62,13 +62,14 @@ report_warn = function(x) {
 #' @param segment one of V, D, J
 #' @param chain_type one of H, L
 #' @param plot_unmutated Plot base composition using only unmutated sequences (V-chains only)
+#' @param all_inferred Treat all alleles as novel
 #' @return Nothing
 #' @export
-generate_ogrdb_report = function(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, plot_unmutated) {
+generate_ogrdb_report = function(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, plot_unmutated, all_inferred=F) {
   report('Processing started')
   pdf(NULL) # this seems to stop an empty Rplots.pdf from being created. I don't know why.
 
-  rd = read_input_files(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
+  rd = read_input_files(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, all_inferred)
 
   file_prefix = basename(strsplit(filename, '.', fixed=T)[[1]][1])
 
@@ -80,9 +81,9 @@ generate_ogrdb_report = function(ref_filename, inferred_filename, species, filen
 
   report('plotting novel base composition')
   if(segment == 'V' && plot_unmutated) {
-    nbgrobs = make_novel_base_grobs(rd$inferred_seqs, rd$input_sequences[rd$input_sequences$SEG_MUT_NC==0,], segment)
+    nbgrobs = make_novel_base_grobs(rd$inferred_seqs, rd$input_sequences[rd$input_sequences$SEG_MUT_NC==0,], segment, all_inferred)
   } else {
-    nbgrobs = make_novel_base_grobs(rd$inferred_seqs, rd$input_sequences, segment)
+    nbgrobs = make_novel_base_grobs(rd$inferred_seqs, rd$input_sequences, segment, all_inferred)
   }
 
   report('plotting haplotyping charts')
@@ -106,6 +107,7 @@ generate_ogrdb_report = function(ref_filename, inferred_filename, species, filen
 #' @param hap_gene The haplotyping columns will be completed based on the usage of the two most frequent alleles of this gene. If NA, the column will be blank
 #' @param segment one of V, D, J
 #' @param chain_type one of H, L
+#' @param all_inferred Treat all alleles as novel
 #' @return A named list containing the following elements:
 #' \tabular{ll}{
 #' ref_genes  \tab named list of IMGT-gapped reference genes \cr
@@ -121,12 +123,17 @@ generate_ogrdb_report = function(ref_filename, inferred_filename, species, filen
 #' calculated_NC \tab a boolean that is TRUE if mutation counts were calculated by this library, FALSE if they were read from the annotated read file \cr
 #' }
 #' @export
-read_input_files = function(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type) {
+read_input_files = function(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, all_inferred) {
   report('reading reference genes')
   ref_genes = read_reference_genes(ref_filename, species, chain, segment)
 
-  report('reading inferred sequences')
-  inferred_seqs = read_inferred_sequences(inferred_filename, segment, ref_genes)
+  if (!all_inferred) {
+    report('reading inferred sequences')
+    inferred_seqs = read_inferred_sequences(inferred_filename, segment, ref_genes)
+  } else {
+    report('Treating all sequences as inferred for the purpose of reporting')
+    inferred_seqs = ref_genes
+  }
 
   report('reading input sequences')
   input_sequences = read_input_sequences(filename, segment, chain_type)
