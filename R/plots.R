@@ -150,10 +150,6 @@ write_plot_file = function(filename, input_sequences, cdr3_dist_grobs, end_compo
 
   x=pdf(filename, width=210/25,height=297/25)
 
-  if(length(cdr3_dist_grobs) > 0) {
-    x=print(marrangeGrob(cdr3_dist_grobs, nrow=3, ncol=3,top=NULL))
-  }
-
   if('SEQUENCE_IMGT' %in% names(input_sequences)) {
     if(length(end_composition_grobs) > 0) {
       x=print(marrangeGrob(end_composition_grobs, nrow=3, ncol=2,top=NULL))
@@ -168,6 +164,10 @@ write_plot_file = function(filename, input_sequences, cdr3_dist_grobs, end_compo
 
   if(length(barplot_grobs) > 0) {
     x = print(marrangeGrob(barplot_grobs, nrow=3, ncol=3,top=NULL))
+  }
+
+  if(length(cdr3_dist_grobs) > 0) {
+    x=print(marrangeGrob(cdr3_dist_grobs, nrow=3, ncol=3,top=NULL))
   }
 
   #x=print(marrangeGrob(snap_composition_grobs, nrow=3, ncol=1,top=NULL))

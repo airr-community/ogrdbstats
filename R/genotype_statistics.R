@@ -127,12 +127,12 @@ read_input_files = function(ref_filename, inferred_filename, species, filename, 
   report('reading reference genes')
   ref_genes = read_reference_genes(ref_filename, species, chain, segment)
 
-  if (!all_inferred) {
-    report('reading inferred sequences')
-    inferred_seqs = read_inferred_sequences(inferred_filename, segment, ref_genes)
-  } else {
+  report('reading inferred sequences')
+  inferred_seqs = read_inferred_sequences(inferred_filename, segment, ref_genes)
+
+  if (all_inferred) {
     report('Treating all sequences as inferred for the purpose of reporting')
-    inferred_seqs = ref_genes
+    inferred_seqs = c(inferred_seqs, ref_genes[!(names(ref_genes) %in% names(inferred_seqs))])
   }
 
   report('reading input sequences')
