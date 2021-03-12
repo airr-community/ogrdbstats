@@ -43,7 +43,7 @@ and copy to the directory in which you wish to conduct the analysis.
 formats)*
 
 ``` bash
-Rscript ogrdbstats.R [--inf_file INF_FILE] [--hap_gene HAP_GENE] [--plot_unmutated] REF_FILE SPECIES READ_FILE CHAIN
+Rscript ogrdbstats.R [--inf_file INF_FILE] [--hap_gene HAP_GENE] [--plot_unmutated] [--all_novel REF_FILE SPECIES READ_FILE CHAIN
 ```
 
 Positional Arguments:
@@ -80,6 +80,11 @@ haplotyping section below)
 `--plot_mutated` - if present, only unmutated sequences will be used to
 create the base composition plots (3-prime end plots and whole sequence plots)
 of V-genes (the switch is not valid for other chains).
+
+`--all_novel` - if present, all sequences in the reference set will be
+treated as inferred for reporting purposes: a full set of plots will be provided
+for each sequence, and all columns in the Genotype file will be completed for each
+sequence.
 
 Detailed descriptions of the required input files are given in the next
 section, but for quick usage with a supported tool, please skip to the
@@ -141,9 +146,9 @@ brief overview.
     may be either ungapped or IMGT gap-aligned. Determining the
     personalised V-gene genotype is required when processing V chains, 
     and recommended when processing D or J
-    chains, in order that the V-gene usage counts are accurate. However,
-    the step can be omitted for D or J gene processing by providing a
-    V\_CALL field instead of V\_CALL\_GENOTYPED.
+    chains, in order that the V-gene usage counts are accurate. If the 'genotyped'
+    field is not present, the script will fall back to using `v_call` or `V_CALL`,
+    but will issue a warning. 
 
   - For IgDiscover, the file ‘final/filtered.tab’ should be used - see
     section below.
@@ -184,6 +189,10 @@ The script produces the following plots:
 
   - For each allele used in the the read file, a histogram showing the
     number of mutated and unmutated sequences
+  - For each allele used in the read file, a histogram showing the CDR3
+    length distribution. This can be useful in identifying inferences that
+    may be biased by clonal expansion, as all CDR3s in the clone will have
+    the same length.
   - Barcharts showing nucleotide usage at locations in the IMGT-aligned
     sequence: both across the sequence as a whole, and in more detail at
     the 3’ end

@@ -34,3 +34,8 @@ cd "private/PRJEB30386 - Kappa"
 Rscript ../../../ogrdbstats.R IMGT_REF_GAPPED.fasta Homosapiens Read_file.tab VK --inf_file Inferred_file.fasta --hap_gene IGHJ6
 cd ..
 cd ..
+
+cd "private/hamster" 
+Rscript ../../../ogrdbstats.R hamster_IGH_VDJ.fasta Hamster igblast_001_db-pass.tsv --all_novel
+cd ..
+cd ..

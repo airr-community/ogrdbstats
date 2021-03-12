@@ -319,7 +319,7 @@ plot_base_composition = function(gene_name, recs, ref, pos=1, filter=T, end_pos=
   }
 
   recs = strsplit(recs, "")
-  ref = strsplit(ref, "")
+  ref = strsplit(as.character(ref), "")
 
   x = do.call('rbind', lapply(seq(min_pos,max_pos), nucs_at, seqs=recs, filter=filter))
 
@@ -357,7 +357,7 @@ plot_base_heatmap = function(gene_name, recs, ref, pos=1, end_pos=999, r_justify
   }
 
   recs = strsplit(recs, "")
-  ref = strsplit(ref, "")
+  ref = strsplit(as.character(ref), "")
 
   m=sapply(recs,function(x) {head(x,end_pos)})
   m=t(m)
@@ -386,7 +386,7 @@ plot_segment_composition = function(gene_name, recs, ref, pos=1,  filter=T, end_
   }
 
   recs = strsplit(recs, "")
-  ref = strsplit(ref, "")
+  ref = strsplit(as.character(ref), "")
 
   x = do.call('rbind', lapply(seq(min_pos,max_pos), nucs_at, seqs=recs, filter=filter))
 
@@ -454,7 +454,7 @@ plot_trailing_triplet = function(gene_name, recs, ref) {
   }
 
   recs = strsplit(recs, "")
-  ref = strsplit(ref, "")
+  ref = strsplit(as.character(ref), "")
 
   x = do.call('rbind', lapply(recs, extract_frag, start_pos=start_pos, length=3))
   x = data.frame(triplet = x[,1])
