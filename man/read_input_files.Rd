@@ -12,7 +12,8 @@ read_input_files(
   chain,
   hap_gene,
   segment,
-  chain_type
+  chain_type,
+  all_inferred
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ read_input_files(
 \item{segment}{one of V, D, J}
 
 \item{chain_type}{one of H, L}
+
+\item{all_inferred}{Treat all alleles as novel}
 }
 \value{
 A named list containing the following elements:

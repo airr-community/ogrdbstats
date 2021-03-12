@@ -4,7 +4,7 @@
 \alias{make_novel_base_grobs}
 \title{Create plots showing base usage at selected locations in sequences based on novel alleles}
 \usage{
-make_novel_base_grobs(inferred_seqs, input_sequences, segment)
+make_novel_base_grobs(inferred_seqs, input_sequences, segment, all_inferred)
 }
 \arguments{
 \item{inferred_seqs}{named list of novel gene sequences}
@@ -12,10 +12,13 @@ make_novel_base_grobs(inferred_seqs, input_sequences, segment)
 \item{input_sequences}{the input_sequences data frame}
 
 \item{segment}{one of V, D, J}
+
+\item{all_inferred}{true if user has requested all alleles in reference set plotted - will suppress some warnings}
 }
 \value{
-named list containing the following lements:
+named list containing the following elements:
 \tabular{ll}{
+    cdr3_dist \tab cdr3 length distribution plots \cr
     whole \tab     whole-length usage plots \cr
     end  \tab     3' end usage plots \cr
     triplet \tab   3' end triplet usage plots \cr

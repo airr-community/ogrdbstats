@@ -33,7 +33,7 @@ make_barplot_grobs =function(input_sequences, genotype_db, inferred_seqs, genoty
 #' @param all_inferred true if user has requested all alleles in reference set plotted - will suppress some warnings
 #' @return named list containing the following elements:
 #' \tabular{ll}{
-#'     cdr3_dist \tab cdr3 length distribution plots
+#'     cdr3_dist \tab cdr3 length distribution plots \cr
 #'     whole \tab     whole-length usage plots \cr
 #'     end  \tab     3' end usage plots \cr
 #'     triplet \tab   3' end triplet usage plots \cr

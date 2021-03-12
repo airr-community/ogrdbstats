@@ -7,6 +7,7 @@
 write_plot_file(
   filename,
   input_sequences,
+  cdr3_dist_grobs,
   end_composition_grobs,
   whole_composition_grobs,
   triplet_composition_grobs,
@@ -20,6 +21,8 @@ write_plot_file(
 \item{filename}{name of file to create (pdf)}
 
 \item{input_sequences}{the input_sequences data frame}
+
+\item{cdr3_dist_grobs}{cdr3 length distribution grobs created by make_novel_base_grob}
 
 \item{end_composition_grobs}{end composition grobs created by make_novel_base_grobs}
 

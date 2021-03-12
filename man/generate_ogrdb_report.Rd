@@ -13,7 +13,8 @@ generate_ogrdb_report(
   hap_gene,
   segment,
   chain_type,
-  plot_unmutated
+  plot_unmutated,
+  all_inferred = F
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ generate_ogrdb_report(
 \item{chain_type}{one of H, L}
 
 \item{plot_unmutated}{Plot base composition using only unmutated sequences (V-chains only)}
+
+\item{all_inferred}{Treat all alleles as novel}
 }
 \value{
 Nothing
