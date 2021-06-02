@@ -5,9 +5,10 @@ William Lees
 
 # Conducting a Genotype Analysis with ogrdbstats
 
+*NEW* ogrdbstats now supports both IG and TR repertoires.
+
 [ogrdbstats](https://github.com/airr-community/ogrdbstats) is an R
-package that can be used to create an analysis of gene usage in a B-cell
-receptor repertoire. The analysis consists of [usage
+package that can be used to create an analysis of gene usage in an IG or TR receptor repertoire. The analysis consists of [usage
 statistics](https://github.com/airr-community/ogrdbstats/blob/master/example_ogrdbstats_genotype.csv)
 and
 [plots](https://github.com/airr-community/ogrdbstats/blob/master/example_ogrdbstats_plots.pdf).
