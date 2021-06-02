@@ -25,7 +25,7 @@ read_input_files(
 
 \item{filename}{Name of file containing annotated reads in AIRR, CHANGEO or IgDiscover format. The format is detected automatically}
 
-\item{chain}{one of VH, VK, VL, D, JH, JK, JL}
+\item{chain}{one of IGHV, IGKV, IGLV, IGHD, IGHJ, IGKJ, IGLJ, TRAV, TRAj, TRBV, TRBD, TRBJ, TRGV, TRGj, TRDV, TRDD, TRDJ}
 
 \item{hap_gene}{The haplotyping columns will be completed based on the usage of the two most frequent alleles of this gene. If NA, the column will be blank}
 

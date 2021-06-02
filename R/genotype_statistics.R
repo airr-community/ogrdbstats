@@ -57,7 +57,7 @@ report_warn = function(x) {
 #' @param inferred_filename Name of file containing sequences of inferred novel alleles, or '-' if none
 #' @param species Species name used in field 3 of the IMGT germline header with spaces omitted, if the reference file is from IMGT. Otherwise ''
 #' @param filename Name of file containing annotated reads in AIRR, CHANGEO or IgDiscover format. The format is detected automatically
-#' @param chain one of VH, VK, VL, D, JH, JK, JL
+#' @param chain one of IGHV, IGKV, IGLV, IGHD, IGHJ, IGKJ, IGLJ, TRAV, TRAj, TRBV, TRBD, TRBJ, TRGV, TRGj, TRDV, TRDD, TRDJ
 #' @param hap_gene The haplotyping columns will be completed based on the usage of the two most frequent alleles of this gene. If NA, the column will be blank
 #' @param segment one of V, D, J
 #' @param chain_type one of H, L
@@ -103,7 +103,7 @@ generate_ogrdb_report = function(ref_filename, inferred_filename, species, filen
 #' @param inferred_filename Name of file containing sequences of inferred novel alleles, or '-' if none
 #' @param species Species name used in field 3 of the IMGT germline header with spaces omitted, if the reference file is from IMGT. Otherwise ''
 #' @param filename Name of file containing annotated reads in AIRR, CHANGEO or IgDiscover format. The format is detected automatically
-#' @param chain one of VH, VK, VL, D, JH, JK, JL
+#' @param chain one of IGHV, IGKV, IGLV, IGHD, IGHJ, IGKJ, IGLJ, TRAV, TRAj, TRBV, TRBD, TRBJ, TRGV, TRGj, TRDV, TRDD, TRDJ
 #' @param hap_gene The haplotyping columns will be completed based on the usage of the two most frequent alleles of this gene. If NA, the column will be blank
 #' @param segment one of V, D, J
 #' @param chain_type one of H, L
@@ -156,14 +156,14 @@ read_input_files = function(ref_filename, inferred_filename, species, filename, 
 #' Read the reference set from the specified file
 #' @param ref_filename Name of file containing IMGT-aligned reference genes in FASTA format
 #' @param species Species name used in field 3 of the IMGT germline header with spaces omitted, if the reference file is from IMGT. Otherwise ''
-#' @param chain one of VH, VK, VL, D, JH, JK, JL
+#' @param chain one of IGHV, IGKV, IGLV, IGHD, IGHJ, IGKJ, IGLJ, TRAV, TRAj, TRBV, TRBD, TRBJ, TRGV, TRGj, TRDV, TRDD, TRDJ
 #' @param segment one of V, D, J
 #' @return Named list of gene sequences
 read_reference_genes = function(ref_filename, species, chain, segment) {
   # get the reference set
 
   ref_genes = readIgFasta(ref_filename, strip_down_name =F)
-  set = paste0('IG', substr(chain, 2, 2), segment)
+  set = chain
   region = paste0(segment, '-REGION')
 
   # process IMGT library, if header is in corresponding format
@@ -266,6 +266,26 @@ read_input_sequences = function(filename, segment, chain_type) {
       s = rename(s, v_call_genotyped=v_call)
     }
   }
+
+  # Derive CDR3 from junction if it's not present
+
+  junction2cdr3 = function(jn) {
+    if(is.na(jn) || nchar(jn) < 7) {
+      return(jn)
+    }
+    return(substr(jn, 3, nchar(jn)-3))
+  }
+
+  if((!('CDR3_IMGT' %in% names(s)) && !('CDR3' %in% names(s)) && !('cdr3' %in% names(s))) &&  (('JUNCTION' %in% names(s)) || ('junction' %in% names(s)))) {
+    report('Deriving CDR3 from JUNCTION')
+    if('V_CALL' %in% names(s))
+    {
+      s$CDR3 = sapply(s$JUNCTION, junction2cdr3)
+    } else {
+      s$cdr3 = sapply(s$junction, junction2cdr3)
+    }
+  }
+
 
   if('sequence_id' %in% names(s))
   {

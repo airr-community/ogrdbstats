@@ -64,7 +64,7 @@ contain genes for that species.
 reads used to infer the genotype, in MiAIRR, CHANGEO or IgDiscover
 format
 
-`CHAIN` is one of `VH, VK, VL, D, JH, JK, JL`. It should correspond to
+`CHAIN` is one of `IGHV, IGKV, IGLV, IGHD, IGHJ, IGKJ, IGLJ, TRAV, TRAJ, TRBV, TRBD, TRBJ, TRGV, TRGj, TRDV, TRDD, TRDJ`. It should correspond to
 the sequence type provided in the `INF_FILE` - or the sequence type you
 would like analysed, if there are no novel alleles.
 
@@ -225,7 +225,7 @@ run the following commands:
 
 ``` bash
 wget -O IMGT_REF_GAPPED.fasta http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP
-Rscript ogrdbstats.R --inf_file TWO01A_naive_novel_ungapped.fasta --hap_gene IGHJ6 IMGT_REF_GAPPED.fasta Homosapiens TWO01A_naive_genotyped.tsv VH
+Rscript ogrdbstats.R --inf_file TWO01A_naive_novel_ungapped.fasta --hap_gene IGHJ6 IMGT_REF_GAPPED.fasta Homosapiens TWO01A_naive_genotyped.tsv IGHV
 ```
 
 ### Usage Notes
@@ -266,13 +266,13 @@ commands should be run in the `final` directory.
 ``` bash
 $ wget -O IMGT_REF_GAPPED.fasta http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP
 $ unzip filtered.tab.gz
-$ Rscript ogrdbstats.R --inf_file database/V.fasta IMGT_REF_GAPPED.fasta Homosapiens filtered.tab VH
+$ Rscript ogrdbstats.R --inf_file database/V.fasta IMGT_REF_GAPPED.fasta Homosapiens filtered.tab IGHV
 ```
 
 alternatively, to produce a JH gene analysis:
 
 ``` bash
-$ Rscript ogrdbstats.R --inf_file database/J.fasta IMGT_REF_GAPPED.fasta Homosapiens filtered.tab JH
+$ Rscript ogrdbstats.R --inf_file database/J.fasta IMGT_REF_GAPPED.fasta Homosapiens filtered.tab IGHJ
 ```
 
 ### Usage Notes - partis
@@ -324,7 +324,7 @@ partis annotate --extra-annotation-columns cdr3_seqs:invalid:in_frames:stops --i
 # Extract and merge required information from YAML and TSV files
 python convert_partis.py TW01A.yaml TW01A.tsv TW01A_OGRDB.tsv TW01A_V_OGRDB.fasta
 # Process the resulting output to produce the genotye file and plots
-Rscript ogrdbstats.R --inf_file TW01A_V_OGRDB.fasta IMGT_REF_GAPPED.fasta Homosapiens TW01A_OGRDB.tsv VH
+Rscript ogrdbstats.R --inf_file TW01A_V_OGRDB.fasta IMGT_REF_GAPPED.fasta Homosapiens TW01A_OGRDB.tsv IGHV
 ```
 
 ### Usage Notes - IMPre

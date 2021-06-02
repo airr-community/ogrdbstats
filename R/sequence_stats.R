@@ -8,7 +8,7 @@
 unique_calls = function(gene, segment, seqs) {
   calls = unique(seqs[seqs$SEG_CALL==gene,][segment])
   calls = calls[!grepl(',', calls[,segment]),]       # count unambiguous calls only
-  calls = calls[grepl('IG', calls)]                 #don't count blank calls
+  calls = calls[grepl(substr(segment,1,1), calls)]                 #don't count blank calls
   return(length(calls))
 }
 

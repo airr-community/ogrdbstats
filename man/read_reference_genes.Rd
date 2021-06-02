@@ -11,7 +11,7 @@ read_reference_genes(ref_filename, species, chain, segment)
 
 \item{species}{Species name used in field 3 of the IMGT germline header with spaces omitted, if the reference file is from IMGT. Otherwise ''}
 
-\item{chain}{one of VH, VK, VL, D, JH, JK, JL}
+\item{chain}{one of IGHV, IGKV, IGLV, IGHD, IGHJ, IGKJ, IGLJ, TRAV, TRAj, TRBV, TRBD, TRBJ, TRGV, TRGj, TRDV, TRDD, TRDJ}
 
 \item{segment}{one of V, D, J}
 }
