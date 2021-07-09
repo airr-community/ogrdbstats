@@ -43,8 +43,14 @@ genotype_statistics_cmd = function(test = F) {
     #setwd('D:\\Research\\ogrdbstats\\testdata\\private\\hamster')
     #argv = parse_args(p, c('hamster_IGH_VDJ.fasta', 'Hamster', 'igblast_001_db-pass.tsv', 'IGHV', '--all_novel'))
 
-    setwd('D:\\Research\\ogrdbstats\\testdata\\trb')
-    argv = parse_args(p, c('imgt_gapped.fasta', 'Homosapiens', 'SC9.tab', 'TRBV', '--inf_file', 'SC9_novel.fasta'))
+    # setwd('D:\\Research\\ogrdbstats\\testdata\\trb')
+    # argv = parse_args(p, c('imgt_gapped.fasta', 'Homosapiens', 'SC9.tab', 'TRBV', '--inf_file', 'SC9_novel.fasta'))
+
+    # setwd('D:\\Research\\new_ham\\16. Leaders')
+    # argv = parse_args(p, c('ref/hamster_IGH_VDJ.fasta', 'hamster', 'leader_allele_matches.tsv', 'VH', '--inf_file', 'leader_aliases.fasta'))
+
+    setwd('D:\\Research\\new_ham\\2. j_allele_search\\igblast')
+    argv = parse_args(p, c('../ref/hamster_IGH_VDJ.fasta', 'hamster', 'igblast_009_x-clones.tsv', 'DH', '--all_novel'))
   }
 
   ref_filename = argv$REF_FILE
@@ -84,7 +90,7 @@ genotype_statistics_cmd = function(test = F) {
 
   segment = substr(chain, 4, 4)
 
-  if(substr(chain, 2, 2) %in% c('H', 'B', 'D')) {
+  if(substr(chain, 3, 3) %in% c('H', 'B', 'D')) {
     chain_type = 'H'
   } else {
     chain_type = 'L'

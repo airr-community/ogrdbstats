@@ -173,6 +173,13 @@ getMutatedAA <- function(ref_imgt, novel_imgt, ref_name, seq_name, segment, bias
 
 # Find nearest reference sequences and enumerate differences
 find_nearest = function(sequence_ind, ref_genes, prefix, inferred_seqs, segment) {
+
+  if (length(ref_genes) == 0) {
+    l = list(closest=' ', difference=0, nt_diffs=' ', aa_difference=' ', aa_subs=' ')
+    names(l) = (paste(prefix, names(l), sep='_'))
+    return(l)
+  }
+
   sequence = inferred_seqs[[sequence_ind]]
   seq_name = names(inferred_seqs)[[sequence_ind]]
   r = data.frame(GENE=names(ref_genes),SEQ=ref_genes, stringsAsFactors = F)
