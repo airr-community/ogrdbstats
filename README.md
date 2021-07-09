@@ -1,7 +1,7 @@
 Using ogrdbstats
 ================
 William Lees
-2020-01-01
+2021-06-02
 
 # Conducting a Genotype Analysis with ogrdbstats
 
