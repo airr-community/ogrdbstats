@@ -24,7 +24,7 @@ supported:
 ### Package Installation
 
 To install, please download the package
-[ogrdbstats\_0.2.0.tar.gz](https://github.com/airr-community/ogrdbstats/blob/master/ogrdbstats_0.2.0.tar.gz),
+[ogrdbstats\_0.3.0.tar.gz](https://github.com/airr-community/ogrdbstats/blob/master/ogrdbstats_0.3.0.tar.gz),
 open an R console and type
 
 ``` r
