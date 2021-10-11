@@ -40,7 +40,22 @@ build_nt_diff_string = function(seq1, seq2, bias) {
   return(nt_diff_string)
 }
 
+# Drop any stray nucleotides not on a codon boundary
+
+fixNonImgtGaps <- function (seq) {
+  len <- ceiling(nchar(seq)/3)*3
+  codons <- substring(seq, seq(1, len-2, 3), seq(3, len, 3))
+  gaps_lengths <- nchar(gsub("[^\\.\\-]", "", codons))
+  if (any(gaps_lengths %% 3 != 0)) {
+    codons[gaps_lengths %% 3 != 0] = "..."
+    seq = paste(codons, collapse='')
+  }
+
+  seq
+}
+
 # Find non triplet gaps in a nucleotide sequence
+
 hasNonImgtGaps <- function (seq) {
   len <- ceiling(nchar(seq)/3)*3
   codons <- substring(seq, seq(1, len-2, 3), seq(3, len, 3))
@@ -51,6 +66,7 @@ hasNonImgtGaps <- function (seq) {
     FALSE
   }
 }
+
 
 # Use a gapped IMGT 'template' to apply gaps to a similar sequence
 
@@ -146,11 +162,13 @@ getMutatedAA <- function(ref_imgt, novel_imgt, ref_name, seq_name, segment, bias
   }
 
   if (segment == 'V' && hasNonImgtGaps(ref_imgt)) {
-    cat(paste0("Non codon-aligned gaps were found in reference sequence ", ref_name))
+    cat(paste0("warning: non codon-aligned gaps in reference sequence ", ref_name))
+    ref_imgt = fixNonImgtGaps(ref_imgt)
   }
 
   if (segment == 'V' && hasNonImgtGaps(novel_imgt)) {
-    cat(paste0("Non codon-aligned gaps were found in novel sequence ", seq_name))
+    cat(paste0("warning: non codon-aligned gaps were found in novel sequence ", seq_name))
+    novel_imgt = fixNonImgtGaps(novel_imgt)
   }
 
   ref_imgt <- alakazam::translateDNA(ref_imgt)

@@ -28,7 +28,7 @@ To install, please download the package
 open an R console and type
 
 ``` r
-install.packages('ogrdbstats_0.2.0.tar.gz', repos=NULL, type="source")
+install.packages('ogrdbstats_0.3.0.tar.gz', repos=NULL, type="source")
 ```
 
 The package requires R version 3.6.1 or above.
@@ -350,7 +350,8 @@ possible approach is as follows:
 #### Creating reports programmatically
 
 `generate_ogrdb_report()` takes equivalent arguments to ogrdbstats.R and
-generates the genotype file and plots.
+generates the genotype file and plots. `chain type` should 'H' 
+for those chains that contain a D-gene (IGH, TRB, TRD) and 'L' for others.
 
 #### Customising and Extending the Reports
 

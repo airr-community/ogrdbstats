@@ -49,8 +49,11 @@ genotype_statistics_cmd = function(test = F) {
     # setwd('D:\\Research\\new_ham\\16. Leaders')
     # argv = parse_args(p, c('ref/hamster_IGH_VDJ.fasta', 'hamster', 'leader_allele_matches.tsv', 'VH', '--inf_file', 'leader_aliases.fasta'))
 
-    setwd('D:\\Research\\new_ham\\2. j_allele_search\\igblast')
-    argv = parse_args(p, c('../ref/hamster_IGH_VDJ.fasta', 'hamster', 'igblast_009_x-clones.tsv', 'DH', '--all_novel'))
+    # setwd('D:\\Research\\new_ham\\2. j_allele_search\\igblast')
+    # argv = parse_args(p, c('../ref/hamster_IGH_VDJ.fasta', 'hamster', 'igblast_009_x-clones.tsv', 'DH', '--all_novel'))
+
+    setwd('D:\\Research\\ogrdbstats\\testdata\\trb2')
+    argv = parse_args(p, c('personal_repo.fasta', 'Homosapiens', 'HIP00110_genotyped.tab', 'TRBV', '--inf_file', 'only_novel_repo.fasta'))
   }
 
   ref_filename = argv$REF_FILE
