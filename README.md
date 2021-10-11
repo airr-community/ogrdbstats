@@ -350,7 +350,7 @@ possible approach is as follows:
 #### Creating reports programmatically
 
 `generate_ogrdb_report()` takes equivalent arguments to ogrdbstats.R and
-generates the genotype file and plots. `chain type` should 'H' 
+generates the genotype file and plots. `chain type` should be 'H' 
 for those chains that contain a D-gene (IGH, TRB, TRD) and 'L' for others.
 
 #### Customising and Extending the Reports
