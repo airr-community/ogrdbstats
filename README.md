@@ -51,11 +51,12 @@ Positional Arguments:
 
 `REF_FILE` - pathname of a FASTA file containing IMGT gap-aligned
 reference germline sequences. Usually this would be [downloaded from
-IMGT](http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP).
-Please note that this file should contain the complete set of reference genes for the species concerned, which is
+IMGT](http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP), in which
+case you can use the downloaded file in its entirity, you don't need to extract specific records from it.
+The REF_FILE file should contain the complete set of reference genes for the species concerned, which is
 why it is usual to use the IMGT set. It's a common mistake to use a 'personalised genotype' instead of the full
 reference set, but this will not allow comparison against reference genes that are not listed in the personalised 
-genotype. Finally, the REF_FILE should not include sequences of any inferred novel alleles. These should be listed
+genotype. The REF_FILE should not include sequences of any inferred novel alleles. These should be listed
 in the INF_FILE (see below). If they are listed here, ogrdbstats will not recognise them as novel and will not
 produce a full statistical summary for them.
 
