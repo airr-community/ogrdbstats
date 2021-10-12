@@ -53,7 +53,11 @@ Positional Arguments:
 reference germline sequences. Usually this would be [downloaded from
 IMGT](http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP).
 Please note that this file should contain the complete set of reference genes for the species concerned, which is
-why it is usual to use the IMGT set.
+why it is usual to use the IMGT set. It's a common mistake to use a 'personalised genotype' instead of the full
+reference set, but this will not allow comparison against reference genes that are not listed in the personalised 
+genotype. Finally, the REF_FILE should not include sequences of any inferred novel alleles. These should be listed
+in the INF_FILE (see below). If they are listed here, ogrdbstats will not recognise them as novel and will not
+produce a full statistical summary for them.
 
 `SPECIES` - should contain the species name used in field 3 of the IMGT
 reference file FASTA header, with spaces removed, e.g. Homosapiens for
@@ -95,8 +99,6 @@ The package provides functions to allow you to create the reports
 programmatically, or use the information it reads from input files for
 your own purposes. Please refer to the ‘ogrdbstats API’ section for a
 brief overview.
-
-### Detailed Description of Input Files
 
 #### REF\_FILE - FASTA file containing the IMGT gap-aligned reference germline sequences.
 
