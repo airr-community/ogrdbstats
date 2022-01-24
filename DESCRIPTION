@@ -1,7 +1,7 @@
 Package: ogrdbstats
 Type: Package
 Title: Standardised reporting of genotype statistics
-Version: 0.3.0
+Version: 0.3.1
 Author: William Lees
 Maintainer: William Lees <william@lees.org.uk>
 Description: Multiple tools are now available for inferring the personalised Ig genotype from an immune repertoire. 
@@ -18,6 +18,7 @@ Imports:
   alakazam (>= 0.3.0),
   stringr (>= 1.4.0),
   grid,
+  data.table,
   gridExtra (>= 2.3),
   tidyr (>= 1.0.0),
   dplyr (>= 0.8.3),

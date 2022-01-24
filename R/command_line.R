@@ -52,8 +52,14 @@ genotype_statistics_cmd = function(test = F) {
     # setwd('D:\\Research\\new_ham\\2. j_allele_search\\igblast')
     # argv = parse_args(p, c('../ref/hamster_IGH_VDJ.fasta', 'hamster', 'igblast_009_x-clones.tsv', 'DH', '--all_novel'))
 
-    setwd('D:\\Research\\ogrdbstats\\testdata\\trb2')
-    argv = parse_args(p, c('personal_repo.fasta', 'Homosapiens', 'HIP00110_genotyped.tab', 'TRBV', '--inf_file', 'only_novel_repo.fasta'))
+    # setwd('D:\\Research\\ogrdbstats\\testdata\\trb2')
+    # argv = parse_args(p, c('personal_repo.fasta', 'Homosapiens', 'HIP00110_genotyped.tab', 'TRBV', '--inf_file', 'only_novel_repo.fasta'))
+
+    # setwd('D:\\Research\\ogrdbstats\\testdata\\private\\JK_changeo')
+    # argv = parse_args(p, c('IMGT-IGKJ-inc-novels.fasta', 'mouse', '129_igblast_db-pass.tsv', 'JK', '--all_novel'))
+
+    argv = parse_args(p, c('IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP', 'Homosapiens', 'P1_I28_S1.tsv', 'IGHV', '--inf_file', 'P1_I28_S1_novel_gapped.fasta', '--hap_gene', 'IGHJ6', '--plot_unmutated'))
+    setwd('D:\\Research\\ogrdbstats\\testdata\\private\\ogrdbstats_in_vdjbase')
   }
 
   ref_filename = argv$REF_FILE

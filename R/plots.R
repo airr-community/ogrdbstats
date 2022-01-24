@@ -322,6 +322,7 @@ plot_base_composition = function(gene_name, recs, ref, pos=1, filter=T, end_pos=
   ref = strsplit(as.character(ref), "")
 
   x = do.call('rbind', lapply(seq(min_pos,max_pos), nucs_at, seqs=recs, filter=filter))
+  x$pos=factor(x$pos, levels=seq(min_pos,max_pos))
 
   g = ggplot(data=x, aes(x=pos, fill=nuc)) +
     scale_fill_brewer(palette='Dark2') +
@@ -388,7 +389,8 @@ plot_segment_composition = function(gene_name, recs, ref, pos=1,  filter=T, end_
   recs = strsplit(recs, "")
   ref = strsplit(as.character(ref), "")
 
-  x = do.call('rbind', lapply(seq(min_pos,max_pos), nucs_at, seqs=recs, filter=filter))
+  x = do.call(rbind, lapply(seq(min_pos,max_pos), nucs_at, seqs=recs, filter=filter))
+  x$pos=factor(x$pos, levels=seq(min_pos,max_pos))
 
   g = ggplot(data=x, aes(x=pos, fill=nuc)) +
     scale_fill_brewer(palette='Dark2') +

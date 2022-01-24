@@ -24,11 +24,11 @@ supported:
 ### Package Installation
 
 To install, please download the package
-[ogrdbstats\_0.3.0.tar.gz](https://github.com/airr-community/ogrdbstats/blob/master/ogrdbstats_0.3.0.tar.gz),
+[ogrdbstats\_0.3.1.tar.gz](https://github.com/airr-community/ogrdbstats/blob/master/ogrdbstats_0.3.1.tar.gz),
 open an R console and type
 
 ``` r
-install.packages('ogrdbstats_0.3.0.tar.gz', repos=NULL, type="source")
+install.packages('ogrdbstats_0.3.1.tar.gz', repos=NULL, type="source")
 ```
 
 The package requires R version 3.6.1 or above.
