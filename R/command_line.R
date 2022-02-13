@@ -58,7 +58,7 @@ genotype_statistics_cmd = function(test = F) {
     # setwd('D:\\Research\\ogrdbstats\\testdata\\private\\JK_changeo')
     # argv = parse_args(p, c('IMGT-IGKJ-inc-novels.fasta', 'mouse', '129_igblast_db-pass.tsv', 'JK', '--all_novel'))
 
-    argv = parse_args(p, c('IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP', 'Homosapiens', 'P1_I28_S1.tsv', 'IGHV', '--inf_file', 'P1_I28_S1_novel_gapped.fasta', '--hap_gene', 'IGHJ6', '--plot_unmutated'))
+    argv = parse_args(p, c('IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP', 'Homosapiens', 'P1_I28_S1.tsv', 'IGHV', '--hap_gene', 'IGHJ6', '--plot_unmutated', '--all_novel'))
     setwd('D:\\Research\\ogrdbstats\\testdata\\private\\ogrdbstats_in_vdjbase')
   }
 

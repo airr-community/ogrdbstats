@@ -268,7 +268,7 @@ nuc_at = function(seq, pos, filter) {
 
 nucs_at = function(seqs, pos, filter) {
   if(filter) {
-    ret = data.frame(pos=as.character(c(pos)), nuc=(factor(sapply(seqs, nuc_at, pos=pos, filter=filter), levels=c('A', 'C', 'G', 'T'))))
+    ret = data.frame(pos=as.character(c(pos)), nuc=(factor(sapply(seqs, nuc_at, pos=pos, filter=filter), levels=c('A', 'C', 'G', 'T', 'N', 'X', '.', '-'))))
   } else {
     ret = data.frame(pos=as.character(c(pos)), nuc=(factor(sapply(seqs, nuc_at, pos=pos, filter=filter), levels=c('A', 'C', 'G', 'T', 'N', 'X', '.', '-'))))
   }
@@ -324,8 +324,18 @@ plot_base_composition = function(gene_name, recs, ref, pos=1, filter=T, end_pos=
   x = do.call('rbind', lapply(seq(min_pos,max_pos), nucs_at, seqs=recs, filter=filter))
   x$pos=factor(x$pos, levels=seq(min_pos,max_pos))
 
+  mycolours=brewer.pal(8, 'Dark2')
+  names(mycolours) = c("A", "C", "G", "T", 'N', 'X', '.', '-')
+
+  if (filter) {
+    breaks = c("A", "C", "G", "T")
+  } else {
+    breaks = c("A", "C", "G", "T", 'N', 'X', '.', '-')
+  }
+
+
   g = ggplot(data=x, aes(x=pos, fill=nuc)) +
-    scale_fill_brewer(palette='Dark2') +
+    scale_fill_manual(values=mycolours, breaks=breaks, drop=T) +
     geom_bar(stat="count") +
     labs(x='Position', y='Count', fill='', title=paste0('Gene ', gene_name)) +
     theme_classic(base_size=12) +
