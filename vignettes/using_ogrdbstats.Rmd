@@ -176,8 +176,6 @@ To conduct a V-gene analysis with TIgGER:
 Note that `inferGenotype` will not necessarily include every inferred allele produced by `findNovelAlleles` in the genotype that it produces. Only those
 alleles included in the genotype will be considered by `genotype_statistics.R` because, leaving other considerations aside, no sequences are assigned to other alleles.
 
-TIgGER provides additonal information, including its own plots and statistics We encourage you to take these into consideration, and to upload them as attachments to your submission if they are informative.
-
 ### Usage Notes - IgDiscover ###
 
  Following an IgDiscover run, please copy ogrdbstats.R to IgDiscover's `final` directory. The commands below can then be used to download the IMGT reference file and run a VH gene analysis. 
