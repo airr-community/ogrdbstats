@@ -7,7 +7,8 @@ William Lees
 
 [ogrdbstats](https://github.com/airr-community/ogrdbstats) is an R
 package that can be used to create an analysis of gene usage in a
-receptor repertoire. The analysis consists of [usage
+adaptive immune receptor sequencing repertoire. The analysis consists of
+[usage
 statistics](https://github.com/airr-community/ogrdbstats/blob/master/example_ogrdbstats_genotype.csv)
 and
 [plots](https://github.com/airr-community/ogrdbstats/blob/master/example_ogrdbstats_plots.pdf).
@@ -27,13 +28,20 @@ Ogrdbstats requires a recent installation of
 pandoc will already be installed. Otherwise please follow the
 installation instructions on the Pandoc website.
 
-Once Pandoc is installed,please install ogrdbstats from CRAN:
+Once Pandoc is installed, please install ogrdbstats from CRAN:
 
 ``` r
 install.packages('ogrdbstats')
 ```
 
-The package requires R version 3.6.1 or above.
+Alternatively, you can install the latest development version from
+Github:
+
+``` r
+devtools::install_github("https://github.com/airr-community/ogrdbstats")
+```
+
+The package requires R version 4.2.2 or above.
 
 ### Using The Package from the Command Line
 
@@ -53,21 +61,20 @@ Positional Arguments:
 
 `REF_FILE` - pathname of a FASTA file containing IMGT gap-aligned
 reference germline sequences. Usually this would be [downloaded from
-IMGT](http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP).
+IMGT](https://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP).
 
 `SPECIES` - should contain the species name used in field 3 of the IMGT
-reference file FASTA header, with spaces removed, e.g. Homosapiens for
-Human. If you are not using an IMGT reference file, you can use any
-single word for the species here, and the reference file should only
-contain genes for that species.
+REF_FILE FASTA header, with spaces removed, e.g. Homosapiens for Human.
+If you are not using an IMGT REF_FILE, you can use any single word for
+the species here, and the reference file should only contain genes for
+that species.
 
 `READ_FILE` - pathname of a tab-separated file containing the annotated
 reads used to infer the genotype, in MiAIRR, CHANGEO or IgDiscover
 format
 
-`CHAIN` is one of `VH, VK, VL, D, JH, JK, JL`. It should correspond to
-the sequence type provided in the `INF_FILE` - or the sequence type you
-would like analysed, if there are no novel alleles.
+`CHAIN` specifies the sequence type to be analysed. It must be one of
+`VH, VK, VL, D, JH, JK, JL`.
 
 Optional Arguments:
 
@@ -89,13 +96,9 @@ brief overview.
 
 ### Detailed Description of Input Files
 
-Usage of ogrdbstats with specific installation tools can be found
-towards the end of this document. We suggest that you refer to the notes
-for the tool that you are using before a first read of this section.
-
 #### REF_FILE - FASTA file containing the IMGT gap-aligned reference germline sequences.
 
-- All sequences that are called in the read file (apart from those of
+- All germlines that are called in the read file (apart from those of
   novel alleles) should be included.
 - The sequences must be IMGT gap-aligned
 - The FASTA header can either be in IMGT’s germline library format, or
@@ -106,9 +109,9 @@ for the tool that you are using before a first read of this section.
   nominated species. As the IMGT set changes from time to time, please
   make sure that the same version is used by the inference tool and by
   this script.
-- A warning will be given if any V-calls in the read file do not have a
+- A warning will be given if any calls in the read file do not have a
   corresponding sequence in the reference file or the inferred novel
-  alleles file. Unmutated counts will not be provided for thse
+  alleles file. Unmutated counts will not be provided for those
   sequences.
 
 #### READ_FILE - A tab-separated file containing the annotated reads used to infer the genotype, in MiAIRR, CHANGEO or IgDiscover format.
@@ -143,7 +146,7 @@ for the tool that you are using before a first read of this section.
   V_CALL field instead of V_CALL_GENOTYPED.
 
 - For IgDiscover, the file ‘final/filtered.tab’ should be used - see
-  section below.
+  section on IgDiscover below.
 
 #### INF_FILE - FASTA file containing the inferred novel alleles
 
@@ -384,9 +387,9 @@ documentation within R.
 Some functions are adapted from [TIgGER](https://tigger.readthedocs.io)
 with thanks to the authors.
 
-The example annotated reads and inferences in this directory are taken
-from the data of [Rubelt et
-al](https://www.ncbi.nlm.nih.gov/pubmed/?term=27005435) and were
-downloaded from [VDJServer](https://vdjserver.org/). The genotype was
-inferred by [TIgGER](https://tigger.readthedocs.io). A small number of
-light-chain records were removed from the data set.
+The example annotated reads and inferences linked from this description
+are taken from the data of [Rubelt et
+al](https://pubmed.ncbi.nlm.nih.gov/?term=27005435) and were downloaded
+from [VDJServer](https://vdjserver.org/). The genotype was inferred by
+[TIgGER](https://tigger.readthedocs.io). A small number of light-chain
+records were removed from the data set.
