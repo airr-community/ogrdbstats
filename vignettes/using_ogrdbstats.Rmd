@@ -20,7 +20,7 @@ knitr::opts_chunk$set(eval = FALSE)
 # Conducting a Genotype Analysis with ogrdbstats
 
 [ogrdbstats](https://github.com/airr-community/ogrdbstats) is an R package 
-that can be used to create an analysis of gene usage in a receptor repertoire. The analysis consists of 
+that can be used to create an analysis of gene usage in a adaptive immune receptor sequencing repertoire. The analysis consists of 
 [usage statistics](https://github.com/airr-community/ogrdbstats/blob/master/example_ogrdbstats_genotype.csv) and  [plots](https://github.com/airr-community/ogrdbstats/blob/master/example_ogrdbstats_plots.pdf). 
 The package is intended to be used in conjunction with a tool that infers a 'personalised genotype'. Currently the
 following tools are supported:
@@ -35,13 +35,19 @@ following tools are supported:
 Ogrdbstats requires a recent installation of [Pandoc](https://pandoc.org/). If Rstudio is installed on your machine, pandoc will already be installed. Otherwise please follow
 the installation instructions on the Pandoc website.
 
-Once Pandoc is installed,please install ogrdbstats from CRAN:
+Once Pandoc is installed, please install ogrdbstats from CRAN:
 
 ```r
 install.packages('ogrdbstats')
 ```
 
-The package requires R version 3.6.1 or above. 
+Alternatively, you can install the latest development version from Github:
+
+```r
+devtools::install_github("https://github.com/airr-community/ogrdbstats")
+```
+
+The package requires R version 4.2.2 or above. 
 
 ### Using The Package from the Command Line
 
@@ -56,7 +62,7 @@ Rscript ogrdbstats.R [--inf_file INF_FILE] [--hap_gene HAP_GENE] REF_FILE SPECIE
 
 Positional Arguments:
 
-`REF_FILE` - pathname of a FASTA file containing IMGT gap-aligned reference germline sequences. Usually this would be [downloaded from IMGT](http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP).
+`REF_FILE` - pathname of a FASTA file containing IMGT gap-aligned reference germline sequences. Usually this would be [downloaded from IMGT](https://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP).
 
 `SPECIES`  - should contain the species name used in field 3 of the IMGT REF_FILE FASTA header, with spaces removed, e.g. Homosapiens for Human. If you are not using an IMGT REF_FILE, you can use any single word for the species here, and the reference file should only contain genes for that species.
 
@@ -294,7 +300,7 @@ Please use help(package="ogrdbstats") or ? to find function-level documentation 
 
 Some functions are adapted from [TIgGER](https://tigger.readthedocs.io) with thanks to the authors.
 
-The example annotated reads and inferences linked from this description are taken from the data of [Rubelt et al](https://www.ncbi.nlm.nih.gov/pubmed/?term=27005435) 
+The example annotated reads and inferences linked from this description are taken from the data of [Rubelt et al](https://pubmed.ncbi.nlm.nih.gov/?term=27005435) 
 and were downloaded from [VDJServer](https://vdjserver.org/). The genotype was inferred by [TIgGER](https://tigger.readthedocs.io). A small number of 
 light-chain records were removed from the data set.
 
