@@ -5,11 +5,11 @@ Version: 0.5.0
 Author: William Lees
 Maintainer: William Lees <william@lees.org.uk>
 Description: Multiple tools are now available for inferring the personalised 
-    genotype from an AIRR-seq repertoire. Ogrdbstats can read the output from 
-    a number of these tools, converting to a standard format and supplementing 
-    with  rich data such as usage and characterisation of 'novel' germline 
-    alleles. These reports can be particularly useful when considering the 
-    validity of novel inferences. 
+    genotype from an Adaptive Immune Receptor Repertoire sequencing repertoire. 
+    The package can read the output from a number of these tools, converting to 
+    a standard format and supplementing with rich data such as usage and 
+    characterisation of 'novel' germline alleles. These reports can be 
+    particularly useful when considering the validity of novel inferences. 
 License: CC BY-SA 4.0
 Encoding: UTF-8
 LazyData: true

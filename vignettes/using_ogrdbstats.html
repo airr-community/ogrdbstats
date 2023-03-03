@@ -676,7 +676,7 @@ novel alleles) should be included.</li>
 <li>The sequences must be IMGT gap-aligned</li>
 <li>The FASTA header can either be in IMGT’s germline library format, or
 simply consist of the allele name</li>
-<li>The IMGT set can be <a href="http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP">downloaded</a>
+<li>The IMGT set can be <a href="https://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP">downloaded</a>
 and used as-is: the script will filter out the records for the nominated
 species. As the IMGT set changes from time to time, please make sure
 that the same version is used by the inference tool and by this
@@ -777,7 +777,7 @@ V-gene with J-gene inferences.</p>
 <h3 id="example">Example</h3>
 <p>To download the IMGT reference file and complete an analysis using <a href="https://github.com/airr-community/ogrdbstats/tree/master/testdata/VH_tigger">example
 files</a>, run the following commands:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-O</span> IMGT_REF_GAPPED.fasta http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP</span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-O</span> IMGT_REF_GAPPED.fasta https://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> ogrdbstats.R <span class="at">--inf_file</span> TWO01A_naive_novel_ungapped.fasta <span class="at">--hap_gene</span> IGHJ6 IMGT_REF_GAPPED.fasta Homosapiens TWO01A_naive_genotyped.tsv VH</span></code></pre></div>
 <h3 id="usage-notes">Usage Notes</h3>
 <p>Usage notes are indicative only and are not intended to discount
@@ -809,7 +809,7 @@ informative.</p>
 <code>final</code> directory. The commands below can then be used to
 download the IMGT reference file and run a VH gene analysis. All
 commands should be run in the <code>final</code> directory.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wget <span class="at">-O</span> IMGT_REF_GAPPED.fasta http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP</span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wget <span class="at">-O</span> IMGT_REF_GAPPED.fasta https://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> unzip final.tab.gz</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> Rscript ogrdbstats.R <span class="at">--inf_file</span> database/V.fasta IMGT_REF_GAPPED.fasta Homosapiens filtered.tab VH</span></code></pre></div>
 <p>alternatively, to produce a JH gene analysis:</p>

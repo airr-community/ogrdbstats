@@ -1,7 +1,3 @@
-Using ogrdbstats
-================
-William Lees
-2023-03-03
 
 # Conducting a Genotype Analysis with ogrdbstats
 
@@ -104,7 +100,7 @@ brief overview.
 - The FASTA header can either be in IMGT’s germline library format, or
   simply consist of the allele name
 - The IMGT set can be
-  [downloaded](http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP)
+  [downloaded](https://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP)
   and used as-is: the script will filter out the records for the
   nominated species. As the IMGT set changes from time to time, please
   make sure that the same version is used by the inference tool and by
@@ -213,7 +209,7 @@ files](https://github.com/airr-community/ogrdbstats/tree/master/testdata/VH_tigg
 run the following commands:
 
 ``` bash
-wget -O IMGT_REF_GAPPED.fasta http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP
+wget -O IMGT_REF_GAPPED.fasta https://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP
 Rscript ogrdbstats.R --inf_file TWO01A_naive_novel_ungapped.fasta --hap_gene IGHJ6 IMGT_REF_GAPPED.fasta Homosapiens TWO01A_naive_genotyped.tsv VH
 ```
 
@@ -252,7 +248,7 @@ IMGT reference file and run a VH gene analysis. All commands should be
 run in the `final` directory.
 
 ``` bash
-$ wget -O IMGT_REF_GAPPED.fasta http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP
+$ wget -O IMGT_REF_GAPPED.fasta https://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP
 $ unzip final.tab.gz
 $ Rscript ogrdbstats.R --inf_file database/V.fasta IMGT_REF_GAPPED.fasta Homosapiens filtered.tab VH
 ```

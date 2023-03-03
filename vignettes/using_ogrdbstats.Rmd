@@ -89,7 +89,7 @@ for your own purposes. Please refer to the 'ogrdbstats API' section for a brief 
 * All germlines that are called in the read file (apart from those of novel alleles) should be included. 
 * The sequences must be IMGT gap-aligned
 * The FASTA header can either be in IMGT's germline library format, or simply consist of the allele name
-* The IMGT set can be [downloaded](http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP)
+* The IMGT set can be [downloaded](https://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP)
   and used as-is: the script will filter out the records for the nominated species. As the IMGT set changes from time to time, please make sure that 
   the same version is used by the inference tool and by this script.
 * A warning will be given if any calls in the read file do not have a corresponding sequence in the reference file or the inferred novel alleles file. Unmutated counts will not be provided for those sequences.
@@ -156,7 +156,7 @@ will be appropriately populated.  A J-gene should be used with V- and D- gene in
 To download the IMGT reference file and complete an analysis using [example files](https://github.com/airr-community/ogrdbstats/tree/master/testdata/VH_tigger), run the following commands:
 
 ```bash
-wget -O IMGT_REF_GAPPED.fasta http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP
+wget -O IMGT_REF_GAPPED.fasta https://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP
 Rscript ogrdbstats.R --inf_file TWO01A_naive_novel_ungapped.fasta --hap_gene IGHJ6 IMGT_REF_GAPPED.fasta Homosapiens TWO01A_naive_genotyped.tsv VH
 ``` 
 
@@ -176,13 +176,15 @@ To conduct a V-gene analysis with TIgGER:
 Note that `inferGenotype` will not necessarily include every inferred allele produced by `findNovelAlleles` in the genotype that it produces. Only those
 alleles included in the genotype will be considered by `genotype_statistics.R` because, leaving other considerations aside, no sequences are assigned to other alleles.
 
+TIgGER provides additonal information, including its own plots and statistics We encourage you to take these into consideration, and to upload them as attachments to your submission if they are informative.
+
 ### Usage Notes - IgDiscover ###
 
  Following an IgDiscover run, please copy ogrdbstats.R to IgDiscover's `final` directory. The commands below can then be used to download the IMGT reference file and run a VH gene analysis. 
  All commands should be run in the `final` directory.
 
 ```bash
-$ wget -O IMGT_REF_GAPPED.fasta http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP
+$ wget -O IMGT_REF_GAPPED.fasta https://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP
 $ unzip final.tab.gz
 $ Rscript ogrdbstats.R --inf_file database/V.fasta IMGT_REF_GAPPED.fasta Homosapiens filtered.tab VH
 ```
