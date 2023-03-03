@@ -12,7 +12,6 @@ Description: Multiple tools are now available for inferring the personalised
     particularly useful when considering the validity of novel inferences. 
 License: CC BY-SA 4.0
 Encoding: UTF-8
-LazyData: true
 Depends:
 biocViews:
 Imports:
