@@ -28,7 +28,7 @@ gene_number = function(gene_name) {
     num = strsplit(num, '*', fixed=T)[[1]][[1]]
   }
 
-  return(str_pad(num, 3, side='left', pad='0'))
+  return(stringr::str_pad(num, 3, side='left', pad='0'))
 }
 
 allele_number = function(gene_name) {
@@ -36,7 +36,7 @@ allele_number = function(gene_name) {
     return('000')
   }
 
-  return(str_pad(strsplit(gene_name, '*', fixed=T)[[1]][[2]], 3, side='left', pad='0'))
+  return(stringr::str_pad(strsplit(gene_name, '*', fixed=T)[[1]][[2]], 3, side='left', pad='0'))
 }
 
 order_alleles = function(allele_names) {

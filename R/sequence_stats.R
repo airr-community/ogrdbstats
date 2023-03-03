@@ -23,9 +23,9 @@ unique_cdrs = function(gene, segment, seqs) {
 build_nt_diff_string = function(seq1, seq2, bias) {
   nt_diff_string = ""
   max_length = max(nchar(seq1), nchar(seq2))
-  seq1 = str_pad(seq1, max_length, side="right", pad="-")
-  seq2 = str_pad(seq2, max_length, side="right", pad="-")
-  nt_diff = unlist(getMutatedPositions(seq1, seq2,ignored_regex="\\."))
+  seq1 = stringr::str_pad(seq1, max_length, side="right", pad="-")
+  seq2 = stringr::str_pad(seq2, max_length, side="right", pad="-")
+  nt_diff = unlist(tigger::getMutatedPositions(seq1, seq2,ignored_regex="\\."))
   ref_nt <- strsplit(seq1,"")[[1]][nt_diff]
   novel_nt <- strsplit(seq2,"")[[1]][nt_diff]
 
@@ -140,8 +140,8 @@ imgt_gap_inferred = function(seqname, seqs, ref_genes) {
 
   # Find the closest reference gene
   r = data.frame(GENE=names(ref_genes),SEQ=ref_genes, stringsAsFactors = F)
-  r$SEQ = sapply(r$SEQ,str_replace_all,pattern='\\.',replacement='')
-  r$dist=sapply(r$SEQ, pairwiseAlignment, subject=seqs[seqname], scoreOnly=T)
+  r$SEQ = sapply(r$SEQ,stringr::str_replace_all,pattern='\\.',replacement='')
+  r$dist=sapply(r$SEQ, Biostrings::pairwiseAlignment, subject=seqs[seqname], scoreOnly=T)
   r = r[order(r$dist, decreasing=T),]
 
   # Gap the sequence
@@ -156,11 +156,11 @@ imgt_gap_inferred = function(seqname, seqs, ref_genes) {
 getMutatedAA <- function(ref_imgt, novel_imgt, ref_name, seq_name, segment, bias) {
   if (grepl("N", ref_imgt)) {
     cat(paste0("Unexpected N in reference sequence ", ref_name, ": replacing with gap\n"))
-    str_replace(ref_imgt, "N", "-")
+    stringr::str_replace(ref_imgt, "N", "-")
   }
   if (grepl("N", novel_imgt)) {
     cat(paste0("Unexpected N in novel sequence ", seq_name, ": replacing with gap\n"))
-    str_replace(novel_imgt, "N", "-")
+    stringr::str_replace(novel_imgt, "N", "-")
   }
 
   if (segment == 'V' && hasNonImgtGaps(ref_imgt)) {
@@ -176,8 +176,8 @@ getMutatedAA <- function(ref_imgt, novel_imgt, ref_name, seq_name, segment, bias
   ref_imgt <- alakazam::translateDNA(ref_imgt)
   novel_imgt <- alakazam::translateDNA(novel_imgt)
   max_length = max(nchar(ref_imgt), nchar(novel_imgt))
-  ref_imgt = str_pad(ref_imgt, max_length, side="right", pad="-")
-  novel_imgt = str_pad(novel_imgt, max_length, side="right", pad="-")
+  ref_imgt = stringr::str_pad(ref_imgt, max_length, side="right", pad="-")
+  novel_imgt = stringr::str_pad(novel_imgt, max_length, side="right", pad="-")
   ref_imgt = strsplit(ref_imgt, "")[[1]]
   novel_imgt = strsplit(novel_imgt, "")[[1]]
 
@@ -209,11 +209,11 @@ find_nearest = function(sequence_ind, ref_genes, prefix, inferred_seqs, segment)
 
   if(segment == 'J') {
     w = as.integer(max(max(nchar(r$SEQ)), nchar(sequence))/3)*3
-    r$SEQ = str_pad(r$SEQ, w, 'left', '-')
-    sequence = str_pad(sequence, w, 'left', '-')
+    r$SEQ = stringr::str_pad(r$SEQ, w, 'left', '-')
+    sequence = stringr::str_pad(sequence, w, 'left', '-')
   }
 
-  r$diff = getMutatedPositions(r$SEQ, sequence)
+  r$diff = tigger::getMutatedPositions(r$SEQ, sequence)
   r$num_diff = sapply(r$diff, length)
   r = r[order(r$num_diff),]
   r = r[1,]

@@ -60,6 +60,9 @@ make_novel_base_grobs = function(inferred_seqs, input_sequences, segment, all_in
       end_composition_grobs = mapply(plot_base_composition, names(inferred_seqs), recs, refs, pos=313, filter=T, all_inferred=all_inferred)
       end_composition_grobs = end_composition_grobs[!is.na(end_composition_grobs)]
 
+      consensus_composition_grobs = mapply(plot_cumulative_consensus_base_composition, names(inferred_seqs), recs, refs, pos=313, filter=T, all_inferred=all_inferred)
+      consensus_composition_grobs = consensus_composition_grobs[!is.na(consensus_composition_grobs)]
+
       whole_composition_grobs = mapply(plot_base_composition, names(inferred_seqs), recs, refs, pos=1, filter=F, all_inferred=all_inferred)
       whole_composition_grobs = whole_composition_grobs[!is.na(whole_composition_grobs)]
 
@@ -82,7 +85,7 @@ make_novel_base_grobs = function(inferred_seqs, input_sequences, segment, all_in
     }
   }
 
-  return(list('cdr3_dist'=cdr3_distribution_grobs, 'whole'=whole_composition_grobs, 'end'=end_composition_grobs, 'triplet'=triplet_grobs))
+  return(list('cdr3_dist'=cdr3_distribution_grobs, 'whole'=whole_composition_grobs, 'end'=end_composition_grobs, 'conc' = consensus_composition_grobs, 'triplet'=triplet_grobs))
 }
 
 
@@ -96,6 +99,7 @@ make_novel_base_grobs = function(inferred_seqs, input_sequences, segment, all_in
 #'     haplo_grobs \tab     differential plot of allele usage for each usable haplotyping gene \cr
 #'}
 make_haplo_grobs = function(segment, haplo_details) {
+  a_gene = a_allele = percent = NULL
   a_props = haplo_details$a_props
   a_genes = haplo_details$a_genes
   sa = haplo_details$sa
@@ -138,6 +142,7 @@ make_haplo_grobs = function(segment, haplo_details) {
 #' @param input_sequences the input_sequences data frame
 #' @param cdr3_dist_grobs cdr3 length distribution grobs created by make_novel_base_grob
 #' @param end_composition_grobs end composition grobs created by make_novel_base_grobs
+#' @param cons_composition_grobs consensus composition grobs created by make_novel_base_grobs
 #' @param whole_composition_grobs whole composition grobs created by make_novel_base_grobs
 #' @param triplet_composition_grobs triplet composition grobs created by make_novel_base_grobs
 #' @param barplot_grobs barplot grobs created by make_barplot_grons
@@ -145,47 +150,20 @@ make_haplo_grobs = function(segment, haplo_details) {
 #' @param haplo_grobs haplo_grobs created by make_haplo_grobs
 #' @param message text message to display at end of report
 #' @return nothing
-write_plot_file = function(filename, input_sequences, cdr3_dist_grobs, end_composition_grobs, whole_composition_grobs, triplet_composition_grobs, barplot_grobs, a_allele_plot, haplo_grobs, message) {
-  # Save all graphics to plot file
+write_plot_file = function(filename, input_sequences, cdr3_dist_grobs, end_composition_grobs, cons_composition_grobs, whole_composition_grobs, triplet_composition_grobs, barplot_grobs, a_allele_plot, haplo_grobs, message) {
+  wd = getwd()
 
-  x=pdf(filename, width=210/25,height=297/25)
-
-  if('SEQUENCE_IMGT' %in% names(input_sequences)) {
-    if(length(end_composition_grobs) > 0) {
-      x=print(marrangeGrob(end_composition_grobs, nrow=3, ncol=2,top=NULL))
-    }
-    if(length(whole_composition_grobs) > 0) {
-      x=print(marrangeGrob(whole_composition_grobs, nrow=3, ncol=1,top=NULL))
-    }
-    if(length(triplet_composition_grobs) > 0) {
-      x=print(marrangeGrob(triplet_composition_grobs, nrow=3, ncol=1,top=NULL))
-    }
-  }
-
-  if(length(barplot_grobs) > 0) {
-    x = print(marrangeGrob(barplot_grobs, nrow=3, ncol=3,top=NULL))
-  }
-
-  if(length(cdr3_dist_grobs) > 0) {
-    x=print(marrangeGrob(cdr3_dist_grobs, nrow=3, ncol=3,top=NULL))
-  }
-
-  #x=print(marrangeGrob(snap_composition_grobs, nrow=3, ncol=1,top=NULL))
-  grid.arrange(a_allele_plot)
-  x=print(marrangeGrob(haplo_grobs, nrow=1, ncol=1,top=NULL))
-
-  if(str_length(message) > 0) {
-    grid.arrange(textGrob(message, just="left", x = unit(0, "npc"), y = unit(0.9, "npc"), gp=gpar(fontsize=5)))
-  }
-
-  x=dev.off()
-
+  bookdown::render_book(input = file.path(system.file(package="ogrdbstats"), "templates"), output_format = "bookdown::pdf_book", clean = TRUE,
+              envir = environment(), clean_envir = FALSE,
+              output_dir = wd, new_session = NA, preview = FALSE,
+              config_file = "_bookdown.yml")
 }
 
 
 # -- Individual allele bar charts --
 
 plot_allele_seqs = function(allele, s, inferred_seqs, genotype, segment) {
+  SEG_MUT_NC = NULL
   g = genotype[genotype$sequence_id==allele,]
   recs = s[s$SEG_CALL==allele,]
   recs = recs[recs$SEG_MUT_NC < 21,]
@@ -228,6 +206,7 @@ plot_allele_seqs = function(allele, s, inferred_seqs, genotype, segment) {
 # -- CDR3 length distribution --
 
 plot_cdr3_lengths = function(allele, seqs) {
+  CDR3_LEN = NULL
   r = seqs[seqs$SEG_CALL==allele,]
   r = r[r$SEG_MUT_NC==0,]
 
@@ -267,12 +246,74 @@ nuc_at = function(seq, pos, filter) {
 }
 
 nucs_at = function(seqs, pos, filter) {
-  if(filter) {
-    ret = data.frame(pos=as.character(c(pos)), nuc=(factor(sapply(seqs, nuc_at, pos=pos, filter=filter), levels=c('A', 'C', 'G', 'T', 'N', 'X', '.', '-'))))
-  } else {
-    ret = data.frame(pos=as.character(c(pos)), nuc=(factor(sapply(seqs, nuc_at, pos=pos, filter=filter), levels=c('A', 'C', 'G', 'T', 'N', 'X', '.', '-'))))
-  }
+  ret = data.frame(pos=as.character(c(pos)), nuc=(factor(sapply(seqs, nuc_at, pos=pos, filter=filter), levels=c('A', 'C', 'G', 'T', 'N', 'X', '.', '-'))))
   ret = ret[!is.na(ret$nuc),]
+  return(ret)
+}
+
+# -- consensus match
+
+conc_at = function(seq, pos, ref) {
+  if(length(seq) >= pos) {
+    return(seq[pos] == ref[[1]][pos])
+  } else {
+    return(F)
+  }
+}
+
+concs_at = function(seqs, pos, ref) {
+  ret = data.frame(pos=as.character(c(pos)), conc=(sapply(seqs, conc_at, pos=pos, ref=ref)), rec_ind=1:length(seqs))
+  return(ret)
+}
+
+
+# -- cumulative consensus match
+
+cc_at = function(seq, pos, ref) {
+  if(length(seq) >= pos) {
+    return(seq[pos] == ref[[1]][pos])
+  } else {
+    return(F)
+  }
+}
+
+ccs_at = function(seqs, pos, ref) {
+  ret = data.frame(pos=as.character(c(pos)), conc=(sapply(seqs, cc_at, pos=pos, ref=ref)), rec_ind=1:length(seqs))
+  return(ret)
+}
+
+cumul_cons = function(l) {
+  state = 1
+  for (i in 1:length(l)) {
+    if (l[i] == 0) {
+      state = 0
+    }
+
+    l[i] = state
+  }
+  return (l)
+}
+
+cumul_row = function(row) {
+  return(append(c(row[1]), cumul_cons(row[2:length(row)])))
+}
+
+cumul_at = function(seq_ind, seqs, cumuls, pos, min_pos) {
+  seq = seqs[seq_ind][[1]]
+
+  if (pos == 315) {
+    x = 3
+  }
+
+  if (pos == min_pos || cumuls[seq_ind,][pos-min_pos+1]) {
+    return (nuc_at(seq, pos, T))
+  } else {
+    return (NA)
+  }
+}
+
+cumuls_at = function(seqs, pos, ref, cumuls, min_pos) {
+  ret = data.frame(pos=as.character(c(pos)), conc=(sapply(seq(1:length(seqs)), cumul_at, seqs=seqs, cumuls=cumuls, pos=pos, min_pos=min_pos)), rec_ind=1:length(seqs))
   return(ret)
 }
 
@@ -297,6 +338,7 @@ label_5_nuc = function(pos, ref) {
 # if pos is negative, SEQUENCE_IMGT contains a certain number of trailing nucleotides. Plot them all.
 
 plot_base_composition = function(gene_name, recs, ref, pos=1, filter=T, end_pos=999, r_justify=F, all_inferred=F) {
+  nuc = NULL
   max_pos = nchar(ref)
 
 
@@ -315,16 +357,16 @@ plot_base_composition = function(gene_name, recs, ref, pos=1, filter=T, end_pos=
   min_pos = max(pos, 1)
 
   if(r_justify) {
-    recs = str_pad(recs, max_pos-min_pos+1, 'left')
+    recs = stringr::str_pad(recs, max_pos-min_pos+1, 'left')
   }
 
   recs = strsplit(recs, "")
   ref = strsplit(as.character(ref), "")
 
-  x = do.call('rbind', lapply(seq(min_pos,max_pos), nucs_at, seqs=recs, filter=filter))
+  x = data.table::rbindlist(lapply(seq(min_pos,max_pos), nucs_at, seqs=recs, filter=filter))
   x$pos=factor(x$pos, levels=seq(min_pos,max_pos))
 
-  mycolours=brewer.pal(8, 'Dark2')
+  mycolours=RColorBrewer::brewer.pal(8, 'Dark2')
   names(mycolours) = c("A", "C", "G", "T", 'N', 'X', '.', '-')
 
   if (filter) {
@@ -364,25 +406,99 @@ plot_base_heatmap = function(gene_name, recs, ref, pos=1, end_pos=999, r_justify
   min_pos = max(pos, 1)
 
   if(r_justify) {
-    recs = str_pad(recs, max_pos-min_pos+1, 'left')
+    recs = stringr::str_pad(recs, max_pos-min_pos+1, 'left')
   }
 
   recs = strsplit(recs, "")
   ref = strsplit(as.character(ref), "")
 
-  m=sapply(recs,function(x) {head(x,end_pos)})
-  m=t(m)
-  n=m[sample(nrow(m),size=200,replace=TRUE),]
-  h=Heatmap(n, name='', clustering_distance_rows=function(x,y){sum(stringdist(x,y,method='hamming'))}, row_dend_width = unit(50, "mm"), column_title=gene_name)
+  m = sapply(recs,function(x) {utils::head(x,end_pos)})
+  m = t(m)
+  n = m[sample(nrow(m),size=200,replace=TRUE),]
+  h = ComplexHeatmap::Heatmap(n, name='', clustering_distance_rows=function(x,y){sum(stringdist::stringdist(x,y,method='hamming'))}, row_dend_width = unit(50, "mm"), column_title=gene_name)
 
-  pdf(file=paste0('heatmap_', gsub('*', '_', gene_name, fixed=T), '.pdf'))
-  draw(h)
-  dev.off()
+  #pdf(file=paste0('heatmap_', gsub('*', '_', gene_name, fixed=T), '.pdf'))
+  #draw(h)
+  #dev.off()
+}
+
+
+# Plot base composition from nominated nucleotide position to the end or to optional endpos.
+# Only include, at each position, those sequences that agreed with the consensus in previous positions
+# Only include gaps, n nucleotides if filter=F
+
+plot_cumulative_consensus_base_composition = function(gene_name, recs, ref, pos=1, filter=T, end_pos=999, r_justify=F, all_inferred=F) {
+  conc = NULL
+
+  max_pos = nchar(ref)
+
+  if (gene_name == 'IGHV1-24*01') {
+    x = 2
+  }
+
+
+  if(max_pos < pos) {
+    return(NA)
+  }
+
+  if(length(recs) < 1) {
+    if (!all_inferred) {
+      cat(paste0("Warning: no sequences found for ", gene_name, "(check SEQUENCE_IMGT in input file)"))
+    }
+    return(NA)
+  }
+
+  max_pos = min(max_pos, end_pos)
+  min_pos = max(pos, 1)
+
+  if(r_justify) {
+    recs = stringr::str_pad(recs, max_pos-min_pos+1, 'left')
+  }
+
+  recs = strsplit(recs, "")
+  ref = strsplit(as.character(ref), "")
+
+  c = data.table::rbindlist(lapply(seq(min_pos,max_pos), concs_at, seqs=recs, ref=ref))
+  c = tidyr::pivot_wider(c, names_from=pos, values_from=conc)
+  c = t(apply(c, 1, cumul_row))
+
+  x = data.table::rbindlist(lapply(seq(min_pos,max_pos), cumuls_at, seqs=recs, cumuls=c, min_pos=min_pos))
+  x$pos=factor(x$pos, levels=seq(min_pos,max_pos))
+  x = x[!is.na(x$conc),]
+  counts = x %>% group_by(pos) %>% tally()
+
+  mycolours=RColorBrewer::brewer.pal(8, 'Dark2')
+  names(mycolours) = c("A", "C", "G", "T", 'N', 'X', '.', '-')
+
+  if (filter) {
+    breaks = c("A", "C", "G", "T")
+  } else {
+    breaks = c("A", "C", "G", "T", 'N', 'X', '.', '-')
+  }
+
+
+  g = ggplot() +
+    geom_bar(data=x, aes(x=pos, fill=conc),stat="count", position="fill") +
+    scale_fill_manual(values=mycolours, breaks=breaks, drop=T) +
+    labs(x='Position', y='% share', fill='', title=paste0('Gene ', gene_name)) +
+    theme_classic(base_size=12) +
+    scale_y_continuous(expand=c(0,0), labels=scales::percent, sec.axis=sec_axis(~.*(max(counts$n)), name="Contributing Reads")) +
+    geom_line(data=counts, aes(x=pos, y=n/max(counts$n), group=1))
+
+  if(filter) {
+    b =sapply(seq(pos, max_pos), label_5_nuc, ref=ref)
+    g = g + scale_x_discrete(labels=b)
+  } else {
+    g = g +   theme(axis.text.x=element_blank(), axis.ticks.x=element_blank())
+  }
+
+  return(ggplotGrob(g))
 }
 
 
 # Plot composition of a segment rather than the whole IMGT-aligned sequence
 plot_segment_composition = function(gene_name, recs, ref, pos=1,  filter=T, end_pos=999, r_justify=F) {
+  nuc = NULL
   max_pos = nchar(ref)
 
   if(max_pos < pos || length(recs) < 1) {
@@ -393,7 +509,7 @@ plot_segment_composition = function(gene_name, recs, ref, pos=1,  filter=T, end_
   min_pos = max(pos, 1)
 
   if(r_justify) {
-    recs = str_pad(recs, max_pos-min_pos+1, 'left')
+    recs = stringr::str_pad(recs, max_pos-min_pos+1, 'left')
   }
 
   recs = strsplit(recs, "")
@@ -458,6 +574,7 @@ extract_frag = function(rec, start_pos, length) {
 # Plot occurrence of each possible nucleotide sequence in the trailing triplet
 
 plot_trailing_triplet = function(gene_name, recs, ref) {
+  aggregate = triplet = NULL
   start_pos = nchar(ref) - 2
   length = 3
 
@@ -492,6 +609,7 @@ plot_trailing_triplet = function(gene_name, recs, ref) {
 # -- Differential plot by allele usage - if we have good alleles for this gene --
 
 plot_differential = function(gene, a_props, sa, segment) {
+  a_gene = a_allele = SEG_CALL = NULL
   ap = a_props[a_props$a_gene==gene,]
   ap = ap[order(ap$percent, decreasing=T),]
 

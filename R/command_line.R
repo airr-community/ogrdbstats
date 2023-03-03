@@ -8,19 +8,19 @@
 #' @export
 genotype_statistics_cmd = function(test = F) {
 
-  p = arg_parser('Create genotype statistics')
-  p = add_argument(p, 'REF_FILE', help='reference set filename')
-  p = add_argument(p, 'SPECIES', help=' species name used in field 3 of the IMGT reference set header, with spaces removed, e.g. Homosapiens for Human')
-  p = add_argument(p, 'READ_FILE', help='name of file containing annotated reads in AIRR, CHANGEO, IMPRE or IgDiscover format')
-  p = add_argument(p, 'CHAIN', help='one of IGHV, IGKV, IGLV, IGHD, IGHJ, IGKJ, IGLJ, TRAV, TRAJ, TRBV, TRBD, TRBJ, TRGV, TRGj, TRDV, TRDD, TRDJ')
-  p = add_argument(p, '--inf_file', help='sequences of inferred novel alleles (FASTA format)')
-  p = add_argument(p, '--hap_gene', help='haplotyping gene, e.g. IGHJ6')
-  p = add_argument(p, '--plot_unmutated', flag=T, help='Plot base composition using only unmutated sequences (V-chains only)')
-  p = add_argument(p, '--all_novel', flag=T, help='Treat all alleles in reference set as if novel')
+  p = argparser::arg_parser('Create genotype statistics')
+  p = argparser::add_argument(p, 'REF_FILE', help='reference set filename')
+  p = argparser::add_argument(p, 'SPECIES', help=' species name used in field 3 of the IMGT reference set header, with spaces removed, e.g. Homosapiens for Human')
+  p = argparser::add_argument(p, 'READ_FILE', help='name of file containing annotated reads in AIRR, CHANGEO, IMPRE or IgDiscover format')
+  p = argparser::add_argument(p, 'CHAIN', help='one of IGHV, IGKV, IGLV, IGHD, IGHJ, IGKJ, IGLJ, TRAV, TRAJ, TRBV, TRBD, TRBJ, TRGV, TRGj, TRDV, TRDD, TRDJ')
+  p = argparser::add_argument(p, '--inf_file', help='sequences of inferred novel alleles (FASTA format)')
+  p = argparser::add_argument(p, '--hap_gene', help='haplotyping gene, e.g. IGHJ6')
+  p = argparser::add_argument(p, '--plot_unmutated', flag=T, help='Plot base composition using only unmutated sequences (V-chains only)')
+  p = argparser::add_argument(p, '--all_novel', flag=T, help='Treat all alleles in reference set as if novel')
 
 
   if(!test) {
-    argv = parse_args(p, commandArgs(trailingOnly=TRUE))
+    argv = argparser::parse_args(p, commandArgs(trailingOnly=TRUE))
   } else {
     #argv = parse_args(p, c('IMGT_REF_GAPPED.fasta', 'Homosapiens', 'TWO01A_naive_genotyped.tsv', 'IGHV', '--inf_file', 'TWO01A_naive_novel_ungapped.fasta', '--hap_gene', 'IGHJ6', '--plot_unmutated'))
     #setwd('D:\\Research\\ogrdbstats\\testdata\\VH_tigger')
@@ -58,7 +58,7 @@ genotype_statistics_cmd = function(test = F) {
     # setwd('D:\\Research\\ogrdbstats\\testdata\\private\\JK_changeo')
     # argv = parse_args(p, c('IMGT-IGKJ-inc-novels.fasta', 'mouse', '129_igblast_db-pass.tsv', 'JK', '--all_novel'))
 
-    argv = parse_args(p, c('IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP', 'Homosapiens', 'P1_I28_S1.tsv', 'IGHV', '--hap_gene', 'IGHJ6', '--plot_unmutated', '--all_novel'))
+    argv = argparser::parse_args(p, c('IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP', 'Homosapiens', 'P1_I28_S1.tsv', 'IGHV', '--hap_gene', 'IGHJ6', '--plot_unmutated', '--inf_file', 'P1_I28_novels.fasta'))
     setwd('D:\\Research\\ogrdbstats\\testdata\\private\\ogrdbstats_in_vdjbase')
   }
 

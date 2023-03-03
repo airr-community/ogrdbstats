@@ -13,6 +13,7 @@ vignette: >
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(eval = FALSE)
 ```
 
 
@@ -31,17 +32,18 @@ following tools are supported:
 
 ### Package Installation
 
-To install, please download the package [ogrdbstats_0.1.0.tar.gz](https://github.com/airr-community/ogrdbstats/blob/master/ogrdbstats_0.1.0.tar.gz),
-open an R console and type
+Ogrdbstats requires a recent installation of [Pandoc](https://pandoc.org/). If Rstudio is installed on your machine, pandoc will already be installed. Otherwise please follow
+the installation instructions on the Pandoc website.
 
+Once Pandoc is installed,please install ogrdbstats from CRAN:
 
 ```r
-install.packages('ogrdbstats_0.1.0.tar.gz', repos=NULL, type="source").
+install.packages('ogrdbstats')
 ```
 
 The package requires R version 3.6.1 or above. 
 
-### Using The Package
+### Using The Package from the Command Line
 
 It's easiest to use the package from the command line. To do this, download [ogrdbstats.R](https://raw.githubusercontent.com/airr-community/ogrdbstats/master/ogrdbstats.R) and copy to the directory in which you wish to conduct the 
 analysis. 
@@ -56,11 +58,11 @@ Positional Arguments:
 
 `REF_FILE` - pathname of a FASTA file containing IMGT gap-aligned reference germline sequences. Usually this would be [downloaded from IMGT](http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP).
 
-`SPECIES`  - should contain the species name used in field 3 of the IMGT reference file FASTA header, with spaces removed, e.g. Homosapiens for Human. If you are not using an IMGT reference file, you can use any single word for the species here, and the reference file should only contain genes for that species.
+`SPECIES`  - should contain the species name used in field 3 of the IMGT REF_FILE FASTA header, with spaces removed, e.g. Homosapiens for Human. If you are not using an IMGT REF_FILE, you can use any single word for the species here, and the reference file should only contain genes for that species.
 
 `READ_FILE` - pathname of a tab-separated file containing the annotated reads used to infer the genotype, in MiAIRR, CHANGEO or IgDiscover format
 
-`CHAIN` is one of  `VH, VK, VL, D, JH, JK, JL`. It should correspond to the sequence type provided in the `INF_FILE` - or the sequence type you would like analysed, if there are no novel alleles. 
+`CHAIN` specifies the sequence type to be analysed. It must be one of  `VH, VK, VL, D, JH, JK, JL`. 
 
 
 Optional Arguments:
@@ -78,13 +80,13 @@ for your own purposes. Please refer to the 'ogrdbstats API' section for a brief 
 ### Detailed Description of Input Files
 
 #### REF_FILE - FASTA file containing the IMGT gap-aligned reference germline sequences. ####
-* All sequences that are called in the read file (apart from those of novel alleles) should be included. 
+* All germlines that are called in the read file (apart from those of novel alleles) should be included. 
 * The sequences must be IMGT gap-aligned
 * The FASTA header can either be in IMGT's germline library format, or simply consist of the allele name
 * The IMGT set can be [downloaded](http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP)
   and used as-is: the script will filter out the records for the nominated species. As the IMGT set changes from time to time, please make sure that 
   the same version is used by the inference tool and by this script.
-* A warning will be given if any V-calls in the read file do not have a corresponding sequence in the reference file or the inferred novel alleles file. Unmutated counts will not be provided for thse sequences.
+* A warning will be given if any calls in the read file do not have a corresponding sequence in the reference file or the inferred novel alleles file. Unmutated counts will not be provided for those sequences.
 
 #### READ_FILE - A tab-separated file containing the annotated reads used to infer the genotype, in MiAIRR, CHANGEO or IgDiscover format. ####
 
@@ -103,7 +105,7 @@ If you would like to process files from IMGT V-Quest, please [parse them with CH
 (including calls of the novel alleles). Sequences may be either unagpped or IMGT gap-aligned. Determining the personalised V-gene genotype is recommended when processing D or J
 gene inferences, so that V-gene usage counts are accurate. However, this step can be omitted for D or J gene processing by providing a V_CALL field instead of V_CALL_GENOTYPED. 
 
-* For IgDiscover, the file 'final/filtered.tab' should be used - see section below.
+* For IgDiscover, the file 'final/filtered.tab' should be used - see section on IgDiscover below.
 
 #### INF_FILE - FASTA file containing the inferred novel alleles ####
 * Sequences in the inferred file should all be of the same type: VH, VK, VL, D, JH, JK, or JL
@@ -172,9 +174,8 @@ TIgGER provides additonal information, including its own plots and statistics We
 
 ### Usage Notes - IgDiscover ###
 
-Assuming that you have copied the script file to IgDiscover's `final` directory following an IgDiscover run, the 
-commands below will download the IMGT reference file and run a VH gene analysis. Please note that all commands should be
-run in the `final` directory.
+ Following an IgDiscover run, please copy ogrdbstats.R to IgDiscover's `final` directory. The commands below can then be used to download the IMGT reference file and run a VH gene analysis. 
+ All commands should be run in the `final` directory.
 
 ```bash
 $ wget -O IMGT_REF_GAPPED.fasta http://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP
@@ -293,7 +294,7 @@ Please use help(package="ogrdbstats") or ? to find function-level documentation 
 
 Some functions are adapted from [TIgGER](https://tigger.readthedocs.io) with thanks to the authors.
 
-The example annotated reads and inferences in this directory are taken from the data of [Rubelt et al](https://www.ncbi.nlm.nih.gov/pubmed/?term=27005435) 
+The example annotated reads and inferences linked from this description are taken from the data of [Rubelt et al](https://www.ncbi.nlm.nih.gov/pubmed/?term=27005435) 
 and were downloaded from [VDJServer](https://vdjserver.org/). The genotype was inferred by [TIgGER](https://tigger.readthedocs.io). A small number of 
 light-chain records were removed from the data set.
 

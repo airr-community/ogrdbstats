@@ -9,6 +9,7 @@ write_plot_file(
   input_sequences,
   cdr3_dist_grobs,
   end_composition_grobs,
+  cons_composition_grobs,
   whole_composition_grobs,
   triplet_composition_grobs,
   barplot_grobs,
@@ -25,6 +26,8 @@ write_plot_file(
 \item{cdr3_dist_grobs}{cdr3 length distribution grobs created by make_novel_base_grob}
 
 \item{end_composition_grobs}{end composition grobs created by make_novel_base_grobs}
+
+\item{cons_composition_grobs}{consensus composition grobs created by make_novel_base_grobs}
 
 \item{whole_composition_grobs}{whole composition grobs created by make_novel_base_grobs}
 
