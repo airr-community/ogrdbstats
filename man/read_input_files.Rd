@@ -41,7 +41,7 @@ A named list containing the following elements:
 ref_genes  \tab named list of IMGT-gapped reference genes \cr
 inferred_seqs \tab named list of IMGT-gapped inferred (novel) sequences. \cr
 input_sequences \tab data frame with one row per annotated read, with CHANGEO-style column names
-                          One key point: the column SEQ_CALL is the gene call for the segment under analysis. Hence if segment is 'V',
+                          One key point: the column SEG_CALL is the gene call for the segment under analysis. Hence if segment is 'V',
                           'V_CALL' will be renamed 'SEG_CALL' whereas is segment is 'J', 'J_CALL' is renamed 'SEG_CALL'. This simplifies
                           downstream processing.
                           Rows in the input file with ambiguous SEG_CALLs, or no call, are removed. \cr
@@ -53,4 +53,14 @@ calculated_NC \tab a boolean that is TRUE if mutation counts were calculated by 
 }
 \description{
 Read input files into memory
+}
+\examples{
+# Create the analysis data set from example files provided with the package
+#(this dataset is also provided in the package as example_rep)
+reference_set = system.file("extdata/ref_gapped.fasta", package = "ogrdbstats")
+inferred_set = system.file("extdata/novel_gapped.fasta", package = "ogrdbstats")
+repertoire = system.file("extdata/repertoire.tsv", package = "ogrdbstats")
+
+example_data = read_input_files(reference_set, inferred_set, 'Homosapiens',
+       repertoire, 'IGHV', NA, 'V', 'H', FALSE)
 }

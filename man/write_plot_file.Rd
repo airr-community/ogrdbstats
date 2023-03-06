@@ -47,3 +47,38 @@ nothing
 \description{
 Create the OGRDB style plot file
 }
+\examples{
+plot_file = tempfile(pattern = 'ogrdb_plots', fileext = ".pdf")
+
+base_grobs = make_novel_base_grobs(
+                 example_rep$inferred_seqs,
+                 example_rep$input_sequences,
+                 'V',
+                 FALSE
+             )
+barplot_grobs = make_barplot_grobs(
+                      example_rep$input_sequences,
+                      example_rep$genotype_db,
+                      example_rep$inferred_seqs,
+                      example_rep$genotype,
+                      'V',
+                      example_rep$calculated_NC
+               )
+haplo_grobs = make_haplo_grobs('V', example_rep$haplo_details)
+
+write_plot_file(
+    plot_file,
+    example_rep$input_sequences,
+    base_grobs$cdr3_dist,
+    base_grobs$end,
+    base_grobs$conc,
+    base_grobs$whole,
+    base_grobs$triplet,
+    barplot_grobs,
+    haplo_grobs$aplot,
+    haplo_grobs$haplo,
+    "Notes on this analysis"
+)
+
+file.remove(plot_file)
+}

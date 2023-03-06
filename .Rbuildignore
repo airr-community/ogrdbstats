@@ -13,3 +13,5 @@
 ^README.md
 ^README\.Rmd$
 ^cran-comments.md
+^CRAN-SUBMISSION$
+run_tests$

@@ -346,34 +346,28 @@ other structures containing related information.
 grobs that can be used as you wish, or passed to `write_plot_file()` to
 create a the standard file of plots.
 
-The use of these functions is demonstrated in the source code for
-generate_ogrdb_report():
+The use of these functions is demonstrated below with example data
+included in the package.
 
 ``` r
-generate_ogrdb_report = function(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type) {
-  report('Processing started')
-  pdf(NULL) # this seems to stop an empty Rplots.pdf from being created. I don't know why.
+library(ogrdbstats)
 
-  rd = read_input_files(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
+reference_set = system.file("extdata/ref_gapped.fasta", package = "ogrdbstats")
+inferred_set = system.file("extdata/novel_gapped.fasta", package = "ogrdbstats")
+repertoire = system.file("extdata/repertoire.tsv", package = "ogrdbstats")
 
-  file_prefix = basename(strsplit(filename, '.', fixed=T)[[1]][1])
+rd = suppressMessages(
+  read_input_files(reference_set, inferred_set, 'Homosapiens', repertoire, 'IGHV', NA, 'V', 'H', FALSE)
+)
 
-  report('writing genotype file')
-  write_genotype_file(paste0(file_prefix, '_ogrdb_report.csv'), segment, chain_type, rd$genotype)
-
-  report('plotting bar charts')
-  barplot_grobs = make_barplot_grobs(rd$input_sequences, rd$genotype_db, rd$inferred_seqs, rd$genotype, segment, rd$calculated_NC)
-
-  report('plotting novel base composition')
-  nbgrobs = make_novel_base_grobs(rd$inferred_seqs, rd$input_sequences, segment)
-
-  report('plotting haplotyping charts')
-  haplo_grobs = make_haplo_grobs(segment, rd$haplo_details)
-
-  report('writing plot file')
-  write_plot_file(paste0(file_prefix, '_ogrdb_plots.pdf'), rd$input_sequences, nbgrobs$end, nbgrobs$whole, nbgrobs$triplet, barplot_grobs,     haplo_grobs$aplot, haplo_grobs$haplo)
-}
+barplot_grobs = make_barplot_grobs(rd$input_sequences, rd$genotype_db, rd$inferred_seqs, 
+                                   rd$genotype, 'V', rd$calculated_NC)
+base_grobs = make_novel_base_grobs(rd$inferred_seqs, rd$input_sequences, 'V', FALSE)
+gridExtra::grid.arrange(grobs=list(barplot_grobs[3][[1]], base_grobs$end[1][[1]], 
+                                   base_grobs$conc[1][[1]]),ncol=1)
 ```
+
+<img src="man/figures/README-unnamed-chunk-1-1.png" width="100%" />
 
 Please use help(package=“ogrdbstats”) or ? to find function-level
 documentation within R.

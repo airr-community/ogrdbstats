@@ -4,14 +4,36 @@
 \alias{genotype_statistics_cmd}
 \title{Collect parameters from the command line and use them to create a report and CSV file for OGRDB}
 \usage{
-genotype_statistics_cmd(test = F)
+genotype_statistics_cmd(args = NULL)
 }
 \arguments{
-\item{test}{Run a simple preconfigured test (files must be in the current directory)}
+\item{args}{A string vector containing the command line arguments. If NULL, will take them from the command line}
 }
 \value{
 Nothing
 }
 \description{
 Collect parameters from the command line and use them to create a report and CSV file for OGRDB
+}
+\examples{
+# Prepare files for example
+reference_set = system.file("extdata/ref_gapped.fasta", package = "ogrdbstats")
+inferred_set = system.file("extdata/novel_gapped.fasta", package = "ogrdbstats")
+repertoire = system.file("extdata/repertoire.tsv", package = "ogrdbstats")
+file.copy(repertoire, tempdir())
+repfile = file.path(tempdir(), 'repertoire.tsv')
+
+genotype_statistics_cmd(c(
+              reference_set,
+              'Homosapiens',
+              repfile,
+              'IGHV',
+              '--inf_file', inferred_set))
+
+# clean up
+outfile = file.path(tempdir(), 'repertoire_ogrdb_report.csv')
+plotfile = file.path(tempdir(), 'repertoire_ogrdb_plots.pdf')
+file.remove(repfile)
+file.remove(outfile)
+file.remove(plotfile)
 }

@@ -32,3 +32,14 @@ list of grobs
 \description{
 Create a barplot for each allele, showing number of reads distributed by mutation count
 }
+\examples{
+barplot_grobs = make_barplot_grobs(
+                      example_rep$input_sequences,
+                      example_rep$genotype_db,
+                      example_rep$inferred_seqs,
+                      example_rep$genotype,
+                      'V',
+                      example_rep$calculated_NC
+               )
+
+}

@@ -20,23 +20,34 @@ globalVariables(c('warnings'))
 # Timestamped progress report
 
 report = function(x) {
-  cat(paste0(Sys.time(), ':', x, '\n'))
+  message(Sys.time(), ':', x, '\n')
 }
 
 # Warning messages (echoed to pdf)
 
 pkg.globals = new.env()
-pkg.globals$report_warnings = c()
+pkg.globals$report_notes = c()
 
 report_warn = function(x) {
-  cat(x)
-
-  if (!(x %in% pkg.globals$report_warnings)) {
-    pkg.globals$report_warnings = c(pkg.globals$report_warnings, x)
-  }
+  warning(x)
+  report_note(x)
 }
 
-#' Generate OGRDB reports from specified files
+# Note in pdf
+
+report_note = function(x) {
+  if (length(x %in% pkg.globals$report_notes) > 0) {
+    pkg.globals$report_warnings = c(pkg.globals$reportnotes, x)
+  } else {
+    pkg.globals$report_notes = c(x)
+  }
+
+}
+
+#' Generate OGRDB reports from specified files. This creates the genotype report
+#' (suffixed _ogrdb_report.csv) and the plot file (suffixed _ogrdb_plos.pdf).
+#' Both are created in the directory holding the annotated read file, and the
+#' file names are prefixed by the name of the annotated read file.
 #' @param ref_filename Name of file containing IMGT-aligned reference genes in FASTA format
 #' @param inferred_filename Name of file containing sequences of inferred novel alleles, or '-' if none
 #' @param species Species name used in field 3 of the IMGT germline header with spaces omitted, if the reference file is from IMGT. Otherwise ''
@@ -49,38 +60,60 @@ report_warn = function(x) {
 #' @param all_inferred Treat all alleles as novel
 #' @return Nothing
 #' @export
-generate_ogrdb_report = function(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, plot_unmutated, all_inferred=F) {
+#' @examples
+#' # Create the analysis data set from example files provided with the package
+#' # (this dataset is also provided in the package as example_rep)
+#'
+#' # prepare files for example
+#' reference_set = system.file("extdata/ref_gapped.fasta", package = "ogrdbstats")
+#' inferred_set = system.file("extdata/novel_gapped.fasta", package = "ogrdbstats")
+#' repertoire = system.file("extdata/repertoire.tsv", package = "ogrdbstats")
+#' file.copy(repertoire, tempdir())
+#' repfile = file.path(tempdir(), 'repertoire.tsv')
+#'
+#' generate_ogrdb_report(reference_set, inferred_set, 'Homosapiens',
+#'           repertoire, 'IGHV', NA, 'V', 'H', FALSE)
+#'
+#' #clean up
+#' outfile = file.path(tempdir(), 'repertoire_ogrdb_report.csv')
+#' plotfile = file.path(tempdir(), 'repertoire_ogrdb_plots.pdf')
+#' file.remove(repfile)
+#' file.remove(outfile)
+#' file.remove(plotfile)
+generate_ogrdb_report = function(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, plot_unmutated, all_inferred=FALSE) {
   report('Processing started')
-  grDevices::pdf(NULL) # this seems to stop an empty Rplots.pdf from being created. I don't know why.
+  grDevices::pdf(NULL) # this seems to stop an empty Rplots.pdf from being created.
 
-  report_warn(paste0('Read file: ', filename))
-  report_warn(paste0('Germline reference file: ', ref_filename))
-  report_warn(paste0('Novel allele file: ', inferred_filename))
+  report_note(paste0('Read file: ', filename))
+  report_note(paste0('Germline reference file: ', ref_filename))
+  report_note(paste0('Novel allele file: ', inferred_filename))
 
   if (!is.na(species)) {
-    report_warn(paste0('Species: ', species))
+    report_note(paste0('Species: ', species))
   }
 
-  report_warn(paste0('Read file: ', filename))
-  report_warn(paste0('Chain: ', filename))
-  report_warn(paste0('Segment: ', filename))
+  report_note(paste0('Read file: ', filename))
+  report_note(paste0('Chain: ', filename))
+  report_note(paste0('Segment: ', filename))
 
   if (all_inferred) {
-    report_warn('All alleles are treated as novel')
+    report_note('All alleles are treated as novel')
   }
 
   if (plot_unmutated) {
-    report_warn("Base plots are calculated from unmutated sequences only.")
+    report_note("Base plots are calculated from unmutated sequences only.")
   }
 
   rd = read_input_files(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, all_inferred)
 
-  file_prefix = basename(strsplit(filename, '.', fixed=T)[[1]][1])
+  file_prefix = basename(strsplit(filename, '.', fixed=TRUE)[[1]][1])
+  file_loc = dirname(filename)
 
   report('writing genotype file')
-  write_genotype_file(paste0(file_prefix, '_ogrdb_report.csv'), segment, chain_type, rd$genotype)
+  report(file.path(file_loc, paste0(file_prefix, '_ogrdb_report.csv')))
+  write_genotype_file(file.path(file_loc, paste0(file_prefix, '_ogrdb_report.csv')), segment, chain_type, rd$genotype)
 
-  all_inferred = F
+  all_inferred = FALSE
 
   report('plotting bar charts')
   barplot_grobs = make_barplot_grobs(rd$input_sequences, rd$genotype_db, rd$inferred_seqs, rd$genotype, segment, rd$calculated_NC)
@@ -98,7 +131,7 @@ generate_ogrdb_report = function(ref_filename, inferred_filename, species, filen
   report('writing plot file')
 
 
-  write_plot_file(paste0(file_prefix, '_ogrdb_plots.pdf'), rd$input_sequences, nbgrobs$cdr3_dist, nbgrobs$end, nbgrobs$conc, nbgrobs$whole, nbgrobs$triplet, barplot_grobs, haplo_grobs$aplot, haplo_grobs$haplo, paste0(pkg.globals$report_warnings, sep='\n', collapse='\n'))
+  write_plot_file(file.path(file_loc, paste0(file_prefix, '_ogrdb_plots.pdf')), rd$input_sequences, nbgrobs$cdr3_dist, nbgrobs$end, nbgrobs$conc, nbgrobs$whole, nbgrobs$triplet, barplot_grobs, haplo_grobs$aplot, haplo_grobs$haplo, paste0(pkg.globals$report_notes, sep='\n', collapse='\n'))
 }
 
 #' Read input files into memory
@@ -116,7 +149,7 @@ generate_ogrdb_report = function(ref_filename, inferred_filename, species, filen
 #' ref_genes  \tab named list of IMGT-gapped reference genes \cr
 #' inferred_seqs \tab named list of IMGT-gapped inferred (novel) sequences. \cr
 #' input_sequences \tab data frame with one row per annotated read, with CHANGEO-style column names
-#'                           One key point: the column SEQ_CALL is the gene call for the segment under analysis. Hence if segment is 'V',
+#'                           One key point: the column SEG_CALL is the gene call for the segment under analysis. Hence if segment is 'V',
 #'                           'V_CALL' will be renamed 'SEG_CALL' whereas is segment is 'J', 'J_CALL' is renamed 'SEG_CALL'. This simplifies
 #'                           downstream processing.
 #'                           Rows in the input file with ambiguous SEG_CALLs, or no call, are removed. \cr
@@ -126,6 +159,15 @@ generate_ogrdb_report = function(ref_filename, inferred_filename, species, filen
 #' calculated_NC \tab a boolean that is TRUE if mutation counts were calculated by this library, FALSE if they were read from the annotated read file \cr
 #' }
 #' @export
+#' @examples
+#' # Create the analysis data set from example files provided with the package
+#' #(this dataset is also provided in the package as example_rep)
+#' reference_set = system.file("extdata/ref_gapped.fasta", package = "ogrdbstats")
+#' inferred_set = system.file("extdata/novel_gapped.fasta", package = "ogrdbstats")
+#' repertoire = system.file("extdata/repertoire.tsv", package = "ogrdbstats")
+#'
+#' example_data = read_input_files(reference_set, inferred_set, 'Homosapiens',
+#'        repertoire, 'IGHV', NA, 'V', 'H', FALSE)
 read_input_files = function(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, all_inferred) {
   report('reading reference genes')
   ref_genes = read_reference_genes(ref_filename, species, chain, segment)
@@ -165,23 +207,23 @@ read_input_files = function(ref_filename, inferred_filename, species, filename, 
 read_reference_genes = function(ref_filename, species, chain, segment) {
   # get the reference set
 
-  ref_genes = tigger::readIgFasta(ref_filename, strip_down_name =F)
+  ref_genes = tigger::readIgFasta(ref_filename, strip_down_name =FALSE)
   set = chain
   region = paste0(segment, '-REGION')
 
   # process IMGT library, if header is in corresponding format
-  if(grepl('|', names(ref_genes)[1], fixed=T)) {
-    ref_genes = ref_genes[grepl(species, names(ref_genes),fixed=T)]
-    ref_genes = ref_genes[grepl(region, names(ref_genes),fixed=T)]  # restrict to V-D-J regions
-    ref_genes = ref_genes[grepl(set, names(ref_genes),fixed=T)]
+  if(grepl('|', names(ref_genes)[1], fixed=TRUE)) {
+    ref_genes = ref_genes[grepl(species, names(ref_genes),fixed=TRUE)]
+    ref_genes = ref_genes[grepl(region, names(ref_genes),fixed=TRUE)]  # restrict to V-D-J regions
+    ref_genes = ref_genes[grepl(set, names(ref_genes),fixed=TRUE)]
 
     gene_name = function(full_name) {
-      return(strsplit(full_name, '|', fixed=T)[[1]][2])
+      return(strsplit(full_name, '|', fixed=TRUE)[[1]][2])
     }
 
     names(ref_genes) = sapply(names(ref_genes), gene_name)
   } else {
-    ref_genes = ref_genes[grepl(set, names(ref_genes),fixed=T)]
+    ref_genes = ref_genes[grepl(set, names(ref_genes),fixed=TRUE)]
   }
 
   # Crude fix for two misaligned human IGHJ reference genes
@@ -198,8 +240,8 @@ read_reference_genes = function(ref_filename, species, chain, segment) {
   # Check that the reference set is IMGT-aligned by looking for dots in the V-gene sequences
 
   misaligned_v = function(ref, name) {
-    if(grepl('IG.V', name, fixed=F)) {
-      return(!grepl('.', ref, fixed=T))
+    if(grepl('IG.V', name, fixed=FALSE)) {
+      return(!grepl('.', ref, fixed=TRUE))
     } else {
       return(NA)
     }
@@ -207,9 +249,9 @@ read_reference_genes = function(ref_filename, species, chain, segment) {
 
   misaligned = mapply(misaligned_v, ref_genes, names(ref_genes))
 
-  if(any(misaligned, na.rm=T)) {
-    cat(paste0('Error: the following reference V-genes are not IMGT aligned:\n'))
-    print(names(ref_genes)[misaligned])
+  if(any(misaligned, na.rm=TRUE)) {
+    warning('The following reference V-genes are not IMGT aligned:')
+    warning(names(ref_genes)[misaligned])
     stop('The reference genes must be IMGT gap-aligned. Please consult the Prerequisites section in the README file for details.\n')
   }
 
@@ -229,7 +271,7 @@ read_inferred_sequences = function(inferred_filename, segment, ref_genes) {
   # get the genotype and novel alleles in this set
 
   if(inferred_filename != '-') {
-    inferred_seqs = tigger::readIgFasta(inferred_filename, strip_down_name=F)
+    inferred_seqs = tigger::readIgFasta(inferred_filename, strip_down_name=FALSE)
   } else {
     inferred_seqs = c()
   }
@@ -262,7 +304,7 @@ read_input_sequences = function(filename, segment, chain_type) {
   # Read the sequences. Changeo format is assumed unless airr or IgDiscover format is identified
   # TODO - check and give nice error message if any columns are missing
 
-  s = utils::read.delim(filename, stringsAsFactors=F)
+  s = utils::read.delim(filename, stringsAsFactors=FALSE)
 
   # Fallback in airr,changeo if no v_call_genotyped fied is present
 
@@ -479,10 +521,10 @@ calc_haplo_details = function(segment, input_sequences) {
     sa = rename(sa, A_CALL=V_CALL)
   }
 
-  sa$a_gene = sapply(sa$A_CALL, function(x) {strsplit(x, '*', fixed=T)[[1]][[1]]})
+  sa$a_gene = sapply(sa$A_CALL, function(x) {strsplit(x, '*', fixed=TRUE)[[1]][[1]]})
   sa$a_allele = sapply(sa$A_CALL, function(x) {
-      if (grepl('*', x, fixed = T)) {
-        strsplit(x, '*', fixed=T)[[1]][[2]]
+      if (grepl('*', x, fixed=TRUE)) {
+        strsplit(x, '*', fixed=TRUE)[[1]][[2]]
       } else {
         'X'
       }
@@ -526,6 +568,7 @@ calc_haplo_details = function(segment, input_sequences) {
 #'     calculated_NC  \tab      a boolean, TRUE if mutation counts had to be calculated, FALSE otherwise \cr
 #'     genotype \tab            data frame containing the information required for the OGRDB genotype file \cr
 #'}
+
 calc_genotype = function(segment, chain_type, s, ref_genes, inferred_seqs, genotype_db, hap_gene, haplo_details) {
   GENE = unique_calls = unique_cdrs = SEG_CALL = closest_reference = aa_diff = aa_substitutions = closest_host = aggregate = NULL
   sequences = reference_closest = host_closest = reference_difference = host_difference = reference_nt_diffs = reference_aa_difference = NULL
@@ -533,7 +576,7 @@ calc_genotype = function(segment, chain_type, s, ref_genes, inferred_seqs, genot
 
   # unmutated count for each allele
 
-  calculated_NC = F
+  calculated_NC = FALSE
 
   if(!('SEG_MUT_NC' %in% names(s))) {
     if(segment == 'V') {
@@ -547,7 +590,7 @@ calc_genotype = function(segment, chain_type, s, ref_genes, inferred_seqs, genot
       s$SEG_MUT_NC = stringdist::stringdist(s$SEG_SEQ, s$SEG_REF_SEQ, method="hamming")
     }
 
-    calculated_NC = T
+    calculated_NC = TRUE
     s[,is.na(s$SEG_MUT_NC)]$SEG_MUT_NC = 0
   }
 
@@ -563,7 +606,7 @@ calc_genotype = function(segment, chain_type, s, ref_genes, inferred_seqs, genot
 
   genotype = s %>% group_by(SEG_CALL) %>% summarize(sequences = n())
   s0 = s[s$SEG_MUT_NC == 0,] %>% group_by(SEG_CALL) %>% summarize(unmutated_sequences = n())
-  genotype = merge(genotype, s0, all=T)
+  genotype = merge(genotype, s0, all=TRUE)
 
   if(any(is.na(genotype$unmutated_sequences))) {
     genotype[is.na(genotype$unmutated_sequences),]$unmutated_sequences = 0
@@ -573,11 +616,11 @@ calc_genotype = function(segment, chain_type, s, ref_genes, inferred_seqs, genot
   genotype$unmutated_frequency = round(100*genotype$unmutated_sequences/total_unmutated, digits=2)
 
   s_totals = s %>% group_by(SEG_CALL) %>% summarize(sequences = n())
-  genotype = merge(genotype, s_totals, all=T)
+  genotype = merge(genotype, s_totals, all=TRUE)
 
-  genotype$GENE = sapply(genotype$SEG_CALL, function(x) {if(grepl('*', x, fixed=T)) {strsplit(x, '*', fixed=T)[[1]][1]} else {x}})
+  genotype$GENE = sapply(genotype$SEG_CALL, function(x) {if(grepl('*', x, fixed=TRUE)) {strsplit(x, '*', fixed=TRUE)[[1]][1]} else {x}})
   allelic_totals = genotype %>% group_by(GENE) %>% summarise(allelic_total=sum(sequences))
-  genotype = merge(genotype, allelic_totals, all=T)
+  genotype = merge(genotype, allelic_totals, all=TRUE)
   genotype$allelic_percentage = round(100*genotype$sequences/genotype$allelic_total)
 
   su=s[s$SEG_MUT_NC==0,]
@@ -621,11 +664,11 @@ calc_genotype = function(segment, chain_type, s, ref_genes, inferred_seqs, genot
   } else {
     nearest_ref = data.frame(t(sapply(seq_along(inferred_seqs), find_nearest, ref_genes=ref_genes, prefix='reference', inferred_seqs=inferred_seqs, segment=segment)))
     nearest_ref$SEG_CALL = names(inferred_seqs)
-    genotype = merge(genotype, nearest_ref, by='SEG_CALL', all.x=T)
+    genotype = merge(genotype, nearest_ref, by='SEG_CALL', all.x=TRUE)
 
     nearest_ref = data.frame(t(sapply(seq_along(inferred_seqs), find_nearest, ref_genes=ref_genes[names(ref_genes) %in% genotype$SEG_CALL], prefix='host', inferred_seqs=inferred_seqs, segment=segment)))
     nearest_ref$SEG_CALL = names(inferred_seqs)
-    genotype = merge(genotype, nearest_ref, by='SEG_CALL', all.x=T)
+    genotype = merge(genotype, nearest_ref, by='SEG_CALL', all.x=TRUE)
   }
 
 
@@ -637,8 +680,8 @@ calc_genotype = function(segment, chain_type, s, ref_genes, inferred_seqs, genot
 
   genotype$unmutated_umis = ''
   genotype$nt_sequence_gapped = genotype$nt_sequence
-  genotype$nt_sequence = gsub('-', '', genotype$nt_sequence, fixed=T)
-  genotype$nt_sequence = gsub('.', '', genotype$nt_sequence, fixed=T)
+  genotype$nt_sequence = gsub('-', '', genotype$nt_sequence, fixed=TRUE)
+  genotype$nt_sequence = gsub('.', '', genotype$nt_sequence, fixed=TRUE)
   genotype = tidyr::unnest(genotype, cols = c(closest_reference, nt_diff, nt_substitutions, aa_diff, aa_substitutions,
                                        closest_host, nt_diff_host, host_nt_diffs, host_aa_difference,
                                        host_aa_subs))
@@ -662,7 +705,7 @@ calc_genotype = function(segment, chain_type, s, ref_genes, inferred_seqs, genot
   }
 
   dupes = aggregate(genotype["sequence_id"], by=genotype["nt_sequence"], FUN=concat_names)
-  dupes = dupes$sequence_id[grepl(',', dupes$sequence_id, fixed=T)]
+  dupes = dupes$sequence_id[grepl(',', dupes$sequence_id, fixed=TRUE)]
 
   if(length(dupes) > 0) {
     x = lapply(dupes, warn_dupes)
@@ -690,7 +733,7 @@ add_hap_stats = function(genotype, hap_gene, haplo_details) {
 
   if(!is.na(hap_gene)) {
     ap = a_props[a_props$a_gene==hap_gene,]
-    ap = ap[order(ap$percent, decreasing=T),]
+    ap = ap[order(ap$percent, decreasing=TRUE),]
 
     if(nrow(ap) < 2 || ap[1,]$percent > 75 || ap[2,]$percent < 20 || (ap[1,]$percent+ap[2,]$percent < 90)) {
       cat(paste0('Alelleic ratio is unsuitable for haplotyping analysis based on ', hap_gene, '\n'))
@@ -711,7 +754,7 @@ add_hap_stats = function(genotype, hap_gene, haplo_details) {
       recs$a2 = round(100 * recs$a2/ recs$totals, 0)
       recs$haplotyping_ratio = paste0(' ', recs$a1, ':', recs$a2, ' ')
       recs = recs %>% select(sequence_id, haplotyping_ratio)
-      genotype = merge(genotype, recs, all=T)
+      genotype = merge(genotype, recs, all=TRUE)
     }
   }
 
@@ -725,13 +768,17 @@ add_hap_stats = function(genotype, hap_gene, haplo_details) {
 #' @param chain_type one of H, L
 #' @param genotype genotype data frame
 #' @return nothing
+#' @examples
+#' genotype_file = tempfile("ogrdb_genotype")
+#' write_genotype_file(genotype_file, 'V', 'H', example_rep$genotype)
+#' file.remove(genotype_file)
 write_genotype_file = function(filename, segment, chain_type, genotype) {
   closest_reference = closest_host = nt_diff = nt_diff_host = nt_substitutions = aa_diff = NULL
   aa_substitutions = assigned_unmutated_frequency = unmutated_frequency = unmutated_sequences = unmutated_umis = allelic_percentage = unique_ds = sequence_id = NULL
   unique_js = unique_cdr3s = unique_ds_unmutated = unique_js_unmutated = unique_cdr3s_unmutated = haplotyping_gene = haplotyping_ratio = nt_sequence = nt_sequence_gapped = NULL
   closest_host = closest_reference = aa_diff = aa_substitutions = assigned_unmutated_frequency = allelic_percentage = sequences = unique_vs = unique_vs_unmutated = NULL
 
-  genotype = genotype[order_alleles(data.frame(genes=as.character(genotype$sequence_id), stringsAsFactors = F)),]
+  genotype = genotype[order_alleles(data.frame(genes=as.character(genotype$sequence_id), stringsAsFactors = FALSE)),]
 
   if(chain_type == 'H') {
     if(segment == 'V') {
@@ -762,7 +809,7 @@ write_genotype_file = function(filename, segment, chain_type, genotype) {
   g[] = lapply(g, as.character)
   g[is.na(g)] = ''
 
-  utils::write.csv(g, filename, row.names=F)
+  utils::write.csv(g, filename, row.names=FALSE)
 }
 
 

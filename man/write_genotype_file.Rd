@@ -21,3 +21,8 @@ nothing
 \description{
 Write the genotype file required by OGRDB
 }
+\examples{
+genotype_file = tempfile("ogrdb_genotype")
+write_genotype_file(genotype_file, 'V', 'H', example_rep$genotype)
+file.remove(genotype_file)
+}

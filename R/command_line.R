@@ -3,10 +3,31 @@
 # Command and test drivers for genotype_statistics
 
 #' Collect parameters from the command line and use them to create a report and CSV file for OGRDB
-#' @param test Run a simple preconfigured test (files must be in the current directory)
+#' @param args A string vector containing the command line arguments. If NULL, will take them from the command line
 #' @return Nothing
 #' @export
-genotype_statistics_cmd = function(test = F) {
+#' @examples
+#' # Prepare files for example
+#' reference_set = system.file("extdata/ref_gapped.fasta", package = "ogrdbstats")
+#' inferred_set = system.file("extdata/novel_gapped.fasta", package = "ogrdbstats")
+#' repertoire = system.file("extdata/repertoire.tsv", package = "ogrdbstats")
+#' file.copy(repertoire, tempdir())
+#' repfile = file.path(tempdir(), 'repertoire.tsv')
+#'
+#' genotype_statistics_cmd(c(
+#'               reference_set,
+#'               'Homosapiens',
+#'               repfile,
+#'               'IGHV',
+#'               '--inf_file', inferred_set))
+#'
+#'# clean up
+#' outfile = file.path(tempdir(), 'repertoire_ogrdb_report.csv')
+#' plotfile = file.path(tempdir(), 'repertoire_ogrdb_plots.pdf')
+#' file.remove(repfile)
+#' file.remove(outfile)
+#' file.remove(plotfile)
+genotype_statistics_cmd = function(args=NULL) {
 
   p = argparser::arg_parser('Create genotype statistics')
   p = argparser::add_argument(p, 'REF_FILE', help='reference set filename')
@@ -15,51 +36,14 @@ genotype_statistics_cmd = function(test = F) {
   p = argparser::add_argument(p, 'CHAIN', help='one of IGHV, IGKV, IGLV, IGHD, IGHJ, IGKJ, IGLJ, TRAV, TRAJ, TRBV, TRBD, TRBJ, TRGV, TRGj, TRDV, TRDD, TRDJ')
   p = argparser::add_argument(p, '--inf_file', help='sequences of inferred novel alleles (FASTA format)')
   p = argparser::add_argument(p, '--hap_gene', help='haplotyping gene, e.g. IGHJ6')
-  p = argparser::add_argument(p, '--plot_unmutated', flag=T, help='Plot base composition using only unmutated sequences (V-chains only)')
-  p = argparser::add_argument(p, '--all_novel', flag=T, help='Treat all alleles in reference set as if novel')
+  p = argparser::add_argument(p, '--plot_unmutated', flag=TRUE, help='Plot base composition using only unmutated sequences (V-chains only)')
+  p = argparser::add_argument(p, '--all_novel', flag=TRUE, help='Treat all alleles in reference set as if novel')
 
 
-  if(!test) {
+  if (is.null(args)) {
     argv = argparser::parse_args(p, commandArgs(trailingOnly=TRUE))
   } else {
-    #argv = parse_args(p, c('IMGT_REF_GAPPED.fasta', 'Homosapiens', 'TWO01A_naive_genotyped.tsv', 'IGHV', '--inf_file', 'TWO01A_naive_novel_ungapped.fasta', '--hap_gene', 'IGHJ6', '--plot_unmutated'))
-    #setwd('D:\\Research\\ogrdbstats\\testdata\\VH_tigger')
-
-    #argv = parse_args(p, c('..\\..\\IMGT_REF_GAPPED.fasta', 'Homosapiens', 'filtered.tab', 'IGLV', '--inf_file', 'database/V.fasta'))
-    #setwd('D:\\Research\\from_martin_corcoran\\VL_second_analysis_2-14_combined\\final')
-
-    #argv = parse_args(p, c('IMGT_REF_GAPPED.fasta', 'Homosapiens', 'P8_I1_S1_airr.tsv', 'IGHV'))
-    #setwd('D:\\Research\\ogrdbstats\\testdata\\VH_airr_no_novel')
-
-    #argv = parse_args(p, c('IMGT_REF_GAPPED.fasta', 'Homosapiens', 'TW02A_OGRDB.tsv', 'IGHV', '--inf_file', 'TW02A_V_OGRDB.fasta', '--hap_gene', 'IGHJ6'))
-    #setwd('D:\\Research\\ogrdbstats\\testdata\\VH_partis')
-
-    #argv = parse_args(p, c('IMGT_REF_GAPPED.fasta', 'Homosapiens', 'Read_file.tab', 'IGKV', '--inf_file', 'Inferred_file.fasta', '--hap_gene', 'IGHJ6'))
-    #setwd('D:\\Research\\ogrdbstats\\testdata\\private\\PRJEB30386 - Kappa')
-
-    #argv = parse_args(p, c('human_gl_IGHmakedb_F+ORF+in-frame_P.fasta', 'Homosapiens', 'P1_I1_S1.tsv', 'IGHV', '--inf_file', 'P1_I1_S1_novel_gapped.fasta', '--hap_gene', 'IGHJ6'))
-    #setwd('D:\\Research\\ogrdbstats\\testdata\\private\\ogrdbstats_in_vdjbase')
-
-    #setwd('D:\\Research\\ogrdbstats\\testdata\\private\\hamster')
-    #argv = parse_args(p, c('hamster_IGH_VDJ.fasta', 'Hamster', 'igblast_001_db-pass.tsv', 'IGHV', '--all_novel'))
-
-    # setwd('D:\\Research\\ogrdbstats\\testdata\\trb')
-    # argv = parse_args(p, c('imgt_gapped.fasta', 'Homosapiens', 'SC9.tab', 'TRBV', '--inf_file', 'SC9_novel.fasta'))
-
-    # setwd('D:\\Research\\new_ham\\16. Leaders')
-    # argv = parse_args(p, c('ref/hamster_IGH_VDJ.fasta', 'hamster', 'leader_allele_matches.tsv', 'VH', '--inf_file', 'leader_aliases.fasta'))
-
-    # setwd('D:\\Research\\new_ham\\2. j_allele_search\\igblast')
-    # argv = parse_args(p, c('../ref/hamster_IGH_VDJ.fasta', 'hamster', 'igblast_009_x-clones.tsv', 'DH', '--all_novel'))
-
-    # setwd('D:\\Research\\ogrdbstats\\testdata\\trb2')
-    # argv = parse_args(p, c('personal_repo.fasta', 'Homosapiens', 'HIP00110_genotyped.tab', 'TRBV', '--inf_file', 'only_novel_repo.fasta'))
-
-    # setwd('D:\\Research\\ogrdbstats\\testdata\\private\\JK_changeo')
-    # argv = parse_args(p, c('IMGT-IGKJ-inc-novels.fasta', 'mouse', '129_igblast_db-pass.tsv', 'JK', '--all_novel'))
-
-    argv = argparser::parse_args(p, c('IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP', 'Homosapiens', 'P1_I28_S1.tsv', 'IGHV', '--hap_gene', 'IGHJ6', '--plot_unmutated', '--inf_file', 'P1_I28_novels.fasta'))
-    setwd('D:\\Research\\ogrdbstats\\testdata\\private\\ogrdbstats_in_vdjbase')
+    argv = argparser::parse_args(p, args)
   }
 
   ref_filename = argv$REF_FILE
@@ -114,135 +98,4 @@ genotype_statistics_cmd = function(test = F) {
   generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, plot_unmutated, all_inferred)
 }
 
-#' Generate OGRDB reports using test data
-#' @param testdir Directory containing test data sets
-#' @param full If false, run a single set. Otherwise run all sets we have.
-#' @return Nothing
-#' @export
-genotype_statistics_test = function(testdir, full=F) {
-  Sys.setenv('R_MAX_VSIZE'=32000000000)  # this setting may not be effective in Rstudio
-  setwd(testdir)
 
-  # VH - tigger (Example in Readme)
-  report('VH - tigger')
-  setwd('VH_tigger')
-  ref_filename = 'IMGT_REF_GAPPED.fasta'
-  species = 'Homosapiens'
-  inferred_filename = 'TWO01A_naive_novel_ungapped.fasta'
-  filename = 'TWO01A_naive_genotyped.tsv'
-  chain = 'VH'
-  hap_gene = 'IGHJ6'
-  segment = 'V'
-  chain_type = 'H'
-  generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
-  setwd('..')
-
-  if(full) {
-
-    # VH - tigger with truncated sequences in IMGT alignment
-    report('VH - tigger with truncated sequences in IMGT alignment')
-    setwd('V_tigger_truncated')
-    ref_filename = 'IMGT_REF_GAPPED.fasta'
-    species = 'Homosapiens'
-    inferred_filename = 'TWO01A_naive_novel_ungapped.fasta'
-    filename = 'TWO01A_naive_genotyped.tsv'
-    chain = 'VH'
-    hap_gene = 'IGHJ6'
-    segment = 'V'
-    chain_type = 'H'
-    generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
-    setwd('..')
-    gc()
-
-    # JH - tigger
-    report('JH - tigger')
-    setwd('JH_tigger')
-    ref_filename = 'IMGT_REF_GAPPED_J_CHANGES.fasta'
-    species = 'Homosapiens'
-    inferred_filename = 'TWO01A_naive_novel.fasta'
-    filename = 'TWO01A_naive.airr.tab'
-    chain = 'JH'
-    hap_gene = 'IGHV2-5'
-    segment = 'J'
-    chain_type = 'H'
-    generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
-    setwd('..')
-    gc()
-
-    # D - tigger
-    report('D - tigger')
-    setwd('D_tigger')
-    ref_filename = 'IMGT_REF_GAPPED_D_1_26_01_removed.fasta'
-    species = 'Homosapiens'
-    inferred_filename = 'TWO01A_naive_novel.fasta'
-    filename = 'TWO01A_naive.airr.tab'
-    chain = 'DH'
-    hap_gene = 'IGHJ6'
-    segment = 'D'
-    chain_type = 'H'
-    generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
-    setwd('..')
-    gc()
-
-    # JH - igdiscover
-    report('JH - igdiscover')
-    setwd('JH_igdiscover')
-    ref_filename = 'IMGT_REF_GAPPED_fake_j.fasta'
-    species = 'Homosapiens'
-    inferred_filename = 'J.fasta'
-    filename = 'filtered.tab'
-    chain = 'JH'
-    hap_gene = 'IGHV2-5'
-    segment = 'J'
-    chain_type = 'H'
-    generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
-    setwd('..')
-    gc()
-
-    # JL - igdiscover
-    # just a fake based on JH
-    report('JL - igdiscover')
-    setwd('JL_igdiscover')
-    ref_filename = 'IMGT_REF_GAPPED_fake_j_fake_JK.fasta'
-    species = 'Homosapiens'
-    inferred_filename = 'J.fasta'
-    filename = 'filtered.tab'
-    chain = 'JK'
-    hap_gene = 'IGHV2-5'
-    segment = 'J'
-    chain_type = 'L'
-    generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
-    setwd('..')
-    gc()
-
-    # VH - partis
-    # This takes a lot of memory and does not run comfortably in RStudio
-    # report('VH - partis')
-    # setwd('VH_partis')
-    # ref_filename = 'IMGT_REF_GAPPED.fasta'
-    # species = 'Homosapiens'
-    # inferred_filename = 'TW02A_V_OGRDB.fasta'
-    # filename = 'TW02A_OGRDB.tsv'
-    # chain = 'VH'
-    # hap_gene = 'IGHJ6'
-    # segment = 'V'
-    # chain_type = 'H'
-    # generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
-    # setwd('..')
-    gc()
-
-    # JK - igDiscover
-    report('JK - igdiscover')
-    setwd('private/PRJEB30386 - Kappa')
-    ref_filename = 'IMGT_REF_GAPPED.fasta'
-    species = 'Homosapiens'
-    inferred_filename = 'Inferred_file.fasta'
-    filename = 'Read_file.tab'
-    chain = 'VK'
-    hap_gene = 'IGHJ6'
-    segment = 'V'
-    chain_type = 'K'
-    generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
-    setwd('..')
-  }
-}

@@ -2,7 +2,10 @@
 % Please edit documentation in R/genotype_statistics.R
 \name{generate_ogrdb_report}
 \alias{generate_ogrdb_report}
-\title{Generate OGRDB reports from specified files}
+\title{Generate OGRDB reports from specified files. This creates the genotype report
+(suffixed _ogrdb_report.csv) and the plot file (suffixed _ogrdb_plos.pdf).
+Both are created in the directory holding the annotated read file, and the
+file names are prefixed by the name of the annotated read file.}
 \usage{
 generate_ogrdb_report(
   ref_filename,
@@ -14,7 +17,7 @@ generate_ogrdb_report(
   segment,
   chain_type,
   plot_unmutated,
-  all_inferred = F
+  all_inferred = FALSE
 )
 }
 \arguments{
@@ -42,5 +45,29 @@ generate_ogrdb_report(
 Nothing
 }
 \description{
-Generate OGRDB reports from specified files
+Generate OGRDB reports from specified files. This creates the genotype report
+(suffixed _ogrdb_report.csv) and the plot file (suffixed _ogrdb_plos.pdf).
+Both are created in the directory holding the annotated read file, and the
+file names are prefixed by the name of the annotated read file.
+}
+\examples{
+# Create the analysis data set from example files provided with the package
+# (this dataset is also provided in the package as example_rep)
+
+# prepare files for example
+reference_set = system.file("extdata/ref_gapped.fasta", package = "ogrdbstats")
+inferred_set = system.file("extdata/novel_gapped.fasta", package = "ogrdbstats")
+repertoire = system.file("extdata/repertoire.tsv", package = "ogrdbstats")
+file.copy(repertoire, tempdir())
+repfile = file.path(tempdir(), 'repertoire.tsv')
+
+generate_ogrdb_report(reference_set, inferred_set, 'Homosapiens',
+          repertoire, 'IGHV', NA, 'V', 'H', FALSE)
+
+#clean up
+outfile = file.path(tempdir(), 'repertoire_ogrdb_report.csv')
+plotfile = file.path(tempdir(), 'repertoire_ogrdb_plots.pdf')
+file.remove(repfile)
+file.remove(outfile)
+file.remove(plotfile)
 }

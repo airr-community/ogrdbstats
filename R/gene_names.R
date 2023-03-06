@@ -4,7 +4,7 @@
 # Functions to provide reasonable sorting of gene names
 
 gene_family = function(gene_name) {
-  if(!grepl('-', gene_name, fixed=T)) {
+  if(!grepl('-', gene_name, fixed=TRUE)) {
     return( '000')
   }
   fam = strsplit(gene_name, '-')[[1]][[1]]
@@ -12,7 +12,7 @@ gene_family = function(gene_name) {
 }
 
 gene_number = function(gene_name) {
-  if(!grepl('-', gene_name, fixed=T) && grepl('_S', gene_name, fixed=T)) {
+  if(!grepl('-', gene_name, fixed=TRUE) && grepl('_S', gene_name, fixed=TRUE)) {
     num = strsplit(gene_name, '_S')[[1]][[2]]
   } else {
     spl = strsplit(gene_name, '-')
@@ -24,19 +24,19 @@ gene_number = function(gene_name) {
     }
   }
 
-  if(grepl('*', num, fixed=T)) {
-    num = strsplit(num, '*', fixed=T)[[1]][[1]]
+  if(grepl('*', num, fixed=TRUE)) {
+    num = strsplit(num, '*', fixed=TRUE)[[1]][[1]]
   }
 
   return(stringr::str_pad(num, 3, side='left', pad='0'))
 }
 
 allele_number = function(gene_name) {
-  if(!grepl('*', gene_name, fixed=T)) {
+  if(!grepl('*', gene_name, fixed=TRUE)) {
     return('000')
   }
 
-  return(stringr::str_pad(strsplit(gene_name, '*', fixed=T)[[1]][[2]], 3, side='left', pad='0'))
+  return(stringr::str_pad(strsplit(gene_name, '*', fixed=TRUE)[[1]][[2]], 3, side='left', pad='0'))
 }
 
 order_alleles = function(allele_names) {
@@ -59,6 +59,6 @@ order_alleles = function(allele_names) {
 }
 
 sort_alleles = function(allele_vec) {
-  allele_names=data.frame(genes=as.character(unique(allele_vec)), stringsAsFactors = F)
+  allele_names=data.frame(genes=as.character(unique(allele_vec)), stringsAsFactors = FALSE)
   return(allele_names$genes[order_alleles(allele_names)])
 }

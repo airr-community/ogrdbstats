@@ -9,7 +9,17 @@
 #' @param segment one of V, D, J
 #' @param calculated_NC a boolean, TRUE if mutation counts had to be calculated, FALSE otherwise
 #' @return list of grobs
-make_barplot_grobs =function(input_sequences, genotype_db, inferred_seqs, genotype, segment, calculated_NC) {
+#' @examples
+#' barplot_grobs = make_barplot_grobs(
+#'                       example_rep$input_sequences,
+#'                       example_rep$genotype_db,
+#'                       example_rep$inferred_seqs,
+#'                       example_rep$genotype,
+#'                       'V',
+#'                       example_rep$calculated_NC
+#'                )
+#'
+make_barplot_grobs = function(input_sequences, genotype_db, inferred_seqs, genotype, segment, calculated_NC) {
   # bar charts for all alleles
 
   # If we had to calculate MUT_NC, omit any plots for alleles for which we don't have a sequence
@@ -36,8 +46,16 @@ make_barplot_grobs =function(input_sequences, genotype_db, inferred_seqs, genoty
 #'     cdr3_dist \tab cdr3 length distribution plots \cr
 #'     whole \tab     whole-length usage plots \cr
 #'     end  \tab     3' end usage plots \cr
+#'     conc \tab   3' end consensus composition plots \cr
 #'     triplet \tab   3' end triplet usage plots \cr
 #'}
+#' @examples
+#' base_grobs = make_novel_base_grobs(
+#'                  example_rep$inferred_seqs,
+#'                  example_rep$input_sequences,
+#'                  'V',
+#'                  FALSE
+#'              )
 make_novel_base_grobs = function(inferred_seqs, input_sequences, segment, all_inferred) {
 
   if(length(inferred_seqs) < 1) {
@@ -57,13 +75,13 @@ make_novel_base_grobs = function(inferred_seqs, input_sequences, segment, all_in
       recs = lapply(names(inferred_seqs), function(x) {input_sequences[input_sequences$SEG_CALL==x,]$SEQUENCE_IMGT})
       refs = lapply(names(inferred_seqs), function(x) {inferred_seqs[x]})
 
-      end_composition_grobs = mapply(plot_base_composition, names(inferred_seqs), recs, refs, pos=313, filter=T, all_inferred=all_inferred)
+      end_composition_grobs = mapply(plot_base_composition, names(inferred_seqs), recs, refs, pos=313, filter=TRUE, all_inferred=all_inferred)
       end_composition_grobs = end_composition_grobs[!is.na(end_composition_grobs)]
 
-      consensus_composition_grobs = mapply(plot_cumulative_consensus_base_composition, names(inferred_seqs), recs, refs, pos=313, filter=T, all_inferred=all_inferred)
+      consensus_composition_grobs = mapply(plot_cumulative_consensus_base_composition, names(inferred_seqs), recs, refs, pos=313, filter=TRUE, all_inferred=all_inferred)
       consensus_composition_grobs = consensus_composition_grobs[!is.na(consensus_composition_grobs)]
 
-      whole_composition_grobs = mapply(plot_base_composition, names(inferred_seqs), recs, refs, pos=1, filter=F, all_inferred=all_inferred)
+      whole_composition_grobs = mapply(plot_base_composition, names(inferred_seqs), recs, refs, pos=1, filter=FALSE, all_inferred=all_inferred)
       whole_composition_grobs = whole_composition_grobs[!is.na(whole_composition_grobs)]
 
       triplet_grobs = mapply(plot_trailing_triplet, names(inferred_seqs), recs, refs)
@@ -74,13 +92,13 @@ make_novel_base_grobs = function(inferred_seqs, input_sequences, segment, all_in
       recs = lapply(names(inferred_seqs), function(x) {input_sequences[input_sequences$SEG_CALL==x,]$SEG_SEQ})
       refs = lapply(names(inferred_seqs), function(x) {inferred_seqs[x]})
 
-      whole_composition_grobs = mapply(plot_segment_composition, names(inferred_seqs), recs, refs, pos=1, filter=F, r_justify=T)
+      whole_composition_grobs = mapply(plot_segment_composition, names(inferred_seqs), recs, refs, pos=1, filter=FALSE, r_justify=TRUE)
       whole_composition_grobs = whole_composition_grobs[!is.na(whole_composition_grobs)]
     } else if(segment == 'D') {
       recs = lapply(names(inferred_seqs), function(x) {input_sequences[input_sequences$SEG_CALL==x,]$SEG_SEQ_ALIGNED})
       refs = lapply(names(inferred_seqs), function(x) {inferred_seqs[x]})
 
-      whole_composition_grobs = mapply(plot_segment_composition, names(inferred_seqs), recs, refs, pos=1, filter=F)
+      whole_composition_grobs = mapply(plot_segment_composition, names(inferred_seqs), recs, refs, pos=1, filter=FALSE)
       whole_composition_grobs = whole_composition_grobs[!is.na(whole_composition_grobs)]
     }
   }
@@ -98,6 +116,8 @@ make_novel_base_grobs = function(inferred_seqs, input_sequences, segment, all_in
 #'     a_allele_plot \tab   plot showing allele usage for each potential haplotyping gene \cr
 #'     haplo_grobs \tab     differential plot of allele usage for each usable haplotyping gene \cr
 #'}
+#' @examples
+#' haplo_grobs = make_haplo_grobs('V', example_rep$haplo_details)
 make_haplo_grobs = function(segment, haplo_details) {
   a_gene = a_allele = percent = NULL
   a_props = haplo_details$a_props
@@ -150,13 +170,56 @@ make_haplo_grobs = function(segment, haplo_details) {
 #' @param haplo_grobs haplo_grobs created by make_haplo_grobs
 #' @param message text message to display at end of report
 #' @return nothing
+#' @examples
+#' plot_file = tempfile(pattern = 'ogrdb_plots', fileext = ".pdf")
+#'
+#' base_grobs = make_novel_base_grobs(
+#'                  example_rep$inferred_seqs,
+#'                  example_rep$input_sequences,
+#'                  'V',
+#'                  FALSE
+#'              )
+#' barplot_grobs = make_barplot_grobs(
+#'                       example_rep$input_sequences,
+#'                       example_rep$genotype_db,
+#'                       example_rep$inferred_seqs,
+#'                       example_rep$genotype,
+#'                       'V',
+#'                       example_rep$calculated_NC
+#'                )
+#' haplo_grobs = make_haplo_grobs('V', example_rep$haplo_details)
+#'
+#' write_plot_file(
+#'     plot_file,
+#'     example_rep$input_sequences,
+#'     base_grobs$cdr3_dist,
+#'     base_grobs$end,
+#'     base_grobs$conc,
+#'     base_grobs$whole,
+#'     base_grobs$triplet,
+#'     barplot_grobs,
+#'     haplo_grobs$aplot,
+#'     haplo_grobs$haplo,
+#'     "Notes on this analysis"
+#' )
+#'
+#' file.remove(plot_file)
+
 write_plot_file = function(filename, input_sequences, cdr3_dist_grobs, end_composition_grobs, cons_composition_grobs, whole_composition_grobs, triplet_composition_grobs, barplot_grobs, a_allele_plot, haplo_grobs, message) {
   wd = getwd()
 
-  bookdown::render_book(input = file.path(system.file(package="ogrdbstats"), "templates"), output_format = "bookdown::pdf_book", clean = TRUE,
-              envir = environment(), clean_envir = FALSE,
-              output_dir = wd, new_session = NA, preview = FALSE,
-              config_file = "_bookdown.yml")
+  file_name = basename(filename)
+  file_loc = dirname(filename)
+  book = bookdown::render_book(input = file.path(system.file(package="ogrdbstats"), "templates"),
+                        output_format = "bookdown::pdf_book",
+                        clean = TRUE,
+                        envir = environment(),
+                        output_dir = dirname(filename),
+                        new_session = NA,
+                        preview = FALSE,
+                        config_file = "_bookdown.yml")
+
+  invisible(file.copy(book, filename))
 }
 
 
@@ -334,10 +397,10 @@ label_5_nuc = function(pos, ref) {
 
 
 # Plot base composition from nominated nucleotide position to the end or to optional endpos.
-# Only include gaps, n nucleotides if filter=F
+# Only include gaps, n nucleotides if filter=FALSE
 # if pos is negative, SEQUENCE_IMGT contains a certain number of trailing nucleotides. Plot them all.
 
-plot_base_composition = function(gene_name, recs, ref, pos=1, filter=T, end_pos=999, r_justify=F, all_inferred=F) {
+plot_base_composition = function(gene_name, recs, ref, pos=1, filter=TRUE, end_pos=999, r_justify=FALSE, all_inferred=FALSE) {
   nuc = NULL
   max_pos = nchar(ref)
 
@@ -377,7 +440,7 @@ plot_base_composition = function(gene_name, recs, ref, pos=1, filter=T, end_pos=
 
 
   g = ggplot(data=x, aes(x=pos, fill=nuc)) +
-    scale_fill_manual(values=mycolours, breaks=breaks, drop=T) +
+    scale_fill_manual(values=mycolours, breaks=breaks, drop=TRUE) +
     geom_bar(stat="count") +
     labs(x='Position', y='Count', fill='', title=paste0('Gene ', gene_name)) +
     theme_classic(base_size=12) +
@@ -395,7 +458,7 @@ plot_base_composition = function(gene_name, recs, ref, pos=1, filter=T, end_pos=
 }
 
 # As above, but plot a heatmap
-plot_base_heatmap = function(gene_name, recs, ref, pos=1, end_pos=999, r_justify=F) {
+plot_base_heatmap = function(gene_name, recs, ref, pos=1, end_pos=999, r_justify=FALSE) {
   max_pos = nchar(ref)
 
   if(max_pos < pos || length(recs) < 1) {
@@ -415,9 +478,9 @@ plot_base_heatmap = function(gene_name, recs, ref, pos=1, end_pos=999, r_justify
   m = sapply(recs,function(x) {utils::head(x,end_pos)})
   m = t(m)
   n = m[sample(nrow(m),size=200,replace=TRUE),]
-  h = ComplexHeatmap::Heatmap(n, name='', clustering_distance_rows=function(x,y){sum(stringdist::stringdist(x,y,method='hamming'))}, row_dend_width = unit(50, "mm"), column_title=gene_name)
+  h = ComplexHeatmap::Heatmap(n, name='', clustering_distance_rows = function(x,y){sum(stringdist::stringdist(x,y,method='hamming'))}, row_dend_width = unit(50, "mm"), column_title=gene_name)
 
-  #pdf(file=paste0('heatmap_', gsub('*', '_', gene_name, fixed=T), '.pdf'))
+  #pdf(file=paste0('heatmap_', gsub('*', '_', gene_name, fixed=TRUE), '.pdf'))
   #draw(h)
   #dev.off()
 }
@@ -425,9 +488,9 @@ plot_base_heatmap = function(gene_name, recs, ref, pos=1, end_pos=999, r_justify
 
 # Plot base composition from nominated nucleotide position to the end or to optional endpos.
 # Only include, at each position, those sequences that agreed with the consensus in previous positions
-# Only include gaps, n nucleotides if filter=F
+# Only include gaps, n nucleotides if filter=FALSE
 
-plot_cumulative_consensus_base_composition = function(gene_name, recs, ref, pos=1, filter=T, end_pos=999, r_justify=F, all_inferred=F) {
+plot_cumulative_consensus_base_composition = function(gene_name, recs, ref, pos=1, filter=TRUE, end_pos=999, r_justify=FALSE, all_inferred=FALSE) {
   conc = NULL
 
   max_pos = nchar(ref)
@@ -479,11 +542,11 @@ plot_cumulative_consensus_base_composition = function(gene_name, recs, ref, pos=
 
   g = ggplot() +
     geom_bar(data=x, aes(x=pos, fill=conc),stat="count", position="fill") +
-    scale_fill_manual(values=mycolours, breaks=breaks, drop=T) +
+    scale_fill_manual(values=mycolours, breaks=breaks, drop=TRUE) +
     labs(x='Position', y='% share', fill='', title=paste0('Gene ', gene_name)) +
     theme_classic(base_size=12) +
     scale_y_continuous(expand=c(0,0), labels=scales::percent, sec.axis=sec_axis(~.*(max(counts$n)), name="Contributing Reads")) +
-    geom_line(data=counts, aes(x=pos, y=n/max(counts$n), group=1))
+    geom_line(data=counts, aes(x=pos, y=n/max(n), group=1))
 
   if(filter) {
     b =sapply(seq(pos, max_pos), label_5_nuc, ref=ref)
@@ -497,7 +560,7 @@ plot_cumulative_consensus_base_composition = function(gene_name, recs, ref, pos=
 
 
 # Plot composition of a segment rather than the whole IMGT-aligned sequence
-plot_segment_composition = function(gene_name, recs, ref, pos=1,  filter=T, end_pos=999, r_justify=F) {
+plot_segment_composition = function(gene_name, recs, ref, pos=1,  filter=TRUE, end_pos=999, r_justify=FALSE) {
   nuc = NULL
   max_pos = nchar(ref)
 
@@ -545,7 +608,7 @@ nuc_value['G'] = 3
 seq_to_num = function(rec) {
   rec = strsplit(rec, "")[[1]]
 
-  if(!all(rec=="T" || rec=="C" || rec=="A" || rec=="G")) {
+  if(!all(rec %in% c('G', 'C', 'A', 'T'))) {
     return(0)
   }
 
@@ -564,7 +627,7 @@ extract_frag = function(rec, start_pos, length) {
 
   rec = rec[start_pos : (start_pos+length - 1)]
 
-  if(!all(rec=="T" | rec=="C" | rec=="A" | rec=="G")) {
+  if(!all(rec %in% c('G', 'C', 'A', 'T'))) {
     return('Non-nucleotide')
   }
 
@@ -611,7 +674,7 @@ plot_trailing_triplet = function(gene_name, recs, ref) {
 plot_differential = function(gene, a_props, sa, segment) {
   a_gene = a_allele = SEG_CALL = NULL
   ap = a_props[a_props$a_gene==gene,]
-  ap = ap[order(ap$percent, decreasing=T),]
+  ap = ap[order(ap$percent, decreasing=TRUE),]
 
   if(nrow(ap) < 2 || ap[1,]$percent > 75 || ap[2,]$percent < 20) {
     return(NA)

@@ -102,7 +102,7 @@ imgt_gap = function(sequence, cdr3_sequence, junction_start, ref_gene) {
   }
 
   # Find the cdr3_start in the un-aligned reference gene
-  ref_junction_start = 310 - (nchar(ref_gene) - nchar(gsub('.', '', ref_gene, fixed=T)))
+  ref_junction_start = 310 - (nchar(ref_gene) - nchar(gsub('.', '', ref_gene, fixed=TRUE)))
 
   # Trim or pad this sequence to match the unaligned ref gene
   if(junction_start < ref_junction_start) {
@@ -139,10 +139,10 @@ imgt_gap_inferred = function(seqname, seqs, ref_genes) {
     return(unname(seqs[seqname]))
 
   # Find the closest reference gene
-  r = data.frame(GENE=names(ref_genes),SEQ=ref_genes, stringsAsFactors = F)
+  r = data.frame(GENE=names(ref_genes),SEQ=ref_genes, stringsAsFactors = FALSE)
   r$SEQ = sapply(r$SEQ,stringr::str_replace_all,pattern='\\.',replacement='')
-  r$dist=sapply(r$SEQ, Biostrings::pairwiseAlignment, subject=seqs[seqname], scoreOnly=T)
-  r = r[order(r$dist, decreasing=T),]
+  r$dist=sapply(r$SEQ, Biostrings::pairwiseAlignment, subject=seqs[seqname], scoreOnly=TRUE)
+  r = r[order(r$dist, decreasing=TRUE),]
 
   # Gap the sequence
   tem = ref_genes[r[1,]$GENE]
@@ -202,7 +202,7 @@ find_nearest = function(sequence_ind, ref_genes, prefix, inferred_seqs, segment)
 
   sequence = inferred_seqs[[sequence_ind]]
   seq_name = names(inferred_seqs)[[sequence_ind]]
-  r = data.frame(GENE=names(ref_genes),SEQ=ref_genes, stringsAsFactors = F)
+  r = data.frame(GENE=names(ref_genes),SEQ=ref_genes, stringsAsFactors = FALSE)
   r = r[r$GENE != seq_name, ]
 
   # pad all Js so that they align on the right

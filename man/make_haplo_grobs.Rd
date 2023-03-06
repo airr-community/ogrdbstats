@@ -21,3 +21,6 @@ named list containing the following elements:
 \description{
 Create haplotyping plots
 }
+\examples{
+haplo_grobs = make_haplo_grobs('V', example_rep$haplo_details)
+}

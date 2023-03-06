@@ -21,9 +21,18 @@ named list containing the following elements:
     cdr3_dist \tab cdr3 length distribution plots \cr
     whole \tab     whole-length usage plots \cr
     end  \tab     3' end usage plots \cr
+    conc \tab   3' end consensus composition plots \cr
     triplet \tab   3' end triplet usage plots \cr
 }
 }
 \description{
 Create plots showing base usage at selected locations in sequences based on novel alleles
+}
+\examples{
+base_grobs = make_novel_base_grobs(
+                 example_rep$inferred_seqs,
+                 example_rep$input_sequences,
+                 'V',
+                 FALSE
+             )
 }
