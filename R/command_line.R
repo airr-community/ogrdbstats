@@ -19,14 +19,15 @@
 #'               'Homosapiens',
 #'               repfile,
 #'               'IGHV',
-#'               '--inf_file', inferred_set))
+#'               '--inf_file', inferred_set,
+#'               '--html'))
 #'
-#'# clean up
+#' # clean up
 #' outfile = file.path(tempdir(), 'repertoire_ogrdb_report.csv')
-#' plotfile = file.path(tempdir(), 'repertoire_ogrdb_plots.pdf')
+#' plotdir = file.path(tempdir(), 'repertoire_ogrdb_plots')
 #' file.remove(repfile)
 #' file.remove(outfile)
-#' file.remove(plotfile)
+#' unlink(plotdir, recursive=TRUE)
 genotype_statistics_cmd = function(args=NULL) {
 
   p = argparser::arg_parser('Create genotype statistics')
@@ -38,6 +39,7 @@ genotype_statistics_cmd = function(args=NULL) {
   p = argparser::add_argument(p, '--hap_gene', help='haplotyping gene, e.g. IGHJ6')
   p = argparser::add_argument(p, '--plot_unmutated', flag=TRUE, help='Plot base composition using only unmutated sequences (V-chains only)')
   p = argparser::add_argument(p, '--all_novel', flag=TRUE, help='Treat all alleles in reference set as if novel')
+  p = argparser::add_argument(p, '--html', flag=TRUE, help='Create output report in html format rather than pdf')
 
 
   if (is.null(args)) {
@@ -54,6 +56,7 @@ genotype_statistics_cmd = function(args=NULL) {
   hap_gene = argv$hap_gene
   plot_unmutated = argv$plot_unmutated
   all_inferred = argv$all_novel
+  html_format = argv$html
 
   # convert legacy chain names
 
@@ -95,7 +98,7 @@ genotype_statistics_cmd = function(args=NULL) {
     inferred_filename = '-'
   }
 
-  generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, plot_unmutated, all_inferred)
+  generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, plot_unmutated, all_inferred, html_format=html_format)
 }
 
 

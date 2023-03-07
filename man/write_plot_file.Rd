@@ -15,7 +15,8 @@ write_plot_file(
   barplot_grobs,
   a_allele_plot,
   haplo_grobs,
-  message
+  message,
+  html_format
 )
 }
 \arguments{
@@ -40,6 +41,8 @@ write_plot_file(
 \item{haplo_grobs}{haplo_grobs created by make_haplo_grobs}
 
 \item{message}{text message to display at end of report}
+
+\item{html_format}{If TRUE, produce report in html, otherwise in pdf}
 }
 \value{
 None
@@ -48,7 +51,7 @@ None
 Create the OGRDB style plot file
 }
 \examples{
-plot_file = tempfile(pattern = 'ogrdb_plots', fileext = ".pdf")
+plot_file = tempfile(pattern = 'ogrdb_plots')
 
 base_grobs = make_novel_base_grobs(
                  example_rep$inferred_seqs,
@@ -77,7 +80,8 @@ write_plot_file(
     barplot_grobs,
     haplo_grobs$aplot,
     haplo_grobs$haplo,
-    "Notes on this analysis"
+    "Notes on this analysis",
+    TRUE
 )
 
 file.remove(plot_file)

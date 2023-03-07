@@ -170,9 +170,10 @@ make_haplo_grobs = function(segment, haplo_details) {
 #' @param a_allele_plot a_allele_plot grob created by make_haplo_grobs
 #' @param haplo_grobs haplo_grobs created by make_haplo_grobs
 #' @param message text message to display at end of report
+#' @param html_format If TRUE, produce report in html, otherwise in pdf
 #' @return None
 #' @examples
-#' plot_file = tempfile(pattern = 'ogrdb_plots', fileext = ".pdf")
+#' plot_file = tempfile(pattern = 'ogrdb_plots')
 #'
 #' base_grobs = make_novel_base_grobs(
 #'                  example_rep$inferred_seqs,
@@ -201,12 +202,13 @@ make_haplo_grobs = function(segment, haplo_details) {
 #'     barplot_grobs,
 #'     haplo_grobs$aplot,
 #'     haplo_grobs$haplo,
-#'     "Notes on this analysis"
+#'     "Notes on this analysis",
+#'     TRUE
 #' )
 #'
 #' file.remove(plot_file)
 
-write_plot_file = function(filename, input_sequences, cdr3_dist_grobs, end_composition_grobs, cons_composition_grobs, whole_composition_grobs, triplet_composition_grobs, barplot_grobs, a_allele_plot, haplo_grobs, message) {
+write_plot_file = function(filename, input_sequences, cdr3_dist_grobs, end_composition_grobs, cons_composition_grobs, whole_composition_grobs, triplet_composition_grobs, barplot_grobs, a_allele_plot, haplo_grobs, message, html_format) {
   # make a temporary directory for the working files, and copy the templates to it
 
   wd = tempfile("ogrdbstats")
@@ -214,10 +216,16 @@ write_plot_file = function(filename, input_sequences, cdr3_dist_grobs, end_compo
   td = file.path(system.file(package="ogrdbstats"), "templates")
   file.copy(file.path(td, list.files(td, "*.*")), wd)
 
+  output_format = "bookdown::pdf_book"
+
+  if(html_format) {
+    output_format = "bookdown::gitbook"
+  }
+
   file_name = basename(filename)
   file_loc = normalizePath(dirname(filename), mustWork=FALSE)
   book = bookdown::render_book(input = wd,
-                        output_format = "bookdown::pdf_book",
+                        output_format = output_format,
                         clean = TRUE,
                         envir = environment(),
                         output_dir = NULL,
@@ -226,7 +234,14 @@ write_plot_file = function(filename, input_sequences, cdr3_dist_grobs, end_compo
                         config_file = "_bookdown.yml")
 
 
-  file.copy(file.path(wd, '_book', '_main.pdf'), normalizePath(filename), overwrite = TRUE)
+  if (html_format) {
+    dir.create(filename)
+    src = file.path(wd, '_book')
+    file.copy(file.path(src, list.files(src, "*.*")), normalizePath(filename, mustWork=TRUE), overwrite = TRUE, recursive=TRUE)
+  } else {
+    file.copy(file.path(wd, '_book', '_main.pdf'), normalizePath(filename, mustWork=FALSE), overwrite = TRUE)
+  }
+
   unlink(wd, recursive=TRUE)
   return(invisible(NULL))
 }

@@ -59,6 +59,7 @@ report_note = function(xx) {
 #' @param chain_type one of H, L
 #' @param plot_unmutated Plot base composition using only unmutated sequences (V-chains only)
 #' @param all_inferred Treat all alleles as novel
+#' @param html_format If TRUE, produce report in html, otherwise in pdf
 #' @return None
 #' @export
 #' @examples
@@ -73,15 +74,15 @@ report_note = function(xx) {
 #' repfile = file.path(tempdir(), 'repertoire.tsv')
 #'
 #' generate_ogrdb_report(reference_set, inferred_set, 'Homosapiens',
-#'           repfile, 'IGHV', NA, 'V', 'H', FALSE)
+#'           repfile, 'IGHV', NA, 'V', 'H', FALSE, html_format=TRUE)
 #'
 #' #clean up
 #' outfile = file.path(tempdir(), 'repertoire_ogrdb_report.csv')
-#' plotfile = file.path(tempdir(), 'repertoire_ogrdb_plots.pdf')
+#' plotdir = file.path(tempdir(), 'repertoire_ogrdb_plots')
 #' file.remove(repfile)
 #' file.remove(outfile)
-#' file.remove(plotfile)
-generate_ogrdb_report = function(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, plot_unmutated, all_inferred=FALSE) {
+#' unlink(plotdir, recursive=TRUE)
+generate_ogrdb_report = function(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, plot_unmutated, all_inferred=FALSE, html_format=FALSE) {
   report('Processing started')
   grDevices::pdf(NULL) # this seems to stop an empty Rplots.pdf from being created.
 
@@ -129,8 +130,14 @@ generate_ogrdb_report = function(ref_filename, inferred_filename, species, filen
 
   report('writing plot file')
 
+  if (html_format) {
+    outfile = file.path(file_loc, paste0(file_prefix, '_ogrdb_plots'))
+  } else {
+    outfile = file.path(file_loc, paste0(file_prefix, '_ogrdb_plots.pdf'))
+  }
 
-  write_plot_file(file.path(file_loc, paste0(file_prefix, '_ogrdb_plots.pdf')), rd$input_sequences, nbgrobs$cdr3_dist, nbgrobs$end, nbgrobs$conc, nbgrobs$whole, nbgrobs$triplet, barplot_grobs, haplo_grobs$aplot, haplo_grobs$haplo, paste0(pkg.globals$report_notes, sep='\n', collapse='\n'))
+  write_plot_file(outfile, rd$input_sequences, nbgrobs$cdr3_dist, nbgrobs$end, nbgrobs$conc, nbgrobs$whole,
+                  nbgrobs$triplet, barplot_grobs, haplo_grobs$aplot, haplo_grobs$haplo, paste0(pkg.globals$report_notes, sep='\n', collapse='\n'), html_format=html_format)
   return(invisible(NULL))
 }
 
@@ -233,7 +240,7 @@ read_reference_genes = function(ref_filename, species, chain, segment) {
     for(g in c('IGHJ6*02', 'IGHJ6*03')) {
       if(g %in% names(ref_genes) && stringr::str_sub(ref_genes[g], start= -1) == 'A') {
         ref_genes[g] = paste0(ref_genes[g], 'G')
-        print(paste0('Modified truncated reference gene ', g, ' to ', ref_genes[g]))
+        report_note(paste0('Modified truncated reference gene ', g, ' to ', ref_genes[g]))
       }
     }
   }
@@ -497,7 +504,7 @@ gap_input_sequences = function(input_sequences, inferred_seqs, ref_genes) {
     count_zero = length(input_sequences$SEQ_LEN[input_sequences$SEQ_LEN==0])
 
     if(count_zero > 0) {
-      print(paste0('Warning: removing ', count_zero, ' sequences with no SEQUENCE_IMGT'))
+      report_note(paste0('Warning: removing ', count_zero, ' sequences with no SEQUENCE_IMGT'))
       input_sequences = input_sequences[input_sequences$SEQ_LEN>0,]
     }
   }

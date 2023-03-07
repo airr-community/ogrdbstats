@@ -28,12 +28,13 @@ genotype_statistics_cmd(c(
               'Homosapiens',
               repfile,
               'IGHV',
-              '--inf_file', inferred_set))
+              '--inf_file', inferred_set,
+              '--html'))
 
 # clean up
 outfile = file.path(tempdir(), 'repertoire_ogrdb_report.csv')
-plotfile = file.path(tempdir(), 'repertoire_ogrdb_plots.pdf')
+plotdir = file.path(tempdir(), 'repertoire_ogrdb_plots')
 file.remove(repfile)
 file.remove(outfile)
-file.remove(plotfile)
+unlink(plotdir, recursive=TRUE)
 }

@@ -14,7 +14,8 @@ generate_ogrdb_report(
   segment,
   chain_type,
   plot_unmutated,
-  all_inferred = FALSE
+  all_inferred = FALSE,
+  html_format = FALSE
 )
 }
 \arguments{
@@ -37,6 +38,8 @@ generate_ogrdb_report(
 \item{plot_unmutated}{Plot base composition using only unmutated sequences (V-chains only)}
 
 \item{all_inferred}{Treat all alleles as novel}
+
+\item{html_format}{If TRUE, produce report in html, otherwise in pdf}
 }
 \value{
 None
@@ -59,12 +62,12 @@ file.copy(repertoire, tempdir())
 repfile = file.path(tempdir(), 'repertoire.tsv')
 
 generate_ogrdb_report(reference_set, inferred_set, 'Homosapiens',
-          repfile, 'IGHV', NA, 'V', 'H', FALSE)
+          repfile, 'IGHV', NA, 'V', 'H', FALSE, html_format=TRUE)
 
 #clean up
 outfile = file.path(tempdir(), 'repertoire_ogrdb_report.csv')
-plotfile = file.path(tempdir(), 'repertoire_ogrdb_plots.pdf')
+plotdir = file.path(tempdir(), 'repertoire_ogrdb_plots')
 file.remove(repfile)
 file.remove(outfile)
-file.remove(plotfile)
+unlink(plotdir, recursive=TRUE)
 }
