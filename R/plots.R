@@ -66,6 +66,7 @@ make_novel_base_grobs = function(inferred_seqs, input_sequences, segment, all_in
   end_composition_grobs = c()
   triplet_grobs = c()
   composition_heatmaps = c()
+  consensus_composition_grobs = c()
 
   cdr3_distribution_grobs = sapply(names(inferred_seqs), plot_cdr3_lengths, seqs=input_sequences)
   cdr3_distribution_grobs = cdr3_distribution_grobs[!is.na(cdr3_distribution_grobs)]
@@ -169,7 +170,7 @@ make_haplo_grobs = function(segment, haplo_details) {
 #' @param a_allele_plot a_allele_plot grob created by make_haplo_grobs
 #' @param haplo_grobs haplo_grobs created by make_haplo_grobs
 #' @param message text message to display at end of report
-#' @return nothing
+#' @return None
 #' @examples
 #' plot_file = tempfile(pattern = 'ogrdb_plots', fileext = ".pdf")
 #'
@@ -206,20 +207,28 @@ make_haplo_grobs = function(segment, haplo_details) {
 #' file.remove(plot_file)
 
 write_plot_file = function(filename, input_sequences, cdr3_dist_grobs, end_composition_grobs, cons_composition_grobs, whole_composition_grobs, triplet_composition_grobs, barplot_grobs, a_allele_plot, haplo_grobs, message) {
-  wd = getwd()
+  # make a temporary directory for the working files, and copy the templates to it
+
+  wd = tempfile("ogrdbstats")
+  dir.create(wd)
+  td = file.path(system.file(package="ogrdbstats"), "templates")
+  file.copy(file.path(td, list.files(td, "*.*")), wd)
 
   file_name = basename(filename)
-  file_loc = dirname(filename)
-  book = bookdown::render_book(input = file.path(system.file(package="ogrdbstats"), "templates"),
+  file_loc = normalizePath(dirname(filename), mustWork=FALSE)
+  book = bookdown::render_book(input = wd,
                         output_format = "bookdown::pdf_book",
                         clean = TRUE,
                         envir = environment(),
-                        output_dir = dirname(filename),
+                        output_dir = NULL,
                         new_session = NA,
                         preview = FALSE,
                         config_file = "_bookdown.yml")
 
-  invisible(file.copy(book, filename))
+
+  file.copy(file.path(wd, '_book', '_main.pdf'), normalizePath(filename), overwrite = TRUE)
+  unlink(wd, recursive=TRUE)
+  return(invisible(NULL))
 }
 
 
@@ -411,7 +420,7 @@ plot_base_composition = function(gene_name, recs, ref, pos=1, filter=TRUE, end_p
 
   if(length(recs) < 1) {
     if (!all_inferred) {
-      cat(paste0("Warning: no sequences found for ", gene_name, "(check SEQUENCE_IMGT in input file)"))
+      report_warn(paste0("No sequences found for ", gene_name, "(check SEQUENCE_IMGT in input file)"))
     }
     return(NA)
   }
@@ -506,7 +515,7 @@ plot_cumulative_consensus_base_composition = function(gene_name, recs, ref, pos=
 
   if(length(recs) < 1) {
     if (!all_inferred) {
-      cat(paste0("Warning: no sequences found for ", gene_name, "(check SEQUENCE_IMGT in input file)"))
+      report_warn(paste0("No sequences found for ", gene_name, "(check SEQUENCE_IMGT in input file)"))
     }
     return(NA)
   }

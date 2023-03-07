@@ -35,16 +35,17 @@ report_warn = function(x) {
 
 # Note in pdf
 
-report_note = function(x) {
-  if (length(x %in% pkg.globals$report_notes) > 0) {
-    pkg.globals$report_warnings = c(pkg.globals$reportnotes, x)
-  } else {
-    pkg.globals$report_notes = c(x)
+report_note = function(xx) {
+  for (x in xx) {
+    if (!(x %in% pkg.globals$report_notes)) {
+      pkg.globals$report_notes = c(pkg.globals$report_notes, x)
+    }
   }
-
 }
 
-#' Generate OGRDB reports from specified files. This creates the genotype report
+#' Generate OGRDB reports from specified files.
+#'
+#' This creates the genotype report
 #' (suffixed _ogrdb_report.csv) and the plot file (suffixed _ogrdb_plos.pdf).
 #' Both are created in the directory holding the annotated read file, and the
 #' file names are prefixed by the name of the annotated read file.
@@ -58,7 +59,7 @@ report_note = function(x) {
 #' @param chain_type one of H, L
 #' @param plot_unmutated Plot base composition using only unmutated sequences (V-chains only)
 #' @param all_inferred Treat all alleles as novel
-#' @return Nothing
+#' @return None
 #' @export
 #' @examples
 #' # Create the analysis data set from example files provided with the package
@@ -72,7 +73,7 @@ report_note = function(x) {
 #' repfile = file.path(tempdir(), 'repertoire.tsv')
 #'
 #' generate_ogrdb_report(reference_set, inferred_set, 'Homosapiens',
-#'           repertoire, 'IGHV', NA, 'V', 'H', FALSE)
+#'           repfile, 'IGHV', NA, 'V', 'H', FALSE)
 #'
 #' #clean up
 #' outfile = file.path(tempdir(), 'repertoire_ogrdb_report.csv')
@@ -84,7 +85,7 @@ generate_ogrdb_report = function(ref_filename, inferred_filename, species, filen
   report('Processing started')
   grDevices::pdf(NULL) # this seems to stop an empty Rplots.pdf from being created.
 
-  report_note(paste0('Read file: ', filename))
+  report_note(paste0('Repertoire file: ', filename))
   report_note(paste0('Germline reference file: ', ref_filename))
   report_note(paste0('Novel allele file: ', inferred_filename))
 
@@ -92,9 +93,8 @@ generate_ogrdb_report = function(ref_filename, inferred_filename, species, filen
     report_note(paste0('Species: ', species))
   }
 
-  report_note(paste0('Read file: ', filename))
-  report_note(paste0('Chain: ', filename))
-  report_note(paste0('Segment: ', filename))
+  report_note(paste0('Chain: ', chain))
+  report_note(paste0('Segment: ', segment))
 
   if (all_inferred) {
     report_note('All alleles are treated as novel')
@@ -110,7 +110,6 @@ generate_ogrdb_report = function(ref_filename, inferred_filename, species, filen
   file_loc = dirname(filename)
 
   report('writing genotype file')
-  report(file.path(file_loc, paste0(file_prefix, '_ogrdb_report.csv')))
   write_genotype_file(file.path(file_loc, paste0(file_prefix, '_ogrdb_report.csv')), segment, chain_type, rd$genotype)
 
   all_inferred = FALSE
@@ -132,6 +131,7 @@ generate_ogrdb_report = function(ref_filename, inferred_filename, species, filen
 
 
   write_plot_file(file.path(file_loc, paste0(file_prefix, '_ogrdb_plots.pdf')), rd$input_sequences, nbgrobs$cdr3_dist, nbgrobs$end, nbgrobs$conc, nbgrobs$whole, nbgrobs$triplet, barplot_grobs, haplo_grobs$aplot, haplo_grobs$haplo, paste0(pkg.globals$report_notes, sep='\n', collapse='\n'))
+  return(invisible(NULL))
 }
 
 #' Read input files into memory
@@ -204,6 +204,7 @@ read_input_files = function(ref_filename, inferred_filename, species, filename, 
 #' @param chain one of IGHV, IGKV, IGLV, IGHD, IGHJ, IGKJ, IGLJ, TRAV, TRAj, TRBV, TRBD, TRBJ, TRGV, TRGj, TRDV, TRDD, TRDJ
 #' @param segment one of V, D, J
 #' @return Named list of gene sequences
+#' @noRd
 read_reference_genes = function(ref_filename, species, chain, segment) {
   # get the reference set
 
@@ -267,6 +268,7 @@ read_reference_genes = function(ref_filename, species, chain, segment) {
 #' @param segment one of V, D, J
 #' @param ref_genes Named list of reference sequences
 #' @return Named list of gapped inferred sequences
+#' @noRd
 read_inferred_sequences = function(inferred_filename, segment, ref_genes) {
   # get the genotype and novel alleles in this set
 
@@ -294,6 +296,7 @@ read_inferred_sequences = function(inferred_filename, segment, ref_genes) {
 #' @param segment one of V, D, J
 #' @param chain_type one of H, L
 #' @return Data Frame containing sequence annotations, with CHANGEO format headers.
+#' @noRd
 read_input_sequences = function(filename, segment, chain_type) {
   D_CALL = D_MUT_NC = D_SEQ = D_errors = D_gene = D_region = J_CALL = J_MUT_NC = J_SEQ = J_errors = NULL
   J_nt = SEG_CALL = SEG_MUT_NC = VDJ_nt = V_CALL = V_CALL_GENOTYPED = V_CDR3_start = V_MUT_NC = V_SEQ = NULL
@@ -431,6 +434,7 @@ read_input_sequences = function(filename, segment, chain_type) {
 #' @param inferred_seqs named list of novel gene sequences
 #' @param ref_genes named list of reference genes
 #' @return named list of gene sequences
+#' @noRd
 make_genotype_db = function(input_sequences, inferred_seqs, ref_genes) {
   # Warn if we don't have genotype statistics for any of the inferred alleles
   # this can happen, for example, with Tigger, if novel alleles are detected but do not pass subsequent criteria for being included in the genotype.
@@ -452,7 +456,8 @@ make_genotype_db = function(input_sequences, inferred_seqs, ref_genes) {
   # otherwise - one of these two is incomplete!
 
   if(any(is.na(genotype_db))) {
-    report_warn(paste0("Warning: sequence(s) for allele(s) ", names(genotype_db[is.na(genotype_db)]), " can't be found in the reference set or the novel alleles file.\n"))
+    missing_alleles = paste0(names(genotype_db[is.na(genotype_db)]), collapse=", ")
+    report_warn(paste0("Warning: sequence(s) for allele(s) ", missing_alleles, " can't be found in the reference set or the novel alleles file.\n"))
   }
 
   # CHeck that a reasonable number of genes in the reference set are not called in the sequence set
@@ -471,6 +476,7 @@ make_genotype_db = function(input_sequences, inferred_seqs, ref_genes) {
 #' @param inferred_seqs named list of novel gene sequences
 #' @param ref_genes named list of reference genes
 #' @return a revised input_sequences structure, guaranteed to contain gapped sequences in SEQUENCE_IMGT
+#' @noRd
 gap_input_sequences = function(input_sequences, inferred_seqs, ref_genes) {
   find_template = function(call) {
     tem = ref_genes[call]
@@ -504,6 +510,7 @@ gap_input_sequences = function(input_sequences, inferred_seqs, ref_genes) {
 #' Calculate the data used for haplotype analysis, showing allelic ratios calculated with various potential haplotyping genes
 #' @param segment one of V, D, J
 #' @param input_sequences the input_sequences data frame
+#' @noRd
 #' @return A named list containing the following elements:
 #' \tabular{ll}{
 #'     sa \tab           a variant of the input_sequences data frame, with fields for haplotyping analysis \cr
@@ -562,6 +569,7 @@ calc_haplo_details = function(segment, input_sequences) {
 #' @param genotype_db named list of gene sequences in the personalised genotype
 #' @param hap_gene The haplotyping columns will be completed based on the usage of the two most frequent alleles of this gene. If NA, the column will be blank
 #' @param haplo_details Data structure created by create_haplo_details
+#' @noRd
 #' @return A named list containing the following elements:
 #' \tabular{ll}{
 #'     input_sequences \tab     updated data frame, guaranteed to include mutation counts, which have been calculated if necessary \cr
@@ -723,6 +731,7 @@ calc_genotype = function(segment, chain_type, s, ref_genes, inferred_seqs, genot
 #' @param hap_gene haplotyping gene for which ratios should be calculated
 #' @param haplo_details Data structure created by create_haplo_details
 #' @return modified genotype with haplotyping ratios added
+#' @noRd
 add_hap_stats = function(genotype, hap_gene, haplo_details) {
   a_gene = a_allele = SEG_CALL = haplotyping_ratio = sequence_id = NULL
   sa = haplo_details$sa
@@ -736,7 +745,7 @@ add_hap_stats = function(genotype, hap_gene, haplo_details) {
     ap = ap[order(ap$percent, decreasing=TRUE),]
 
     if(nrow(ap) < 2 || ap[1,]$percent > 75 || ap[2,]$percent < 20 || (ap[1,]$percent+ap[2,]$percent < 90)) {
-      cat(paste0('Alelleic ratio is unsuitable for haplotyping analysis based on ', hap_gene, '\n'))
+      report_note(paste0('Alelleic ratio is unsuitable for haplotyping analysis based on ', hap_gene, '\n'))
     } else
     {
       genotype$haplotyping_gene = hap_gene
@@ -744,7 +753,7 @@ add_hap_stats = function(genotype, hap_gene, haplo_details) {
 
       a1 = ap[1,]$a_allele
       a2 = ap[2,]$a_allele
-      cat(paste0('Haplotyping analysis is based on gene ', hap_gene, ' alleles ', a1, ':', a2, '\n'))
+      report_note(paste0('Haplotyping analysis is based on gene ', hap_gene, ' alleles ', a1, ':', a2, '\n'))
       recs = sa %>% filter(a_gene==hap_gene) %>% filter(a_allele==a1 | a_allele==a2)
       recs = recs %>% select(sequence_id=SEG_CALL, a_allele) %>% group_by(sequence_id, a_allele) %>% summarise(count=n()) %>% tidyr::spread(a_allele, count)
       recs[is.na(recs)] = 0
@@ -767,7 +776,7 @@ add_hap_stats = function(genotype, hap_gene, haplo_details) {
 #' @param segment one of V, D, J
 #' @param chain_type one of H, L
 #' @param genotype genotype data frame
-#' @return nothing
+#' @return None
 #' @examples
 #' genotype_file = tempfile("ogrdb_genotype")
 #' write_genotype_file(genotype_file, 'V', 'H', example_rep$genotype)
@@ -810,6 +819,7 @@ write_genotype_file = function(filename, segment, chain_type, genotype) {
   g[is.na(g)] = ''
 
   utils::write.csv(g, filename, row.names=FALSE)
+  return(invisible(NULL))
 }
 
 

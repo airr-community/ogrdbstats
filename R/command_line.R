@@ -2,7 +2,7 @@
 
 # Command and test drivers for genotype_statistics
 
-#' Collect parameters from the command line and use them to create a report and CSV file for OGRDB
+#' Collect parameters from the command line and use them to create a report and CSV file
 #' @param args A string vector containing the command line arguments. If NULL, will take them from the command line
 #' @return Nothing
 #' @export

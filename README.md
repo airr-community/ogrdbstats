@@ -1,4 +1,8 @@
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/airr-community/ogrdbstats/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/airr-community/ogrdbstats/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
 # Conducting a Genotype Analysis with ogrdbstats
 
 [ogrdbstats](https://github.com/airr-community/ogrdbstats) is an R

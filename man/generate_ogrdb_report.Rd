@@ -2,10 +2,7 @@
 % Please edit documentation in R/genotype_statistics.R
 \name{generate_ogrdb_report}
 \alias{generate_ogrdb_report}
-\title{Generate OGRDB reports from specified files. This creates the genotype report
-(suffixed _ogrdb_report.csv) and the plot file (suffixed _ogrdb_plos.pdf).
-Both are created in the directory holding the annotated read file, and the
-file names are prefixed by the name of the annotated read file.}
+\title{Generate OGRDB reports from specified files.}
 \usage{
 generate_ogrdb_report(
   ref_filename,
@@ -42,10 +39,10 @@ generate_ogrdb_report(
 \item{all_inferred}{Treat all alleles as novel}
 }
 \value{
-Nothing
+None
 }
 \description{
-Generate OGRDB reports from specified files. This creates the genotype report
+This creates the genotype report
 (suffixed _ogrdb_report.csv) and the plot file (suffixed _ogrdb_plos.pdf).
 Both are created in the directory holding the annotated read file, and the
 file names are prefixed by the name of the annotated read file.
@@ -62,7 +59,7 @@ file.copy(repertoire, tempdir())
 repfile = file.path(tempdir(), 'repertoire.tsv')
 
 generate_ogrdb_report(reference_set, inferred_set, 'Homosapiens',
-          repertoire, 'IGHV', NA, 'V', 'H', FALSE)
+          repfile, 'IGHV', NA, 'V', 'H', FALSE)
 
 #clean up
 outfile = file.path(tempdir(), 'repertoire_ogrdb_report.csv')

@@ -36,6 +36,6 @@ cd ..
 cd ..
 
 cd "private/hamster" 
-Rscript ../../../ogrdbstats.R hamster_IGH_VDJ.fasta Hamster igblast_001_db-pass.tsv --all_novel
+Rscript ../../../ogrdbstats.R hamster_IGH_VDJ.fasta Hamster igblast_001_x-clones.tsv VH --all_novel
 cd ..
 cd ..

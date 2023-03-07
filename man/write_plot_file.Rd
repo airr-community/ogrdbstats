@@ -42,7 +42,7 @@ write_plot_file(
 \item{message}{text message to display at end of report}
 }
 \value{
-nothing
+None
 }
 \description{
 Create the OGRDB style plot file

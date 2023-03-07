@@ -147,7 +147,7 @@ imgt_gap_inferred = function(seqname, seqs, ref_genes) {
   # Gap the sequence
   tem = ref_genes[r[1,]$GENE]
   gapped = apply_gaps(seqs[seqname], tem)
-  cat(paste0('Inferred gene ', seqname, ' gapped using ', r[1,]$GENE, ': ', gapped,'\n'))
+  report_note(paste0('Inferred gene ', seqname, ' gapped using ', r[1,]$GENE, ': ', gapped,'\n'))
   return(gapped)
 }
 
@@ -155,21 +155,21 @@ imgt_gap_inferred = function(seqname, seqs, ref_genes) {
 # Compare two IMGT gapped sequences and find AA mutations
 getMutatedAA <- function(ref_imgt, novel_imgt, ref_name, seq_name, segment, bias) {
   if (grepl("N", ref_imgt)) {
-    cat(paste0("Unexpected N in reference sequence ", ref_name, ": replacing with gap\n"))
+    report_note(paste0("Unexpected N in reference sequence ", ref_name, ": replacing with gap\n"))
     stringr::str_replace(ref_imgt, "N", "-")
   }
   if (grepl("N", novel_imgt)) {
-    cat(paste0("Unexpected N in novel sequence ", seq_name, ": replacing with gap\n"))
+    report_warn(paste0("Unexpected N in novel sequence ", seq_name, ": replacing with gap\n"))
     stringr::str_replace(novel_imgt, "N", "-")
   }
 
   if (segment == 'V' && hasNonImgtGaps(ref_imgt)) {
-    cat(paste0("warning: non codon-aligned gaps in reference sequence ", ref_name, "\n"))
+    report_warn(paste0("warning: non codon-aligned gaps in reference sequence ", ref_name, "\n"))
     ref_imgt = fixNonImgtGaps(ref_imgt)
   }
 
   if (segment == 'V' && hasNonImgtGaps(novel_imgt)) {
-    cat(paste0("warning: non codon-aligned gaps were found in novel sequence ", seq_name, "\n"))
+    report_warn(paste0("warning: non codon-aligned gaps were found in novel sequence ", seq_name, "\n"))
     novel_imgt = fixNonImgtGaps(novel_imgt)
   }
 

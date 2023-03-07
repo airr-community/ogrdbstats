@@ -16,7 +16,7 @@ write_genotype_file(filename, segment, chain_type, genotype)
 \item{genotype}{genotype data frame}
 }
 \value{
-nothing
+None
 }
 \description{
 Write the genotype file required by OGRDB

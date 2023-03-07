@@ -2,7 +2,7 @@
 % Please edit documentation in R/command_line.R
 \name{genotype_statistics_cmd}
 \alias{genotype_statistics_cmd}
-\title{Collect parameters from the command line and use them to create a report and CSV file for OGRDB}
+\title{Collect parameters from the command line and use them to create a report and CSV file}
 \usage{
 genotype_statistics_cmd(args = NULL)
 }
@@ -13,7 +13,7 @@ genotype_statistics_cmd(args = NULL)
 Nothing
 }
 \description{
-Collect parameters from the command line and use them to create a report and CSV file for OGRDB
+Collect parameters from the command line and use them to create a report and CSV file
 }
 \examples{
 # Prepare files for example

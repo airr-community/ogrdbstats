@@ -2,15 +2,20 @@ Package: ogrdbstats
 Type: Package
 Title: Analysis of Adaptive Immune Receptor Repertoire Genotype Statistics
 Version: 0.5.0
-Author: William Lees
-Maintainer: William Lees <william@lees.org.uk>
+Authors@R: person(
+  "William", "Lees",
+  email = "william@lees.org.uk",
+  role = c("aut", "cre"),
+  comment = c(ORCID = "0000-0001-9834-6840"))
+URL: https://github.com/airr-community/ogrdbstats
+BugReports: https://github.com/airr-community/ogrdbstats/issues
 Description: Multiple tools are now available for inferring the personalised 
-    genotype from an Adaptive Immune Receptor Repertoire sequencing repertoire. 
-    The package can read the output from a number of these tools, converting to 
+    genotype from an adaptive immune receptor repertoire. 
+    'ogrdbstats' can read the output from a number of these tools, converting to 
     a standard format and supplementing with rich data such as usage and 
-    characterisation of 'novel' germline alleles. These reports can be 
+    characterisation of 'novel' germline alleles. This data can be 
     particularly useful when considering the validity of novel inferences. Use
-    of the information provided by ogrdbstats is described in Ohlin et al. 
+    of the information provided by 'ogrdbstats' is described in Ohlin et al. 
     (2019) <doi:10.3389/fimmu.2019.00435>.
 License: CC BY-SA 4.0
 Encoding: UTF-8
@@ -33,7 +38,7 @@ Imports:
   argparser (>= 0.4),
   ComplexHeatmap,
   bookdown,
-  scales
+  scales,
 Suggests:
   knitr,
   rmarkdown

@@ -93,4 +93,10 @@ title: OGRDBstats Report
 \newpage
 # Configuration settings
 
-`r message`
+```{r, echo=FALSE, results='asis'}
+  
+	m = gsub("\\\\", "/", message)
+  cat(gsub("([*+-])", " ", m))
+
+```
+
