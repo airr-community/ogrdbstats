@@ -16,7 +16,7 @@ write_plot_file(
   a_allele_plot,
   haplo_grobs,
   message,
-  html_format
+  format
 )
 }
 \arguments{
@@ -42,7 +42,7 @@ write_plot_file(
 
 \item{message}{text message to display at end of report}
 
-\item{html_format}{If TRUE, produce report in html, otherwise in pdf}
+\item{format}{Format of report ('pdf', 'html' or 'none')}
 }
 \value{
 None
@@ -81,7 +81,7 @@ write_plot_file(
     haplo_grobs$aplot,
     haplo_grobs$haplo,
     "Notes on this analysis",
-    TRUE
+    'none'
 )
 
 file.remove(plot_file)

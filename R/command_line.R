@@ -10,7 +10,7 @@
 #' # Prepare files for example
 #' reference_set = system.file("extdata/ref_gapped.fasta", package = "ogrdbstats")
 #' inferred_set = system.file("extdata/novel_gapped.fasta", package = "ogrdbstats")
-#' repertoire = system.file("extdata/repertoire.tsv", package = "ogrdbstats")
+#' repertoire = system.file("extdata/ogrdbstats_example_repertoire.tsv", package = "ogrdbstats")
 #' file.copy(repertoire, tempdir())
 #' repfile = file.path(tempdir(), 'repertoire.tsv')
 #'
@@ -20,7 +20,7 @@
 #'               repfile,
 #'               'IGHV',
 #'               '--inf_file', inferred_set,
-#'               '--html'))
+#'               '--format', 'none'))
 #'
 #' # clean up
 #' outfile = file.path(tempdir(), 'repertoire_ogrdb_report.csv')
@@ -39,7 +39,7 @@ genotype_statistics_cmd = function(args=NULL) {
   p = argparser::add_argument(p, '--hap_gene', help='haplotyping gene, e.g. IGHJ6')
   p = argparser::add_argument(p, '--plot_unmutated', flag=TRUE, help='Plot base composition using only unmutated sequences (V-chains only)')
   p = argparser::add_argument(p, '--all_novel', flag=TRUE, help='Treat all alleles in reference set as if novel')
-  p = argparser::add_argument(p, '--html', flag=TRUE, help='Create output report in html format rather than pdf')
+  p = argparser::add_argument(p, '--format', default='pdf', help='Output report format: pdf, html or none')
 
 
   if (is.null(args)) {
@@ -56,7 +56,11 @@ genotype_statistics_cmd = function(args=NULL) {
   hap_gene = argv$hap_gene
   plot_unmutated = argv$plot_unmutated
   all_inferred = argv$all_novel
-  html_format = argv$html
+  format = argv$format
+
+  if(!(format %in% c('pdf', 'html', 'none'))) {
+    stop('Unrecognised format.')
+  }
 
   # convert legacy chain names
 
@@ -98,7 +102,7 @@ genotype_statistics_cmd = function(args=NULL) {
     inferred_filename = '-'
   }
 
-  generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, plot_unmutated, all_inferred, html_format=html_format)
+  generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, plot_unmutated, all_inferred, format=format)
 }
 
 

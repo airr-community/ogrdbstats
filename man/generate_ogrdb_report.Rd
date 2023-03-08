@@ -15,7 +15,7 @@ generate_ogrdb_report(
   chain_type,
   plot_unmutated,
   all_inferred = FALSE,
-  html_format = FALSE
+  format = "pdf"
 )
 }
 \arguments{
@@ -39,7 +39,7 @@ generate_ogrdb_report(
 
 \item{all_inferred}{Treat all alleles as novel}
 
-\item{html_format}{If TRUE, produce report in html, otherwise in pdf}
+\item{format}{The format for the plot file ('pdf', 'html' or 'none')}
 }
 \value{
 None
@@ -51,23 +51,18 @@ Both are created in the directory holding the annotated read file, and the
 file names are prefixed by the name of the annotated read file.
 }
 \examples{
-# Create the analysis data set from example files provided with the package
-# (this dataset is also provided in the package as example_rep)
-
 # prepare files for example
 reference_set = system.file("extdata/ref_gapped.fasta", package = "ogrdbstats")
 inferred_set = system.file("extdata/novel_gapped.fasta", package = "ogrdbstats")
-repertoire = system.file("extdata/repertoire.tsv", package = "ogrdbstats")
+repertoire = system.file("extdata/ogrdbstats_example_repertoire.tsv", package = "ogrdbstats")
 file.copy(repertoire, tempdir())
-repfile = file.path(tempdir(), 'repertoire.tsv')
+repfile = file.path(tempdir(), 'ogrdbstats_example_repertoire.tsv')
 
 generate_ogrdb_report(reference_set, inferred_set, 'Homosapiens',
-          repfile, 'IGHV', NA, 'V', 'H', FALSE, html_format=TRUE)
+          repfile, 'IGHV', NA, 'V', 'H', FALSE, format='none')
 
 #clean up
-outfile = file.path(tempdir(), 'repertoire_ogrdb_report.csv')
-plotdir = file.path(tempdir(), 'repertoire_ogrdb_plots')
+outfile = file.path(tempdir(), 'ogrdbstats_example_repertoire_ogrdb_report.csv')
 file.remove(repfile)
 file.remove(outfile)
-unlink(plotdir, recursive=TRUE)
 }

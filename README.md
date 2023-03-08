@@ -358,7 +358,7 @@ library(ogrdbstats)
 
 reference_set = system.file("extdata/ref_gapped.fasta", package = "ogrdbstats")
 inferred_set = system.file("extdata/novel_gapped.fasta", package = "ogrdbstats")
-repertoire = system.file("extdata/repertoire.tsv", package = "ogrdbstats")
+repertoire = system.file("extdata/ogrdbstats_example_repertoire.tsv", package = "ogrdbstats")
 
 rd = suppressMessages(
   read_input_files(reference_set, inferred_set, 'Homosapiens', repertoire, 'IGHV', NA, 'V', 'H', FALSE)

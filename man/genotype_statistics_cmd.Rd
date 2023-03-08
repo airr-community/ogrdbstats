@@ -19,7 +19,7 @@ Collect parameters from the command line and use them to create a report and CSV
 # Prepare files for example
 reference_set = system.file("extdata/ref_gapped.fasta", package = "ogrdbstats")
 inferred_set = system.file("extdata/novel_gapped.fasta", package = "ogrdbstats")
-repertoire = system.file("extdata/repertoire.tsv", package = "ogrdbstats")
+repertoire = system.file("extdata/ogrdbstats_example_repertoire.tsv", package = "ogrdbstats")
 file.copy(repertoire, tempdir())
 repfile = file.path(tempdir(), 'repertoire.tsv')
 
@@ -29,7 +29,7 @@ genotype_statistics_cmd(c(
               repfile,
               'IGHV',
               '--inf_file', inferred_set,
-              '--html'))
+              '--format', 'none'))
 
 # clean up
 outfile = file.path(tempdir(), 'repertoire_ogrdb_report.csv')

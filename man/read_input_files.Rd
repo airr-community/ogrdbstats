@@ -59,7 +59,7 @@ Read input files into memory
 #(this dataset is also provided in the package as example_rep)
 reference_set = system.file("extdata/ref_gapped.fasta", package = "ogrdbstats")
 inferred_set = system.file("extdata/novel_gapped.fasta", package = "ogrdbstats")
-repertoire = system.file("extdata/repertoire.tsv", package = "ogrdbstats")
+repertoire = system.file("extdata/ogrdbstats_example_repertoire.tsv", package = "ogrdbstats")
 
 example_data = read_input_files(reference_set, inferred_set, 'Homosapiens',
        repertoire, 'IGHV', NA, 'V', 'H', FALSE)

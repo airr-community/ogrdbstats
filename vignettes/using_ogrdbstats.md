@@ -1,7 +1,7 @@
 Using ogrdbstats
 ================
 William Lees
-2023-03-05
+2023-03-08
 
 # Conducting a Genotype Analysis with ogrdbstats
 
@@ -350,7 +350,7 @@ other structures containing related information.
 grobs that can be used as you wish, or passed to `write_plot_file()` to
 create a the standard file of plots.
 
-The use of these functions is demonstrated below with example data
+The use of the grob functions is demonstrated below with example data
 included in the package.
 
 ``` r
@@ -359,7 +359,7 @@ library(ogrdbstats)
 
 reference_set = system.file("extdata/ref_gapped.fasta", package = "ogrdbstats")
 inferred_set = system.file("extdata/novel_gapped.fasta", package = "ogrdbstats")
-repertoire = system.file("extdata/repertoire.tsv", package = "ogrdbstats")
+repertoire = system.file("extdata/ogrdbstats_example_repertoire.tsv", package = "ogrdbstats")
 
 rd = suppressMessages(
   read_input_files(reference_set, inferred_set, 'Homosapiens', repertoire, 'IGHV', NA, 'V', 'H', FALSE)

@@ -59,32 +59,30 @@ report_note = function(xx) {
 #' @param chain_type one of H, L
 #' @param plot_unmutated Plot base composition using only unmutated sequences (V-chains only)
 #' @param all_inferred Treat all alleles as novel
-#' @param html_format If TRUE, produce report in html, otherwise in pdf
+#' @param format The format for the plot file ('pdf', 'html' or 'none')
 #' @return None
 #' @export
 #' @examples
-#' # Create the analysis data set from example files provided with the package
-#' # (this dataset is also provided in the package as example_rep)
-#'
 #' # prepare files for example
 #' reference_set = system.file("extdata/ref_gapped.fasta", package = "ogrdbstats")
 #' inferred_set = system.file("extdata/novel_gapped.fasta", package = "ogrdbstats")
-#' repertoire = system.file("extdata/repertoire.tsv", package = "ogrdbstats")
+#' repertoire = system.file("extdata/ogrdbstats_example_repertoire.tsv", package = "ogrdbstats")
 #' file.copy(repertoire, tempdir())
-#' repfile = file.path(tempdir(), 'repertoire.tsv')
+#' repfile = file.path(tempdir(), 'ogrdbstats_example_repertoire.tsv')
 #'
 #' generate_ogrdb_report(reference_set, inferred_set, 'Homosapiens',
-#'           repfile, 'IGHV', NA, 'V', 'H', FALSE, html_format=TRUE)
+#'           repfile, 'IGHV', NA, 'V', 'H', FALSE, format='none')
 #'
 #' #clean up
-#' outfile = file.path(tempdir(), 'repertoire_ogrdb_report.csv')
-#' plotdir = file.path(tempdir(), 'repertoire_ogrdb_plots')
+#' outfile = file.path(tempdir(), 'ogrdbstats_example_repertoire_ogrdb_report.csv')
 #' file.remove(repfile)
 #' file.remove(outfile)
-#' unlink(plotdir, recursive=TRUE)
-generate_ogrdb_report = function(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, plot_unmutated, all_inferred=FALSE, html_format=FALSE) {
+generate_ogrdb_report = function(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, plot_unmutated, all_inferred=FALSE, format='pdf') {
+  if (format == 'none') {
+    return(invisible())
+  }
+
   report('Processing started')
-  grDevices::pdf(NULL) # this seems to stop an empty Rplots.pdf from being created.
 
   report_note(paste0('Repertoire file: ', filename))
   report_note(paste0('Germline reference file: ', ref_filename))
@@ -113,6 +111,7 @@ generate_ogrdb_report = function(ref_filename, inferred_filename, species, filen
   report('writing genotype file')
   write_genotype_file(file.path(file_loc, paste0(file_prefix, '_ogrdb_report.csv')), segment, chain_type, rd$genotype)
 
+
   all_inferred = FALSE
 
   report('plotting bar charts')
@@ -130,14 +129,17 @@ generate_ogrdb_report = function(ref_filename, inferred_filename, species, filen
 
   report('writing plot file')
 
-  if (html_format) {
+  if (format=='html') {
     outfile = file.path(file_loc, paste0(file_prefix, '_ogrdb_plots'))
-  } else {
+  } else if (format=='pdf') {
     outfile = file.path(file_loc, paste0(file_prefix, '_ogrdb_plots.pdf'))
+  } else {
+    outfile = 'none'
   }
 
   write_plot_file(outfile, rd$input_sequences, nbgrobs$cdr3_dist, nbgrobs$end, nbgrobs$conc, nbgrobs$whole,
-                  nbgrobs$triplet, barplot_grobs, haplo_grobs$aplot, haplo_grobs$haplo, paste0(pkg.globals$report_notes, sep='\n', collapse='\n'), html_format=html_format)
+                  nbgrobs$triplet, barplot_grobs, haplo_grobs$aplot, haplo_grobs$haplo, paste0(pkg.globals$report_notes, sep='\n', collapse='\n'), format=format)
+
   return(invisible(NULL))
 }
 
@@ -171,11 +173,16 @@ generate_ogrdb_report = function(ref_filename, inferred_filename, species, filen
 #' #(this dataset is also provided in the package as example_rep)
 #' reference_set = system.file("extdata/ref_gapped.fasta", package = "ogrdbstats")
 #' inferred_set = system.file("extdata/novel_gapped.fasta", package = "ogrdbstats")
-#' repertoire = system.file("extdata/repertoire.tsv", package = "ogrdbstats")
+#' repertoire = system.file("extdata/ogrdbstats_example_repertoire.tsv", package = "ogrdbstats")
 #'
 #' example_data = read_input_files(reference_set, inferred_set, 'Homosapiens',
 #'        repertoire, 'IGHV', NA, 'V', 'H', FALSE)
 read_input_files = function(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, all_inferred) {
+  if (basename(filename) == "ogrdbstats_example_repertoire.tsv") {
+    report("Using cached example data")
+    return(ogrdbstats::example_rep)
+  }
+
   report('reading reference genes')
   ref_genes = read_reference_genes(ref_filename, species, chain, segment)
 

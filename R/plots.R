@@ -170,7 +170,7 @@ make_haplo_grobs = function(segment, haplo_details) {
 #' @param a_allele_plot a_allele_plot grob created by make_haplo_grobs
 #' @param haplo_grobs haplo_grobs created by make_haplo_grobs
 #' @param message text message to display at end of report
-#' @param html_format If TRUE, produce report in html, otherwise in pdf
+#' @param format Format of report ('pdf', 'html' or 'none')
 #' @return None
 #' @examples
 #' plot_file = tempfile(pattern = 'ogrdb_plots')
@@ -203,12 +203,17 @@ make_haplo_grobs = function(segment, haplo_details) {
 #'     haplo_grobs$aplot,
 #'     haplo_grobs$haplo,
 #'     "Notes on this analysis",
-#'     TRUE
+#'     'none'
 #' )
 #'
 #' file.remove(plot_file)
 
-write_plot_file = function(filename, input_sequences, cdr3_dist_grobs, end_composition_grobs, cons_composition_grobs, whole_composition_grobs, triplet_composition_grobs, barplot_grobs, a_allele_plot, haplo_grobs, message, html_format) {
+write_plot_file = function(filename, input_sequences, cdr3_dist_grobs, end_composition_grobs, cons_composition_grobs, whole_composition_grobs, triplet_composition_grobs, barplot_grobs, a_allele_plot, haplo_grobs, message, format) {
+
+  if (format == 'none') {
+    return(invisible())
+  }
+
   # make a temporary directory for the working files, and copy the templates to it
 
   wd = tempfile("ogrdbstats")
@@ -216,10 +221,10 @@ write_plot_file = function(filename, input_sequences, cdr3_dist_grobs, end_compo
   td = file.path(system.file(package="ogrdbstats"), "templates")
   file.copy(file.path(td, list.files(td, "*.*")), wd)
 
-  output_format = "bookdown::pdf_book"
-
-  if(html_format) {
+  if(format == 'html') {
     output_format = "bookdown::gitbook"
+  } else {
+    output_format = "bookdown::pdf_book"
   }
 
   file_name = basename(filename)
@@ -234,7 +239,7 @@ write_plot_file = function(filename, input_sequences, cdr3_dist_grobs, end_compo
                         config_file = "_bookdown.yml")
 
 
-  if (html_format) {
+  if (format == 'html') {
     dir.create(filename)
     src = file.path(wd, '_book')
     file.copy(file.path(src, list.files(src, "*.*")), normalizePath(filename, mustWork=TRUE), overwrite = TRUE, recursive=TRUE)
