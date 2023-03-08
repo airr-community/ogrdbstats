@@ -82,6 +82,8 @@ generate_ogrdb_report = function(ref_filename, inferred_filename, species, filen
     return(invisible())
   }
 
+  grDevices::pdf(NULL) # this seems to stop an empty Rplots.pdf from being created.
+
   report('Processing started')
 
   report_note(paste0('Repertoire file: ', filename))

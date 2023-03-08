@@ -1,6 +1,6 @@
 Package: ogrdbstats
 Type: Package
-Title: Analysis of Adaptive Immune Receptor Repertoire Genotype Statistics
+Title: Analysis of Adaptive Immune Receptor Repertoire Germ Line Statistics
 Version: 0.5.0
 Authors@R: person(
   "William", "Lees",
@@ -13,9 +13,9 @@ Description: Multiple tools are now available for inferring the personalised
     germ line set from an adaptive immune receptor repertoire. 
     Output from these tools is converted to 
     a single format and supplemented with rich data such as usage and 
-    characterisation of 'novel' germline alleles. This data can be 
+    characterisation of 'novel' germ line alleles. This data can be 
     particularly useful when considering the validity of novel inferences. Use
-    of the alaysis provided is described in <doi:10.3389/fimmu.2019.00435>.
+    of the analysis provided is described in <doi:10.3389/fimmu.2019.00435>.
 License: CC BY-SA 4.0
 Encoding: UTF-8
 Depends:
