@@ -1,6 +1,7 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/airr-community/ogrdbstats/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/airr-community/ogrdbstats/actions/workflows/R-CMD-check.yaml)
+[![Docker Image](https://github.com/airr-community/ogrdbstats/actions/workflows/docker-image.yml/badge.svg)](https://github.com/airr-community/ogrdbstats/actions/workflows/docker-image.yml)
 <!-- badges: end -->
 
 # Conducting a Genotype Analysis with ogrdbstats
