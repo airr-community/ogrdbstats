@@ -29,10 +29,10 @@ jobs:
         with:
           context: .
           load: true
-          tags: ${{ env.TEST_TAG }}
+          tags: ogrdbstats:test
       - name: Test
         run: |
-          docker run --rm ${{ env.TEST_TAG }} run_ogrdbstats_tests
+          docker run --rm ogrdbstats:test run_ogrdbstats_tests
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
