@@ -1,25 +1,28 @@
-R CMD gives no errors or warnings, and two notes:
+R CMD gives no errors or warnings, and one note stating that this is a
+new submission, which I cannot eliminate:
 
-❯ checking CRAN incoming feasibility ... NOTE
-  Maintainer: 'William Lees <william@lees.org.uk>'
-  
-  New submission
+* checking CRAN incoming feasibility ... [8s] NOTE
+Maintainer: 'William Lees <william@lees.org.uk>'
 
-❯ checking examples ... [36s] NOTE
-  Examples with CPU (user + system) or elapsed time > 5s
-                           user system elapsed
-  generate_ogrdb_report   11.40   1.03   14.61
-  genotype_statistics_cmd  4.68   0.69    6.29
-  write_plot_file          4.29   0.56    6.16
-  
-I have made the example as minimal as I can.
+New submission
 
-Thank you for earlier feedback. I have:
+-----------------
+
+I confirm that I have read and agree to the CRAN Repository Policy.
+
+R CMD has beeen run on Windows, macOS and Linux using GitHub actions, and
+also using win_devel.
+
+-----------------
+
+Thank you for earlier feedback. Since then I have:
 - Proof-read the description text and made some changes
 - added a reference describing the methods to the description text
 - Replaced the use of T and F with TRUE and FALSE throughout the package
 - Added examples to all exported functions
 - Replaced print()/cat() with use message()/warning()  
 - Removed all code that changed the user's current directory
+- reduced the execution time of example code
+- removed words that offended the spell checker
 
 Best wishes
