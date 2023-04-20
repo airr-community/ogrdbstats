@@ -1,0 +1,34 @@
+#!/bin/sh
+
+cd /data/ogrdb_extdata
+
+Rscript /usr/local/bin/ogrdbstats.R --inf_file novel_gapped.fasta ref_gapped.fasta Homosapiens ogrdbstats_example_repertoire.tsv IGHV
+
+rv=$?  
+if [[ $rv != 0 ]]  
+then    
+    echo "Test failed."  
+    exit 1	
+fi
+
+if [ ! -f "repertoire_ogrdb_report.csv" ]; then
+    echo "Report not created."
+	exit 1
+fi
+
+diff model_ogrdbstats_example_repertoire_ogrdb_report.csv ogrdbstats_example_repertoire_ogrdb_report.csv
+
+rv=$?  
+if [[ $rv != 0 ]]  
+then    
+    echo "Report does not match expected content"  
+    exit 1	
+fi
+
+if [ ! -f "repertoire_ogrdb_plots.pdf" ]; then
+    echo "PDF not created."
+	exit 1
+fi
+
+echo "Test passed."
+exit 0

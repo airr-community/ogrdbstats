@@ -1,0 +1,3 @@
+#!/bin/sh
+cd /scratch
+Rscript /usr/local/bin/ogrdbstats.R $@
