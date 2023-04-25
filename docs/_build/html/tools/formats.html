@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detailed Description of Input Files &mdash; OGRDBstats 0.5.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="ogrdbstats.R - command-line description" href="ogrdbstats_r.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> OGRDBstats
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">News</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/ungenotyped.html">Using OGRDBstats with any repertoire</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/tigger.html">Using TiGGER with OGRDBstats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/igdiscover.html">Using TiGGER with IgDiscover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/all_novel.html">Producing a more complete report</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/gapped_v.html">Creating and using a gapped V reference file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/gapped_v.html#creating-and-using-a-gapped-v-reference-file-for-rhesus-macaque">Creating and using a gapped V reference file for Rhesus macaque</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Usage Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ogrdbstats_r.html">ogrdbstats.R - command-line description</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Detailed Description of Input Files</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OGRDBstats</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Detailed Description of Input Files</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tools/formats.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="detailed-description-of-input-files">
+<span id="formats"></span><h1>Detailed Description of Input Files<a class="headerlink" href="#detailed-description-of-input-files" title="Permalink to this heading"></a></h1>
+<p><cite>REF_FILE</cite> - FASTA file containing the IMGT gap-aligned reference germline sequences.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>All germlines that are called in the read file (apart from those of novel alleles) should be included.</p></li>
+<li><p>The V-sequences must be aligned according to the <a class="reference external" href="https://www.imgt.org/IMGTScientificChart/Numbering/IMGTnumbering.html">IMGT unique numbering</a>.</p></li>
+<li><p>The must simply consist of the allele name, unless the file is downloaded from IMGT as in the next point</p></li>
+<li><dl class="simple">
+<dt>The IMGT set can be <a class="reference external" href="https://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP">downloaded</a> and used as-is: the</dt><dd><p>script will filter out the records for the nominated species. As the IMGT set changes from time to time, please make sure that the same version is used by the inference tool and by this script.</p>
+</dd>
+</dl>
+</li>
+<li><p>A warning will be given if any calls in the read file do not have a corresponding sequence in the reference file or the inferred novel alleles file. Unmutated counts will not be provided for those sequences.</p></li>
+</ul>
+</div></blockquote>
+<p><cite>READ_FILE</cite> - A tab-separated file containing the annotated reads used to infer the genotype, in MiAIRR, CHANGEO or IgDiscover format.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The format will be determined automatically by the script.</p></li>
+<li><p>MiAIRR format files must contain at least the following columns: sequence_id, v_call_genotyped, d_call, j_call, sequence_alignment, cdr3. For J or D inferences they must also contain J_sequence_start, J_sequence_end, J_germline_start, J_germline_end, or the equivalent fields for D genes. IgBLAST’s –format airr creates compatible MiAIRR format files.</p></li>
+<li><p>CHANGEO files must contain at least the following columns: SEQUENCE_ID, V_CALL_GENOTYPED, D_CALL, J_CALL, SEQUENCE_IMGT, CDR3_IMGT, V_MUT_NC, D_MUT_NC, J_MUT_NC, SEQUENCE, JUNCTION_START, V_SEQ, D_SEQ, J_SEQ. If you would like to process files from IMGT V-Quest, please parse them with CHANGEO to convert them to CHANGEO format.</p></li>
+<li><p>D- related fields are only required for heavy chain records.</p></li>
+</ul>
+<dl class="simple">
+<dt>In MiAIRR and CHANGEO formats, the v_call_genotyped/V_CALL_GENOTYPED column should contain the V calls made after the subject’s V-gene genotype has been inferred (including calls of the novel alleles). Sequences may be either unagpped or IMGT gap-aligned. Determining the personalised V-gene genotype is recommended when processing D or J gene inferences, so that V-gene usage counts are accurate.</dt><dd><p>If there is no v_call_genotyped/V_CALL_GENOTYPED column, ogrdbstats will fall back to using V-CALL, with a warning.</p>
+</dd>
+</dl>
+<p>For IgDiscover, the file ‘final/filtered.tab’ should be used - see <a class="reference internal" href="../examples/igdiscover.html#igdiscover"><span class="std std-ref">Using TiGGER with IgDiscover</span></a></p>
+</div></blockquote>
+<p><cite>INF_FILE</cite> - FASTA file containing the inferred novel alleles</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Sequences in the inferred file should all be of the same type (V, D or J) and from the same locus.</p></li>
+<li><p>The header must simply consist of the allele name as assigned by the inference tool.</p></li>
+<li><p>V-gene sequences may either be IMGT gap-aligned or not aligned. If they are not aligned, the script will determine the nearest reference gene and use it as a template. If you are not satisfied with the resulting alignment, just align the sequence in the file as you prefer.</p></li>
+<li><p>If a gene with the same name is present in both the germline file and the inferred file, its presence in the inferred file will be ignored. This makes it easier to use the script with inference tools that do not write the inferred sequences to a separate file.</p></li>
+</ul>
+</div></blockquote>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ogrdbstats_r.html" class="btn btn-neutral float-left" title="ogrdbstats.R - command-line description" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, William Lees.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

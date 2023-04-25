@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creating and using a gapped V reference file &mdash; OGRDBstats 0.5.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ogrdbstats.R - command-line description" href="../tools/ogrdbstats_r.html" />
+    <link rel="prev" title="Producing a more complete report" href="all_novel.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> OGRDBstats
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">News</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ungenotyped.html">Using OGRDBstats with any repertoire</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tigger.html">Using TiGGER with OGRDBstats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="igdiscover.html">Using TiGGER with IgDiscover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="all_novel.html">Producing a more complete report</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Creating and using a gapped V reference file</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#creating-and-using-a-gapped-v-reference-file-for-rhesus-macaque">Creating and using a gapped V reference file for Rhesus macaque</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Usage Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tools/ogrdbstats_r.html">ogrdbstats.R - command-line description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/formats.html">Detailed Description of Input Files</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OGRDBstats</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Creating and using a gapped V reference file</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/examples/gapped_v.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="creating-and-using-a-gapped-v-reference-file">
+<span id="gapped-v"></span><h1>Creating and using a gapped V reference file<a class="headerlink" href="#creating-and-using-a-gapped-v-reference-file" title="Permalink to this heading"></a></h1>
+<p>If the starting V.fasta file you used with IgDiscover was not based on an IMGT set, and you do not have ready access to an IMGT-aligned version, you can create a
+gapped version of V.fasta using the <cite>gap_sequences</cite> command from the <a class="reference external" href="https://williamdlees.github.io/receptor_utils/_build/html/fix_macaque_gaps.html">receptor_utils</a> package.
+Installation requires a recent version of Python. <cite>gap_sequences</cite> requires a gapped set of sequences to use as a template. The receptor_utils package
+can download a gapped set from IMGT. The following commands will install the package, download a gapped human IGHV set, and use it to create
+a gapped set from the starting V.fasta database (again the commands are written to be run in the final/ directory):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="c1"># install receptor_utils latest version (requires Python)</span>
+$ pip install -U receptor_utils
+
+$ <span class="c1"># download human IGHV reference set from IMGT</span>
+$ extract_refs -L IGH <span class="s2">&quot;Homo sapiens&quot;</span>
+
+$ <span class="c1"># create a gapped version of V.fasta, using the downloaded gapped reference set</span>
+$ <span class="c1"># (Homo_sapiens_IGHV_gapped.fasta) as a template</span>
+$ <span class="c1"># Note that the V.fasta file used here should be the starting database passed to</span>
+$ <span class="c1"># IgDiscover, i.e. database/V.fasta not final/database/V.fasta</span>
+$ gap_sequences ../database/V.fasta V_starting_gapped.fasta
+</pre></div>
+</div>
+<p>You may see some warnings relating to sequences present in Homo_sapiens_IGHV_gapped.fasta. These can be ignored: gap_sequences will use the
+functionally correct sequences in the database and ignore the ones it warns about.</p>
+<section id="creating-and-using-a-gapped-v-reference-file-for-rhesus-macaque">
+<h2>Creating and using a gapped V reference file for Rhesus macaque<a class="headerlink" href="#creating-and-using-a-gapped-v-reference-file-for-rhesus-macaque" title="Permalink to this heading"></a></h2>
+<p>IMGT’s alignment of rhesus macaque IGH,K and L reference sequences is non-canonical: all three alignments contain inserted codons relative to those defined in the <a class="reference external" href="https://www.imgt.org/IMGTScientificChart/Numbering/IMGTnumbering.html">IMGT unique
+numbering</a>. These cause problems for the functionality checking built in to ogrdbstats, and will cause
+problems with other tools that expect gapped sequences to follow the canonical alignment.</p>
+<p><a class="reference external" href="https://williamdlees.github.io/receptor_utils/_build/html/fix_macaque_gaps.html">receptor_utils</a> contains a command <a class="reference external" href="https://williamdlees.github.io/receptor_utils/_build/html/fix_macaque_gaps.html">fix_macaque_gaps</a> which will correct the alignment.
+This set of commands will download a Rhesus IGH gapped set from IMGT, and fix the alignment. Receptor_utils requires a recent version of Python.
+database, such as one based on <a class="reference external" href="http://kimdb.gkhlab.se/">kimdb</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="c1"># install receptor_utils latest version (requires Python)</span>
+$ pip install -U receptor_utils
+
+$ <span class="c1"># download rhesus IGHV reference set from IMGT</span>
+$ extract_refs -L IGH <span class="s2">&quot;Rhesus macaque&quot;</span>
+
+$ <span class="c1"># fix the non-canonical alignment</span>
+$ fix_macaque_gaps Rhesus_macaque_IGHV_gapped.fasta Rhesus_macaque_IGHV_gapped_fixed.fasta IGH
+</pre></div>
+</div>
+<p>The resulting file <cite>Rhesus_macaque_IGHV_gapped_fixed.fasta</cite> will follow the canonical IMGT alignment. <cite>IGH</cite> can be replaced with <cite>IGK</cite> or <cite>IGL</cite>.</p>
+<p><cite>fix_macaque_gaps</cite> will notify you that a small number of sequences have been removed from the set because they contain the inserted codon. These sequences have not, to the author’s knowledge at the time of writing, been
+reported as being present in significant levels in AIRR-seq repertoires, or demonstrated to form functional antibodies.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="all_novel.html" class="btn btn-neutral float-left" title="Producing a more complete report" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../tools/ogrdbstats_r.html" class="btn btn-neutral float-right" title="ogrdbstats.R - command-line description" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, William Lees.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
