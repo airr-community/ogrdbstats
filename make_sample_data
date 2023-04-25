@@ -1,3 +1,4 @@
+#!/bin/bash
 cd /scratch
 
 Rscript /usr/local/bin/make_sample_data.R
