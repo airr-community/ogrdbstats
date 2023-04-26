@@ -49,16 +49,17 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="news.html">News</a></li>
+<li class="toctree-l1"><a class="reference internal" href="news.html">Release Notes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="examples/ungenotyped.html">Using OGRDBstats with any repertoire</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples/tigger.html">Using TiGGER with OGRDBstats</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples/igdiscover.html">Using TiGGER with IgDiscover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/tigger.html">Using OGRDBstats with TIgGER</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/igdiscover.html">Using OGRDBstats with IgDiscover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/partis.html">Using OGRDBstats with partis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/impre.html">Using OGRDBstats with IMPre</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/all_novel.html">Producing a more complete report</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples/gapped_v.html">Creating and using a gapped V reference file</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples/gapped_v.html#creating-and-using-a-gapped-v-reference-file-for-rhesus-macaque">Creating and using a gapped V reference file for Rhesus macaque</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/gapped_v.html">Creating and using a gapped V germline set</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Usage Documentation</span></p>
 <ul>
@@ -94,11 +95,11 @@
 <span id="overview-label"></span><h1>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h1>
 <section id="scope-and-features">
 <h2>Scope and Features<a class="headerlink" href="#scope-and-features" title="Permalink to this heading"></a></h2>
-<p>OGRDBstats can provide allele usage statistics and plots for any annotated repertoires. The repertoires must be provided in either AIRR or legacy CHANGE-O format.</p>
+<p>OGRDBstats can provide allele usage statistics and plots for any annotated repertoires. The repertoires may be provided in either AIRR or legacy CHANGE-O format.</p>
 <p>The statistics provide overall sequence count for each allele, mutation levels, and recombination statistics, for example the number of J-alleles found
 to combine with each allele, and the number of associated CDR3 sequences. An example can be found <a class="reference external" href="https://github.com/airr-community/ogrdbstats/blob/master/example_ogrdbstats_genotype.csv">here</a>.</p>
 <p>The available plots provide read pile-up information for each allele, and plots showing the mutation levels and counts associated with each assigned allele. Only
-reads with an assignment to a single allele are considered in the analysis. If an allele sequence is equally distant to stwo or more germline alleles, the aligner
+reads with an assignment to a single allele are considered in the analysis. If an allele sequence is equally distant to two or more germline alleles, the aligner
 will call these as equally likely in the assignment. Such sequences are not considered in the OGRDBstats analysis, as the analysis is focussed on the level of support
 for each allele in the annotated repertoire, and such calls are inconclusive.</p>
 <p>The statistics and plots can help to assess the overall level of support for the allele, and the likely valididty of the allele call in the repertoire under study.
@@ -109,7 +110,7 @@ that would be more accurately assigned to another germline allele, that is prese
 <a class="reference internal image-reference" href="_images/read_pile_up.jpg"><img alt="_images/read_pile_up.jpg" src="_images/read_pile_up.jpg" style="width: 600px;" /></a>
 <figcaption>
 <p><span class="caption-text">Read pile-up for a specific allele. As well as showing the number of supporting alleles and the degree of diversity at specific positions, this can indicate
-aretefacts that might otherwise be missed. In this case we can see that some supporting reads are incomplete at the 5-prime end, and sequences that contain
+aretefacts that might otherwise be missed. In this case we can see that some supporting reads are incomplete at the 5-prime end, and some sequences contain
 gaps, likely as a result of non-overlapping paired-end reads.</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
@@ -124,11 +125,11 @@ gaps, likely as a result of non-overlapping paired-end reads.</span><a class="he
 <h2>Usage with Genotype Inference tools<a class="headerlink" href="#usage-with-genotype-inference-tools" title="Permalink to this heading"></a></h2>
 <p>A number of tools have been created to infer a subject’s genotype from a repertoire. Because aligners will typically assign each read to the most similar
 germline allele, mis-assignments are common, particularly in highly mutated repertoires. These inference tools use a variety of methods to identify
-and correct such mis-assignments. This can result in a substantially lower number of alleles being called in the assignments, and this set of remaining
+and correct such mis-assignments. This can result in a substantially lower number of alleles being called in the assignments. The set of remaining
 alleles represents the subject’s inferred genotype. The tools can also infer ‘novel’ alleles: that is, germline alleles that are not listed in the
 germline set, but can be inferred from the repertoire.</p>
 <p>The information that OGRDBstats provides can be particularly useful to assess the degree of support for alleles listed in the inferred genotype -
-both those listed in the reference set, and those that are inferred. Because the tools provide information in a variety of formats, we have included
+both those listed in the germline set, and those that are inferred. Because the tools provide information in a variety of formats, we have included
 specific usage information for tested tools. The tools we have currently tested are:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://docs.igdiscover.se/en/stable/">IgDiscover</a></p></li>

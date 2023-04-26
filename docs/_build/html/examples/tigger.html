@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Using TiGGER with OGRDBstats &mdash; OGRDBstats 0.5.0 documentation</title>
+  <title>Using OGRDBstats with TIgGER &mdash; OGRDBstats 0.5.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -20,7 +20,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Using TiGGER with IgDiscover" href="igdiscover.html" />
+    <link rel="next" title="Using OGRDBstats with IgDiscover" href="igdiscover.html" />
     <link rel="prev" title="Using OGRDBstats with any repertoire" href="ungenotyped.html" /> 
 </head>
 
@@ -43,16 +43,17 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../news.html">News</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Release Notes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="ungenotyped.html">Using OGRDBstats with any repertoire</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Using TiGGER with OGRDBstats</a></li>
-<li class="toctree-l1"><a class="reference internal" href="igdiscover.html">Using TiGGER with IgDiscover</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using OGRDBstats with TIgGER</a></li>
+<li class="toctree-l1"><a class="reference internal" href="igdiscover.html">Using OGRDBstats with IgDiscover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="partis.html">Using OGRDBstats with partis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="impre.html">Using OGRDBstats with IMPre</a></li>
 <li class="toctree-l1"><a class="reference internal" href="all_novel.html">Producing a more complete report</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gapped_v.html">Creating and using a gapped V reference file</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gapped_v.html#creating-and-using-a-gapped-v-reference-file-for-rhesus-macaque">Creating and using a gapped V reference file for Rhesus macaque</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gapped_v.html">Creating and using a gapped V germline set</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Usage Documentation</span></p>
 <ul>
@@ -74,7 +75,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">Using TiGGER with OGRDBstats</li>
+      <li class="breadcrumb-item active">Using OGRDBstats with TIgGER</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/examples/tigger.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -84,15 +85,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="using-tigger-with-ogrdbstats">
-<span id="tigger"></span><h1>Using TiGGER with OGRDBstats<a class="headerlink" href="#using-tigger-with-ogrdbstats" title="Permalink to this heading"></a></h1>
+  <section id="using-ogrdbstats-with-tigger">
+<span id="tigger"></span><h1>Using OGRDBstats with TIgGER<a class="headerlink" href="#using-ogrdbstats-with-tigger" title="Permalink to this heading"></a></h1>
 <p>To conduct a V-gene analysis with TIgGER:</p>
 <ul class="simple">
 <li><p>Use findNovelAlleles to identify novel alleles in a Change-O-formatted data set. Write these to a FASTA file.</p></li>
 <li><p>Use inferGenotype or inferGenotypeBayesian to infer the genotype.</p></li>
 <li><p>Use reassignAlleles to correct allele calls in the data set, based on the inferred genotype</p></li>
 </ul>
-<p>The following lines, based on the <a class="reference external" href="https://tigger.readthedocs.io/en/stable/vignettes/Tigger-Vignette/">TIgGER vignette</a>, will perform these steps and save the output. They use the sample repertoire provided with Tigger:</p>
+<p>The following R code, based on the <a class="reference external" href="https://tigger.readthedocs.io/en/stable/vignettes/Tigger-Vignette/">TIgGER vignette</a>, will perform these steps and save the output. It uses the sample repertoire provided with Tigger:</p>
 <div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load packages required for this example</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">tigger</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span>
@@ -127,14 +128,14 @@
 <p>This code creates the following files:</p>
 <ul class="simple">
 <li><p><cite>v_germline_gapped.fasta</cite> - the germline sequences used in the annotation</p></li>
-<li><p><cite>rep_genotyped.tsv</cite> - the annotated repertoire, with a column V_GERMLINE_GAPPED containing the corrected (genotyped) V-call</p></li>
-<li><p><cite>v_genotyped_seqs.fasta</cite> - the set of germline sequences referenced in the annotated repertoire, including novel sequences</p></li>
+<li><p><cite>rep_genotyped.tsv</cite> - the annotated reads, with a column V_GERMLINE_GAPPED containing the corrected (genotyped) V-call</p></li>
+<li><p><cite>v_genotyped_seqs.fasta</cite> - the set of germline sequences referenced in the annotated reads, including novel sequences</p></li>
 </ul>
 <p>These files can be provided to OGRDBstats in the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ Rscript ogrdbstats.R --inf_file v_genotyped_seqs.fasta v_germline_gapped.fasta human rep_genotyped.tsv IGHV
 </pre></div>
 </div>
-<p>Ogrdbstats will produce two files: <cite>rep_genotyped_ogrdb_plots.csv</cite> and <cite>rep_genotyped_ogrdb_report.csv</cite>.</p>
+<p>OGRDBstats will produce two files: <cite>rep_genotyped_ogrdb_plots.csv</cite> and <cite>rep_genotyped_ogrdb_report.csv</cite>.</p>
 </section>
 
 
@@ -142,7 +143,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="ungenotyped.html" class="btn btn-neutral float-left" title="Using OGRDBstats with any repertoire" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="igdiscover.html" class="btn btn-neutral float-right" title="Using TiGGER with IgDiscover" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="igdiscover.html" class="btn btn-neutral float-right" title="Using OGRDBstats with IgDiscover" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

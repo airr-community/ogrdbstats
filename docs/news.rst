@@ -1,6 +1,6 @@
 .. _News:
 
-News
-====
+Release Notes
+=============
 
 .. include:: ../NEWS.md

@@ -20,7 +20,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="News" href="news.html" />
+    <link rel="next" title="Release Notes" href="news.html" />
     <link rel="prev" title="Overview" href="overview.html" /> 
 </head>
 
@@ -47,16 +47,17 @@
 <li class="toctree-l2"><a class="reference internal" href="#id1">Docker Image</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="news.html">News</a></li>
+<li class="toctree-l1"><a class="reference internal" href="news.html">Release Notes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="examples/ungenotyped.html">Using OGRDBstats with any repertoire</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples/tigger.html">Using TiGGER with OGRDBstats</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples/igdiscover.html">Using TiGGER with IgDiscover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/tigger.html">Using OGRDBstats with TIgGER</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/igdiscover.html">Using OGRDBstats with IgDiscover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/partis.html">Using OGRDBstats with partis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/impre.html">Using OGRDBstats with IMPre</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/all_novel.html">Producing a more complete report</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples/gapped_v.html">Creating and using a gapped V reference file</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples/gapped_v.html#creating-and-using-a-gapped-v-reference-file-for-rhesus-macaque">Creating and using a gapped V reference file for Rhesus macaque</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/gapped_v.html">Creating and using a gapped V germline set</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Usage Documentation</span></p>
 <ul>
@@ -94,7 +95,7 @@
 <a class="reference external" href="https://hub.docker.com/r/williamlees/ogrdbstats">Docker image</a>. Stable and development versions are provided.</p>
 <section id="installing-from-cran">
 <h2>Installing from CRAN<a class="headerlink" href="#installing-from-cran" title="Permalink to this heading"></a></h2>
-<p>Ogrdbstats requires a recent installation of <a class="reference external" href="https://pandoc.org/">Pandoc</a>. If <a class="reference external" href="https://www.rstudio.com/tags/rstudio-ide/">Rstudio</a> is installed on your machine, pandoc will already be installed.
+<p>OGRDBstats requires a recent installation of <a class="reference external" href="https://pandoc.org/">Pandoc</a>. If <a class="reference external" href="https://www.rstudio.com/tags/rstudio-ide/">Rstudio</a> is installed on your machine, Pandoc will already be installed.
 Otherwise please follow the installation instructions on the Pandoc website, or install Rstudio.</p>
 <p>Once Pandoc is installed, please start the R interpreter and install ogrdbstats from CRAN:</p>
 <div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;ogrdbstats&#39;</span><span class="p">)</span>
@@ -109,7 +110,8 @@ Otherwise please follow the installation instructions on the Pandoc website, or 
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ Rscript ogrdbstats.R --help
 </pre></div>
 </div>
-<p>Please note that Rscript will exit silently if ogrdbstats.R cannot be found.</p>
+<p>You can put <cite>ogrdbstats.R</cite> wherever you want, and refer to it with its full path when you want to run it. In the documentation we will always refer to it as though
+it is in the current directory. Please note that Rscript will exit silently if it cannot find <cite>ogrdbstats.R</cite>.</p>
 </section>
 <section id="id1">
 <h2>Docker Image<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
@@ -121,15 +123,18 @@ $ docker pull williamlees/ogrdbstats:stable
 $ docker pull williamlees/ogrdbstats:latest
 </pre></div>
 </div>
-<p>To use ogrdbstats from the command line, please use the following command in Linux/Mac:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ docker run -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/scratch ogrdbstats:stable run_ogrdbstats
+<p>To use OGRDBstats from the command line, please use the following command in Linux/Mac:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ docker run -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/scratch williamlees/ogrdbstats:stable run_ogrdbstats
 </pre></div>
 </div>
-<p>At the Windows command prompt:</p>
-<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="p">&gt;</span> docker run -v <span class="nv">%cd%</span>:/scratch ogrdbstats:stable run_ogrdbstats
+<p>Or at the Windows command prompt:</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="p">&gt;</span> docker run -v <span class="nv">%cd%</span>:/scratch williamlees/ogrdbstats:stable run_ogrdbstats
 </pre></div>
 </div>
-<p>This will run ogrdbstats.R in the current directory, in exactly the same way that <cite>Rscript ogrdbstats.R</cite> functions in the above CRAN-based installation.</p>
+<p>This will run ogrdbstats.R in the current directory, in exactly the same way that <cite>Rscript ogrdbstats.R</cite> functions in the above CRAN-based installation. For example you can try:</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="p">&gt;</span> docker run -v <span class="nv">%cd%</span>:/scratch williamlees/ogrdbstats:stable run_ogrdbstats --help
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -138,7 +143,7 @@ $ docker pull williamlees/ogrdbstats:latest
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="overview.html" class="btn btn-neutral float-left" title="Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="news.html" class="btn btn-neutral float-right" title="News" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="news.html" class="btn btn-neutral float-right" title="Release Notes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

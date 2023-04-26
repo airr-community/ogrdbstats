@@ -21,6 +21,8 @@ OGRDBstats is a command-line utility and associated R package that can be used t
   examples/ungenotyped
   examples/tigger
   examples/igdiscover
+  examples/partis
+  examples/impre
   examples/all_novel
   examples/gapped_v
   
@@ -36,5 +38,4 @@ Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`

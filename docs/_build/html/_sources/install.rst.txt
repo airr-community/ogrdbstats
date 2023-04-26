@@ -9,7 +9,7 @@ OGRDBstats is available as an R package from `CRAN <https://cran.r-project.org/w
 Installing from CRAN
 --------------------
 
-Ogrdbstats requires a recent installation of `Pandoc <https://pandoc.org/>`_. If `Rstudio <https://www.rstudio.com/tags/rstudio-ide/>`_ is installed on your machine, pandoc will already be installed. 
+OGRDBstats requires a recent installation of `Pandoc <https://pandoc.org/>`_. If `Rstudio <https://www.rstudio.com/tags/rstudio-ide/>`_ is installed on your machine, Pandoc will already be installed. 
 Otherwise please follow the installation instructions on the Pandoc website, or install Rstudio.
 
 Once Pandoc is installed, please start the R interpreter and install ogrdbstats from CRAN:
@@ -31,7 +31,8 @@ Once the package is installed, please download `ogrdbstats.R <https://raw.github
 
     $ Rscript ogrdbstats.R --help
 	
-Please note that Rscript will exit silently if ogrdbstats.R cannot be found.
+You can put `ogrdbstats.R` wherever you want, and refer to it with its full path when you want to run it. In the documentation we will always refer to it as though
+it is in the current directory. Please note that Rscript will exit silently if it cannot find `ogrdbstats.R`.
 
 
 
@@ -48,18 +49,23 @@ The image is available in Docker Hub at `williamlees/ogrdbstats <https://hub.doc
     # Pull the latest development build
     $ docker pull williamlees/ogrdbstats:latest
 	
-To use ogrdbstats from the command line, please use the following command in Linux/Mac:
+To use OGRDBstats from the command line, please use the following command in Linux/Mac:
 
 .. code-block:: bash
 
-    $ docker run -v $(pwd):/scratch ogrdbstats:stable run_ogrdbstats
+    $ docker run -v $(pwd):/scratch williamlees/ogrdbstats:stable run_ogrdbstats
 	
-At the Windows command prompt:
+Or at the Windows command prompt:
 	
 .. code-block:: bat
 
-    > docker run -v %cd%:/scratch ogrdbstats:stable run_ogrdbstats
+    > docker run -v %cd%:/scratch williamlees/ogrdbstats:stable run_ogrdbstats
 
-This will run ogrdbstats.R in the current directory, in exactly the same way that `Rscript ogrdbstats.R` functions in the above CRAN-based installation.
+This will run ogrdbstats.R in the current directory, in exactly the same way that `Rscript ogrdbstats.R` functions in the above CRAN-based installation. For example you can try:
+
+.. code-block:: bat
+
+    > docker run -v %cd%:/scratch williamlees/ogrdbstats:stable run_ogrdbstats --help
+
 
 

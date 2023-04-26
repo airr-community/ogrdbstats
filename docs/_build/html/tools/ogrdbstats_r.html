@@ -21,7 +21,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Detailed Description of Input Files" href="formats.html" />
-    <link rel="prev" title="Creating and using a gapped V reference file" href="../examples/gapped_v.html" /> 
+    <link rel="prev" title="Creating and using a gapped V germline set" href="../examples/gapped_v.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -43,16 +43,17 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../news.html">News</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Release Notes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../examples/ungenotyped.html">Using OGRDBstats with any repertoire</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples/tigger.html">Using TiGGER with OGRDBstats</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples/igdiscover.html">Using TiGGER with IgDiscover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/tigger.html">Using OGRDBstats with TIgGER</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/igdiscover.html">Using OGRDBstats with IgDiscover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/partis.html">Using OGRDBstats with partis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/impre.html">Using OGRDBstats with IMPre</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/all_novel.html">Producing a more complete report</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples/gapped_v.html">Creating and using a gapped V reference file</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples/gapped_v.html#creating-and-using-a-gapped-v-reference-file-for-rhesus-macaque">Creating and using a gapped V reference file for Rhesus macaque</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/gapped_v.html">Creating and using a gapped V germline set</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Usage Documentation</span></p>
 <ul class="current">
@@ -87,67 +88,45 @@
   <section id="ogrdbstats-r-command-line-description">
 <span id="ogrdbstats-r"></span><h1>ogrdbstats.R - command-line description<a class="headerlink" href="#ogrdbstats-r-command-line-description" title="Permalink to this heading"></a></h1>
 <p>The description applies equally to the Dockerised command <cite>run_ogrdbstats</cite>.</p>
-<blockquote>
-<div><dl class="simple">
-<dt>usage: ogrdbstats.R [–] [–help] [–plot_unmutated] [–all_novel]</dt><dd><p>[–opts OPTS] [–inf_file INF_FILE] [–hap_gene HAP_GENE]
-[–format FORMAT] REF_FILE SPECIES READ_FILE CHAIN</p>
-</dd>
-</dl>
-<p>Create genotype statistics</p>
-<dl>
-<dt>positional arguments:</dt><dd><p>REF_FILE              reference set filename
-SPECIES               species name used in field 3 of the IMGT</p>
-<blockquote>
-<div><p>reference set header, with spaces removed, e.g.
-Homosapiens for Human</p>
-</div></blockquote>
-<dl class="simple">
-<dt>READ_FILE             name of file containing annotated reads in</dt><dd><p>AIRR, CHANGEO, IMPRE or IgDiscover format</p>
-</dd>
-<dt>CHAIN                 one of IGHV, IGKV, IGLV, IGHD, IGHJ, IGKJ,</dt><dd><p>IGLJ, TRAV, TRAJ, TRBV, TRBD, TRBJ, TRGV, TRGj,
-TRDV, TRDD, TRDJ</p>
-</dd>
-</dl>
-</dd>
-<dt>flags:</dt><dd><dl class="option-list">
-<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
-<dd><p>show this help message and exit</p>
-</dd>
-<dt><kbd><span class="option">-p</span>, <span class="option">--plot_unmutated</span></kbd></dt>
-<dd><p>Plot base composition using only unmutated
-sequences (V-genes only)</p>
-</dd>
-<dt><kbd><span class="option">-a</span>, <span class="option">--all_novel</span></kbd></dt>
-<dd><p>Treat all alleles in reference set as if novel</p>
-</dd>
-</dl>
-</dd>
-<dt>optional arguments:</dt><dd><dl class="option-list">
-<dt><kbd><span class="option">-x</span>, <span class="option">--opts</span></kbd></dt>
-<dd><p>RDS file containing argument values</p>
-</dd>
-<dt><kbd><span class="option">-i</span>, <span class="option">--inf_file</span></kbd></dt>
-<dd><p>sequences of inferred novel alleles (FASTA
-format)</p>
-</dd>
-<dt><kbd><span class="option">--hap_gene</span></kbd></dt>
-<dd><p>haplotyping gene, e.g. IGHJ6</p>
-</dd>
-<dt><kbd><span class="option">-f</span>, <span class="option">--format</span></kbd></dt>
-<dd><p>Output report format: pdf, html or none
-[default: pdf]</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</div></blockquote>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>usage: ogrdbstats.R [--] [--help] [--plot_unmutated] [--all_novel]
+           [--opts OPTS] [--inf_file INF_FILE] [--hap_gene HAP_GENE]
+           [--format FORMAT] REF_FILE SPECIES READ_FILE CHAIN
+
+Create genotype statistics
+
+positional arguments:
+  REF_FILE              germline set filename
+  SPECIES               species name used in field 3 of the IMGT
+                        germline set header, with spaces removed, e.g.
+                        Homosapiens for Human
+  READ_FILE             name of file containing annotated reads in
+                        AIRR, CHANGEO, IMPRE or IgDiscover format
+  CHAIN                 one of IGHV, IGKV, IGLV, IGHD, IGHJ, IGKJ,
+                        IGLJ, TRAV, TRAJ, TRBV, TRBD, TRBJ, TRGV, TRGJ,
+                        TRDV, TRDD, TRDJ
+
+flags:
+  -h, --help            show this help message and exit
+  -p, --plot_unmutated  Plot base composition using only unmutated
+                        sequences (V-genes only)
+  -a, --all_novel       Treat all alleles in the germline set as if novel
+
+optional arguments:
+  -x, --opts            RDS file containing argument values
+  -i, --inf_file        sequences of inferred novel alleles (FASTA
+                        format)
+  --hap_gene            haplotyping gene, e.g. IGHJ6
+  -f, --format          Output report format: pdf, html or none
+                                                [default: pdf]
+</pre></div>
+</div>
 <p>Positional Arguments:</p>
-<p><cite>REF_FILE</cite> - pathname of a FASTA file containing IMGT gap-aligned reference germline sequences. Usually this would be downloaded from IMGT.</p>
-<p><cite>SPECIES</cite> - should contain the species name used in field 3 of the IMGT REF_FILE FASTA header, with spaces removed, e.g. Homosapiens for Human. If you are not using an IMGT REF_FILE, you can use any single word for the species here, and the reference file should only contain genes for that species.</p>
-<p><cite>READ_FILE</cite> - pathname of a tab-separated file containing the annotated reads used to infer the genotype, in MiAIRR, CHANGEO or IgDiscover format</p>
+<p><cite>REF_FILE</cite> - pathname of a FASTA file containing IMGT gap-aligned germline sequences. Usually this would be downloaded from IMGT.</p>
+<p><cite>SPECIES</cite> - should contain the species name used in field 3 of the IMGT REF_FILE FASTA header, with spaces removed, e.g. Homosapiens for Human. If you are not using an IMGT REF_FILE, you can use any single word for the species here, and REF_FILE should only contain genes for that species.</p>
+<p><cite>READ_FILE</cite> - pathname of a tab-separated file containing the annotated reads used to infer the genotype, in AIRR, CHANGEO or IgDiscover format</p>
 <p><cite>CHAIN</cite> - specifies the sequence type to be analysed.</p>
 <p>Optional Arguments:</p>
-<p><cite>INF_FILE</cite> - pathname of a FASTA file containing sequences of inferred novel alleles. This file must be provided if the read file contains assignments to alleles that are not listed in the reference file.</p>
+<p><cite>INF_FILE</cite> - pathname of a FASTA file containing sequences of inferred novel alleles. This file must be provided if the read file contains assignments to alleles that are not listed in REF_FILE.</p>
 <p><cite>HAP_GENE</cite> - the gene to be used for haplotyping analysis (see haplotyping section below)</p>
 </section>
 
@@ -155,7 +134,7 @@ format)</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../examples/gapped_v.html" class="btn btn-neutral float-left" title="Creating and using a gapped V reference file" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../examples/gapped_v.html" class="btn btn-neutral float-left" title="Creating and using a gapped V germline set" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="formats.html" class="btn btn-neutral float-right" title="Detailed Description of Input Files" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

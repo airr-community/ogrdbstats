@@ -42,16 +42,17 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../news.html">News</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Release Notes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../examples/ungenotyped.html">Using OGRDBstats with any repertoire</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples/tigger.html">Using TiGGER with OGRDBstats</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples/igdiscover.html">Using TiGGER with IgDiscover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/tigger.html">Using OGRDBstats with TIgGER</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/igdiscover.html">Using OGRDBstats with IgDiscover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/partis.html">Using OGRDBstats with partis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/impre.html">Using OGRDBstats with IMPre</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/all_novel.html">Producing a more complete report</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples/gapped_v.html">Creating and using a gapped V reference file</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples/gapped_v.html#creating-and-using-a-gapped-v-reference-file-for-rhesus-macaque">Creating and using a gapped V reference file for Rhesus macaque</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/gapped_v.html">Creating and using a gapped V germline set</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Usage Documentation</span></p>
 <ul class="current">
@@ -85,40 +86,33 @@
              
   <section id="detailed-description-of-input-files">
 <span id="formats"></span><h1>Detailed Description of Input Files<a class="headerlink" href="#detailed-description-of-input-files" title="Permalink to this heading"></a></h1>
-<p><cite>REF_FILE</cite> - FASTA file containing the IMGT gap-aligned reference germline sequences.</p>
+<p><cite>REF_FILE</cite> - FASTA file containing the IMGT gap-aligned germline sequences.</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>All germlines that are called in the read file (apart from those of novel alleles) should be included.</p></li>
+<li><p>All germlines that are called in the repertoire file (apart from those of novel alleles) should be included.</p></li>
 <li><p>The V-sequences must be aligned according to the <a class="reference external" href="https://www.imgt.org/IMGTScientificChart/Numbering/IMGTnumbering.html">IMGT unique numbering</a>.</p></li>
 <li><p>The must simply consist of the allele name, unless the file is downloaded from IMGT as in the next point</p></li>
-<li><dl class="simple">
-<dt>The IMGT set can be <a class="reference external" href="https://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP">downloaded</a> and used as-is: the</dt><dd><p>script will filter out the records for the nominated species. As the IMGT set changes from time to time, please make sure that the same version is used by the inference tool and by this script.</p>
-</dd>
-</dl>
-</li>
-<li><p>A warning will be given if any calls in the read file do not have a corresponding sequence in the reference file or the inferred novel alleles file. Unmutated counts will not be provided for those sequences.</p></li>
+<li><p>The IMGT set can be <a class="reference external" href="https://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP">downloaded</a> and used as-is: the script will filter out the records for the nominated species. As the IMGT set changes from time to time, please make sure that the same version is used by the inference tool and by this script.</p></li>
+<li><p>A warning will be given if any calls in the repertoire file do not have a corresponding sequence in the germline set or the inferred novel alleles file. Unmutated counts will not be provided for those sequences.</p></li>
 </ul>
 </div></blockquote>
-<p><cite>READ_FILE</cite> - A tab-separated file containing the annotated reads used to infer the genotype, in MiAIRR, CHANGEO or IgDiscover format.</p>
+<p><cite>READ_FILE</cite> - A tab-separated file containing annotated reads, in AIRR, CHANGEO or IgDiscover format.</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>The format will be determined automatically by the script.</p></li>
-<li><p>MiAIRR format files must contain at least the following columns: sequence_id, v_call_genotyped, d_call, j_call, sequence_alignment, cdr3. For J or D inferences they must also contain J_sequence_start, J_sequence_end, J_germline_start, J_germline_end, or the equivalent fields for D genes. IgBLAST’s –format airr creates compatible MiAIRR format files.</p></li>
-<li><p>CHANGEO files must contain at least the following columns: SEQUENCE_ID, V_CALL_GENOTYPED, D_CALL, J_CALL, SEQUENCE_IMGT, CDR3_IMGT, V_MUT_NC, D_MUT_NC, J_MUT_NC, SEQUENCE, JUNCTION_START, V_SEQ, D_SEQ, J_SEQ. If you would like to process files from IMGT V-Quest, please parse them with CHANGEO to convert them to CHANGEO format.</p></li>
+<li><p>The format will be determined automatically by OGRDBstats.</p></li>
+<li><p>AIRR format files must contain at least the following columns: sequence_id, v_call_genotyped, d_call, j_call, sequence_alignment, cdr3. For J or D inferences they must also contain J_sequence_start, J_sequence_end, J_germline_start, J_germline_end, or the equivalent fields for D genes. IgBLAST’s –format airr creates compatible AIRR format files.</p></li>
+<li><p>CHANGEO files must contain at least the following columns: SEQUENCE_ID, V_CALL_GENOTYPED, D_CALL, J_CALL, SEQUENCE_IMGT, CDR3_IMGT, V_MUT_NC, D_MUT_NC, J_MUT_NC, SEQUENCE, JUNCTION_START, V_SEQ, D_SEQ, J_SEQ.</p></li>
 <li><p>D- related fields are only required for heavy chain records.</p></li>
+<li><p>In AIRR and CHANGEO formats, the v_call_genotyped/V_CALL_GENOTYPED column should contain the V calls made after the subject’s V-gene genotype has been inferred (including calls of the novel alleles). Sequences may be either unagpped or IMGT gap-aligned. If there is no v_call_genotyped/V_CALL_GENOTYPED column, ogrdbstats will fall back to using V-CALL, with a warning.</p></li>
+<li><p>For IgDiscover, <cite>final/filtered.tsv</cite> should be used - see <a class="reference internal" href="../examples/igdiscover.html#igdiscover"><span class="std std-ref">Using OGRDBstats with IgDiscover</span></a></p></li>
 </ul>
-<dl class="simple">
-<dt>In MiAIRR and CHANGEO formats, the v_call_genotyped/V_CALL_GENOTYPED column should contain the V calls made after the subject’s V-gene genotype has been inferred (including calls of the novel alleles). Sequences may be either unagpped or IMGT gap-aligned. Determining the personalised V-gene genotype is recommended when processing D or J gene inferences, so that V-gene usage counts are accurate.</dt><dd><p>If there is no v_call_genotyped/V_CALL_GENOTYPED column, ogrdbstats will fall back to using V-CALL, with a warning.</p>
-</dd>
-</dl>
-<p>For IgDiscover, the file ‘final/filtered.tab’ should be used - see <a class="reference internal" href="../examples/igdiscover.html#igdiscover"><span class="std std-ref">Using TiGGER with IgDiscover</span></a></p>
 </div></blockquote>
 <p><cite>INF_FILE</cite> - FASTA file containing the inferred novel alleles</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>Sequences in the inferred file should all be of the same type (V, D or J) and from the same locus.</p></li>
-<li><p>The header must simply consist of the allele name as assigned by the inference tool.</p></li>
-<li><p>V-gene sequences may either be IMGT gap-aligned or not aligned. If they are not aligned, the script will determine the nearest reference gene and use it as a template. If you are not satisfied with the resulting alignment, just align the sequence in the file as you prefer.</p></li>
+<li><p>Sequences in INF_FILE should all be of the same type (V, D or J) and from the same locus.</p></li>
+<li><p>The header should consist solely of the allele name as assigned by the inference tool.</p></li>
+<li><p>V-gene sequences may either be IMGT gap-aligned or ungapped. If they are ungapped, the script will determine the nearest germline gene and use it as a template. If you are not satisfied with the resulting alignment, just align the sequence in the file as you prefer.</p></li>
 <li><p>If a gene with the same name is present in both the germline file and the inferred file, its presence in the inferred file will be ignored. This makes it easier to use the script with inference tools that do not write the inferred sequences to a separate file.</p></li>
 </ul>
 </div></blockquote>

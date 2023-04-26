@@ -1,7 +1,7 @@
 .. _tigger:
 
-Using TiGGER with OGRDBstats
-==============================
+Using OGRDBstats with TIgGER
+============================
 
 To conduct a V-gene analysis with TIgGER:
 
@@ -9,7 +9,7 @@ To conduct a V-gene analysis with TIgGER:
 - Use inferGenotype or inferGenotypeBayesian to infer the genotype.
 - Use reassignAlleles to correct allele calls in the data set, based on the inferred genotype
 
-The following lines, based on the `TIgGER vignette <https://tigger.readthedocs.io/en/stable/vignettes/Tigger-Vignette/>`_, will perform these steps and save the output. They use the sample repertoire provided with Tigger:
+The following R code, based on the `TIgGER vignette <https://tigger.readthedocs.io/en/stable/vignettes/Tigger-Vignette/>`_, will perform these steps and save the output. It uses the sample repertoire provided with Tigger:
    
 .. code-block:: R
 
@@ -46,8 +46,8 @@ The following lines, based on the `TIgGER vignette <https://tigger.readthedocs.i
 This code creates the following files:
 
 - `v_germline_gapped.fasta` - the germline sequences used in the annotation
-- `rep_genotyped.tsv` - the annotated repertoire, with a column V_GERMLINE_GAPPED containing the corrected (genotyped) V-call
-- `v_genotyped_seqs.fasta` - the set of germline sequences referenced in the annotated repertoire, including novel sequences
+- `rep_genotyped.tsv` - the annotated reads, with a column V_GERMLINE_GAPPED containing the corrected (genotyped) V-call
+- `v_genotyped_seqs.fasta` - the set of germline sequences referenced in the annotated reads, including novel sequences
 
 These files can be provided to OGRDBstats in the following command:
 
@@ -55,4 +55,4 @@ These files can be provided to OGRDBstats in the following command:
 
    $ Rscript ogrdbstats.R --inf_file v_genotyped_seqs.fasta v_germline_gapped.fasta human rep_genotyped.tsv IGHV
 
-Ogrdbstats will produce two files: `rep_genotyped_ogrdb_plots.csv` and `rep_genotyped_ogrdb_report.csv`.
+OGRDBstats will produce two files: `rep_genotyped_ogrdb_plots.csv` and `rep_genotyped_ogrdb_report.csv`.

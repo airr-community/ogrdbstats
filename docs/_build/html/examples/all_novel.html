@@ -20,8 +20,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Creating and using a gapped V reference file" href="gapped_v.html" />
-    <link rel="prev" title="Using TiGGER with IgDiscover" href="igdiscover.html" /> 
+    <link rel="next" title="Creating and using a gapped V germline set" href="gapped_v.html" />
+    <link rel="prev" title="Using OGRDBstats with IMPre" href="impre.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -43,15 +43,17 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../news.html">News</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Release Notes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="ungenotyped.html">Using OGRDBstats with any repertoire</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tigger.html">Using TiGGER with OGRDBstats</a></li>
-<li class="toctree-l1"><a class="reference internal" href="igdiscover.html">Using TiGGER with IgDiscover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tigger.html">Using OGRDBstats with TIgGER</a></li>
+<li class="toctree-l1"><a class="reference internal" href="igdiscover.html">Using OGRDBstats with IgDiscover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="partis.html">Using OGRDBstats with partis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="impre.html">Using OGRDBstats with IMPre</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Producing a more complete report</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gapped_v.html">Creating and using a gapped V reference file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gapped_v.html">Creating and using a gapped V germline set</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Usage Documentation</span></p>
 <ul>
@@ -85,22 +87,21 @@
              
   <section id="producing-a-more-complete-report">
 <span id="all-novel"></span><h1>Producing a more complete report<a class="headerlink" href="#producing-a-more-complete-report" title="Permalink to this heading"></a></h1>
-<p>The first section of the ogrdbstats pdf, and columns C to I in the CSV, by default data for novel alleles only. These sections can be extended to cover all
-alleles by using the –all_novel flag, which instructs ogrdbstats to treat all alleles as though they are novel, for example:</p>
+<p>By default, the first section of the OGRDBstats pdf, and columns C to I in the CSV, contain data for novel alleles only. These can be extended to cover all
+alleles by using the –all_novel flag, which instructs OGRDBstats to treat all alleles as though they are novel, for example:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ Rscript --all_novel ogrdbstats.R v_germline_gapped.fasta Human rep_genotyped.tsv IGHV
 </pre></div>
 </div>
-<p>Processing time (and the size of the report) can be considerably extended. The report will contain warnings for any alleles present in the germline set that
-are not observed in the genotyped repertoire. These warnings can be ignored, as one would not expect to observe every allele in the germline set in a single repertoire.
-These warnings may be silenced in a later version of ogrdbstats.</p>
+<p>Processing time (and the size of the report) may be considerably extended. The report will contain warnings for any alleles present in the germline set that
+are not observed in the genotyped repertoire. These warnings can be ignored, as one would not expect to observe every allele in the germline set in a single repertoire.</p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="igdiscover.html" class="btn btn-neutral float-left" title="Using TiGGER with IgDiscover" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="gapped_v.html" class="btn btn-neutral float-right" title="Creating and using a gapped V reference file" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="impre.html" class="btn btn-neutral float-left" title="Using OGRDBstats with IMPre" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="gapped_v.html" class="btn btn-neutral float-right" title="Creating and using a gapped V germline set" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

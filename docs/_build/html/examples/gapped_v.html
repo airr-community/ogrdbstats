@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creating and using a gapped V reference file &mdash; OGRDBstats 0.5.0 documentation</title>
+  <title>Creating and using a gapped V germline set &mdash; OGRDBstats 0.5.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -43,16 +43,18 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../news.html">News</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Release Notes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="ungenotyped.html">Using OGRDBstats with any repertoire</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tigger.html">Using TiGGER with OGRDBstats</a></li>
-<li class="toctree-l1"><a class="reference internal" href="igdiscover.html">Using TiGGER with IgDiscover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tigger.html">Using OGRDBstats with TIgGER</a></li>
+<li class="toctree-l1"><a class="reference internal" href="igdiscover.html">Using OGRDBstats with IgDiscover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="partis.html">Using OGRDBstats with partis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="impre.html">Using OGRDBstats with IMPre</a></li>
 <li class="toctree-l1"><a class="reference internal" href="all_novel.html">Producing a more complete report</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Creating and using a gapped V reference file</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#creating-and-using-a-gapped-v-reference-file-for-rhesus-macaque">Creating and using a gapped V reference file for Rhesus macaque</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Creating and using a gapped V germline set</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#creating-and-using-a-gapped-v-germline-set-for-rhesus-macaque">Creating and using a gapped V germline set for Rhesus macaque</a></li>
 </ul>
 </li>
 </ul>
@@ -76,7 +78,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">Creating and using a gapped V reference file</li>
+      <li class="breadcrumb-item active">Creating and using a gapped V germline set</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/examples/gapped_v.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -86,48 +88,44 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="creating-and-using-a-gapped-v-reference-file">
-<span id="gapped-v"></span><h1>Creating and using a gapped V reference file<a class="headerlink" href="#creating-and-using-a-gapped-v-reference-file" title="Permalink to this heading"></a></h1>
-<p>If the starting V.fasta file you used with IgDiscover was not based on an IMGT set, and you do not have ready access to an IMGT-aligned version, you can create a
-gapped version of V.fasta using the <cite>gap_sequences</cite> command from the <a class="reference external" href="https://williamdlees.github.io/receptor_utils/_build/html/fix_macaque_gaps.html">receptor_utils</a> package.
+  <section id="creating-and-using-a-gapped-v-germline-set">
+<span id="gapped-v"></span><h1>Creating and using a gapped V germline set<a class="headerlink" href="#creating-and-using-a-gapped-v-germline-set" title="Permalink to this heading"></a></h1>
+<p>If the V-sequences you annotated with do not contain gaps, and you do not have ready access to an IMGT-aligned version, you can create a
+one using the <a class="reference external" href="https://williamdlees.github.io/receptor_utils/_build/html/gap_sequences.html">gap_sequences</a> command from the <a class="reference external" href="https://williamdlees.github.io/receptor_utils/_build/html/fix_macaque_gaps.html">receptor_utils</a> package.
 Installation requires a recent version of Python. <cite>gap_sequences</cite> requires a gapped set of sequences to use as a template. The receptor_utils package
-can download a gapped set from IMGT. The following commands will install the package, download a gapped human IGHV set, and use it to create
-a gapped set from the starting V.fasta database (again the commands are written to be run in the final/ directory):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="c1"># install receptor_utils latest version (requires Python)</span>
-$ pip install -U receptor_utils
+can download a gapped set from IMGT. The following shell commands will install the package, download a gapped human IGHV set to use as a template, and create
+a gapped set of sequences:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># install receptor_utils latest version (requires Python)</span>
+pip install -U receptor_utils
 
-$ <span class="c1"># download human IGHV reference set from IMGT</span>
-$ extract_refs -L IGH <span class="s2">&quot;Homo sapiens&quot;</span>
+<span class="c1"># download human IGHV germline set from IMGT</span>
+extract_refs -L IGH <span class="s2">&quot;Homo sapiens&quot;</span>
 
-$ <span class="c1"># create a gapped version of V.fasta, using the downloaded gapped reference set</span>
-$ <span class="c1"># (Homo_sapiens_IGHV_gapped.fasta) as a template</span>
-$ <span class="c1"># Note that the V.fasta file used here should be the starting database passed to</span>
-$ <span class="c1"># IgDiscover, i.e. database/V.fasta not final/database/V.fasta</span>
-$ gap_sequences ../database/V.fasta V_starting_gapped.fasta
+<span class="c1"># create a gapped version of V.fasta, using the downloaded gapped germline set</span>
+<span class="c1"># (Homo_sapiens_IGHV_gapped.fasta) as a template</span>
+gap_sequences V.fasta Homo_sapiens_IGHV_gapped.fasta V_gapped.fasta
 </pre></div>
 </div>
-<p>You may see some warnings relating to sequences present in Homo_sapiens_IGHV_gapped.fasta. These can be ignored: gap_sequences will use the
-functionally correct sequences in the database and ignore the ones it warns about.</p>
-<section id="creating-and-using-a-gapped-v-reference-file-for-rhesus-macaque">
-<h2>Creating and using a gapped V reference file for Rhesus macaque<a class="headerlink" href="#creating-and-using-a-gapped-v-reference-file-for-rhesus-macaque" title="Permalink to this heading"></a></h2>
-<p>IMGT’s alignment of rhesus macaque IGH,K and L reference sequences is non-canonical: all three alignments contain inserted codons relative to those defined in the <a class="reference external" href="https://www.imgt.org/IMGTScientificChart/Numbering/IMGTnumbering.html">IMGT unique
-numbering</a>. These cause problems for the functionality checking built in to ogrdbstats, and will cause
+<p>The downloaded germline set is used only as a template to determine the gapping. The resulting gapped reference set will contain only the sequences that you provide to be gapped.
+You will be warned if any sequences in your set appear to be non-functional. They will still be gapped.</p>
+<p>You may see warnings relating to a few sequences present in the template file. These can be ignored: <cite>gap_sequences</cite> will use complete and
+functionally correct sequences in the database as a template and ignore the ones it warns about.</p>
+<section id="creating-and-using-a-gapped-v-germline-set-for-rhesus-macaque">
+<h2>Creating and using a gapped V germline set for Rhesus macaque<a class="headerlink" href="#creating-and-using-a-gapped-v-germline-set-for-rhesus-macaque" title="Permalink to this heading"></a></h2>
+<p>IMGT’s alignment of rhesus macaque IGH, K and L germline sequences is non-canonical: all three alignments contain inserted codons relative to those defined in the <a class="reference external" href="https://www.imgt.org/IMGTScientificChart/Numbering/IMGTnumbering.html">IMGT unique
+numbering</a>. These cause problems for the functionality checking built in to OGRDBstats, and will cause
 problems with other tools that expect gapped sequences to follow the canonical alignment.</p>
 <p><a class="reference external" href="https://williamdlees.github.io/receptor_utils/_build/html/fix_macaque_gaps.html">receptor_utils</a> contains a command <a class="reference external" href="https://williamdlees.github.io/receptor_utils/_build/html/fix_macaque_gaps.html">fix_macaque_gaps</a> which will correct the alignment.
-This set of commands will download a Rhesus IGH gapped set from IMGT, and fix the alignment. Receptor_utils requires a recent version of Python.
-database, such as one based on <a class="reference external" href="http://kimdb.gkhlab.se/">kimdb</a>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="c1"># install receptor_utils latest version (requires Python)</span>
-$ pip install -U receptor_utils
+This set of shell commands will download a Rhesus IGH gapped set from IMGT, and fix the alignment. Receptor_utils requires a recent version of Python.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># download rhesus IGHV germline set from IMGT</span>
+extract_refs -L IGH <span class="s2">&quot;Rhesus macaque&quot;</span>
 
-$ <span class="c1"># download rhesus IGHV reference set from IMGT</span>
-$ extract_refs -L IGH <span class="s2">&quot;Rhesus macaque&quot;</span>
-
-$ <span class="c1"># fix the non-canonical alignment</span>
-$ fix_macaque_gaps Rhesus_macaque_IGHV_gapped.fasta Rhesus_macaque_IGHV_gapped_fixed.fasta IGH
+<span class="c1"># fix the non-canonical alignment</span>
+fix_macaque_gaps Rhesus_macaque_IGHV_gapped.fasta Rhesus_macaque_IGHV_gapped_fixed.fasta IGH
 </pre></div>
 </div>
 <p>The resulting file <cite>Rhesus_macaque_IGHV_gapped_fixed.fasta</cite> will follow the canonical IMGT alignment. <cite>IGH</cite> can be replaced with <cite>IGK</cite> or <cite>IGL</cite>.</p>
-<p><cite>fix_macaque_gaps</cite> will notify you that a small number of sequences have been removed from the set because they contain the inserted codon. These sequences have not, to the author’s knowledge at the time of writing, been
+<p><cite>fix_macaque_gaps</cite> will notify you that a small number of sequences have been removed from the set because they contain an inserted codon. These sequences have not, to the author’s knowledge at the time of writing, been
 reported as being present in significant levels in AIRR-seq repertoires, or demonstrated to form functional antibodies.</p>
 </section>
 </section>

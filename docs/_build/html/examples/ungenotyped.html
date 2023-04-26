@@ -20,8 +20,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Using TiGGER with OGRDBstats" href="tigger.html" />
-    <link rel="prev" title="News" href="../news.html" /> 
+    <link rel="next" title="Using OGRDBstats with TIgGER" href="tigger.html" />
+    <link rel="prev" title="Release Notes" href="../news.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -43,15 +43,17 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../news.html">News</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Release Notes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Using OGRDBstats with any repertoire</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tigger.html">Using TiGGER with OGRDBstats</a></li>
-<li class="toctree-l1"><a class="reference internal" href="igdiscover.html">Using TiGGER with IgDiscover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tigger.html">Using OGRDBstats with TIgGER</a></li>
+<li class="toctree-l1"><a class="reference internal" href="igdiscover.html">Using OGRDBstats with IgDiscover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="partis.html">Using OGRDBstats with partis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="impre.html">Using OGRDBstats with IMPre</a></li>
 <li class="toctree-l1"><a class="reference internal" href="all_novel.html">Producing a more complete report</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gapped_v.html">Creating and using a gapped V reference file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gapped_v.html">Creating and using a gapped V germline set</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Usage Documentation</span></p>
 <ul>
@@ -85,9 +87,9 @@
              
   <section id="using-ogrdbstats-with-any-repertoire">
 <span id="ungenotyped"></span><h1>Using OGRDBstats with any repertoire<a class="headerlink" href="#using-ogrdbstats-with-any-repertoire" title="Permalink to this heading"></a></h1>
-<p>This section demonstrates how to conduct a V-gene analysis on a repertoire that has not been processed by a genotyping tool, and therefore for which no novel alleleshave been infered.</p>
+<p>This section demonstrates how to conduct a V-gene analysis on a repertoire that has not been processed by a genotyping tool, and therefore for which no novel alleles have been infered.</p>
 <p>We will use the sample repertoire provided with the TIgGER package for the example. An IMGT-gapped V germline set is required.
-This must match the germline set used to annotate the repertoire. Here we use the example reference set included with TIgGER. This R
+This must match the germline set used to annotate the repertoire. Here we use the example germline set included with TIgGER. This R
 code will save the sample files to the current directory:</p>
 <div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">tigger</span><span class="p">)</span>
 
@@ -98,25 +100,25 @@ code will save the sample files to the current directory:</p>
 </pre></div>
 </div>
 <p>If you are using the OGRDBstats Docker image, you can create these files in the current directory with the command</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ docker run -v <span class="si">${</span><span class="nv">pwd</span><span class="si">}</span>:/scratch ogrdbstats:latest make_sample_data
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ docker run -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/scratch ogrdbstats:latest make_sample_data
 </pre></div>
 </div>
 <p>With these commands, the following sample files should be in the current directory and can be used to demonstrate the use of ogrdbstats on a repertoire:</p>
 <ul class="simple">
-<li><p><cite>v_germline_gapped.fasta</cite> - The germline reference set used for annotation</p></li>
+<li><p><cite>v_germline_gapped.fasta</cite> - The germline set used for annotation</p></li>
 <li><p><cite>rep_genotyped.tsv</cite> - The annotated repertoire, in AIRR format.</p></li>
 </ul>
-<p>The following command will run ogrdbstats on these files:</p>
+<p>The following command will run OGRDBstats on these files:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ Rscript ogrdbstats.R v_germline_gapped.fasta Human rep_genotyped.tsv IGHV
 </pre></div>
 </div>
 <p>Here the species is defined as Human, but is not used in this case.</p>
-<p>Ogrdbstats will provide status as it runs. When processing is complete, there will be two output files: a CSV containing statistics and
+<p>OGRDBstats will provide status as it runs. When processing is complete, there will be two output files: a CSV containing statistics and
 a pdf containing plots. The filenames follow the filename of the repertoire: in this case they will be called <cite>rep_genotyped_ogrdb_report.csv</cite>
 and <cite>rep_genotyped_ogrdb_plots.pdf</cite>.</p>
 <p>You can produce a report for D or J- genes by changing the final argument. V, (D) and J gene analysis in all 7 loci is supported.</p>
-<p>Please note that the germline reference set must contain all germline sequences used for annotation. For V-gene analysis, the
-reference set must be gapped. The repertoire must be in AIRR or CHANGE-O format.</p>
+<p>Please note that the germline set must contain all germline sequences used for annotation. For V-gene analysis, the
+germline set must be gapped. The repertoire must be in AIRR or CHANGE-O format.</p>
 <p>A full description of the parameters and options available is given in <a class="reference internal" href="../tools/ogrdbstats_r.html#ogrdbstats-r"><span class="std std-ref">ogrdbstats.R - command-line description</span></a>.</p>
 </section>
 
@@ -124,8 +126,8 @@ reference set must be gapped. The repertoire must be in AIRR or CHANGE-O format.
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../news.html" class="btn btn-neutral float-left" title="News" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="tigger.html" class="btn btn-neutral float-right" title="Using TiGGER with OGRDBstats" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../news.html" class="btn btn-neutral float-left" title="Release Notes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tigger.html" class="btn btn-neutral float-right" title="Using OGRDBstats with TIgGER" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

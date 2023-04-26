@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Additional Examples &mdash; Digger 0.5.0 documentation</title>
+  <title>Using OGRDBstats with IMPre &mdash; OGRDBstats 0.5.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -20,8 +20,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Commandline Usage" href="../usage.html" />
-    <link rel="prev" title="Annotating the rhesus macaque IGH locus" href="rhesus_igh.html" /> 
+    <link rel="next" title="Producing a more complete report" href="all_novel.html" />
+    <link rel="prev" title="Using OGRDBstats with partis" href="partis.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -29,7 +29,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> Digger
+            <a href="../index.html" class="icon icon-home"> OGRDBstats
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -43,18 +43,22 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../news.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">News</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="human_igh.html">Annotating the human IGH locus</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rhesus_igh.html">Annotating the rhesus macaque IGH locus</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Additional Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ungenotyped.html">Using OGRDBstats with any repertoire</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tigger.html">Using OGRDBstats with TIgGER</a></li>
+<li class="toctree-l1"><a class="reference internal" href="igdiscover.html">Using OGRDBstats with IgDiscover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="partis.html">Using OGRDBstats with partis</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using OGRDBstats with IMPre</a></li>
+<li class="toctree-l1"><a class="reference internal" href="all_novel.html">Producing a more complete report</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gapped_v.html">Creating and using a gapped V reference file</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Usage Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../usage.html">Commandline Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tools/annotation.html">Anotation format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/ogrdbstats_r.html">ogrdbstats.R - command-line description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/formats.html">Detailed Description of Input Files</a></li>
 </ul>
 
         </div>
@@ -63,7 +67,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Digger</a>
+          <a href="../index.html">OGRDBstats</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -71,9 +75,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">Additional Examples</li>
+      <li class="breadcrumb-item active">Using OGRDBstats with IMPre</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/examples/additional_examples.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/examples/impre.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -81,20 +85,23 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="additional-examples">
-<h1>Additional Examples<a class="headerlink" href="#additional-examples" title="Permalink to this heading"></a></h1>
-<p>Additional examples, covering the IG loci of human and rhesus macaque, can be found in the <a class="reference external" href="https://github.com/williamdlees/digger/tree/main/tests">tests folder</a> of the digger Github repo.
-In each case, the example consists of a script file, <code class="docutils literal notranslate"><span class="pre">run_digger.bat</span></code>, which will download necessary data and conduct the analysis, and the analysis results.
-Despite its extension, <code class="docutils literal notranslate"><span class="pre">run_digger.bat</span></code> will run under a Linux shell (<code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">run_digger.bat</span></code>), or under Windows. For Windows, the
-<a class="reference external" href="https://www.gnu.org/software/coreutils/">Gnu core utilities</a>, or some other implementation of simple Linux shell commands, are required.</p>
+  <section id="using-ogrdbstats-with-impre">
+<span id="impre"></span><h1>Using OGRDBstats with IMPre<a class="headerlink" href="#using-ogrdbstats-with-impre" title="Permalink to this heading"></a></h1>
+<p>IMPre does not provide a set of sequences annotated with the novel allele calls. The sequences must be annotated by a
+separate tool in order to provide the information needed for the OGRDB genotype. One possible approach is as follows:</p>
+<p>Annotate with IgBLAST using a custom germline set that includes the novel alleles inferred by IMPre. Details for creating
+IgBLAST’s germline database are given in the <a class="reference external" href="https://ncbi.github.io/igblast/cook/How-to-set-up.html">setup notes</a>.
+The novel alleles inferred by IMPre can be added to the germline sequences downloaded from IMGT, before running makeblastdb.</p>
+<p>Select the AIRR output format, and provide the resulting annotion file to OGRDBstats, along with the novel
+inferences provided by IMPre.</p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="rhesus_igh.html" class="btn btn-neutral float-left" title="Annotating the rhesus macaque IGH locus" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../usage.html" class="btn btn-neutral float-right" title="Commandline Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="partis.html" class="btn btn-neutral float-left" title="Using OGRDBstats with partis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="all_novel.html" class="btn btn-neutral float-right" title="Producing a more complete report" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

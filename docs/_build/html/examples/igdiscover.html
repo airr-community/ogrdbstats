@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Using TiGGER with IgDiscover &mdash; OGRDBstats 0.5.0 documentation</title>
+  <title>Using OGRDBstats with IgDiscover &mdash; OGRDBstats 0.5.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -20,8 +20,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Producing a more complete report" href="all_novel.html" />
-    <link rel="prev" title="Using TiGGER with OGRDBstats" href="tigger.html" /> 
+    <link rel="next" title="Using OGRDBstats with partis" href="partis.html" />
+    <link rel="prev" title="Using OGRDBstats with TIgGER" href="tigger.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -43,18 +43,20 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../news.html">News</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Release Notes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="ungenotyped.html">Using OGRDBstats with any repertoire</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tigger.html">Using TiGGER with OGRDBstats</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Using TiGGER with IgDiscover</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="tigger.html">Using OGRDBstats with TIgGER</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using OGRDBstats with IgDiscover</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#creating-reports-for-d-or-j-genes">Creating reports for D- or J-genes</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="partis.html">Using OGRDBstats with partis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="impre.html">Using OGRDBstats with IMPre</a></li>
 <li class="toctree-l1"><a class="reference internal" href="all_novel.html">Producing a more complete report</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gapped_v.html">Creating and using a gapped V reference file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gapped_v.html">Creating and using a gapped V germline set</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Usage Documentation</span></p>
 <ul>
@@ -76,7 +78,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">Using TiGGER with IgDiscover</li>
+      <li class="breadcrumb-item active">Using OGRDBstats with IgDiscover</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/examples/igdiscover.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -86,36 +88,36 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="using-tigger-with-igdiscover">
-<span id="igdiscover"></span><h1>Using TiGGER with IgDiscover<a class="headerlink" href="#using-tigger-with-igdiscover" title="Permalink to this heading"></a></h1>
+  <section id="using-ogrdbstats-with-igdiscover">
+<span id="igdiscover"></span><h1>Using OGRDBstats with IgDiscover<a class="headerlink" href="#using-ogrdbstats-with-igdiscover" title="Permalink to this heading"></a></h1>
 <p>When an IgDiscover run has completed, the results will be found in the <a class="reference external" href="http://docs.igdiscover.se/en/stable/guide.html#final-results">final/ directory</a>.</p>
-<p>The repertoire file for ogrdbstats analysis is <cite>final.tsv.gz</cite>. This contains the repertoire reads, annotated with the alleles IgDiscover has determined are
-present in the personalised germline database. It must be decompressed before use by ogrdbstats:</p>
+<p>The read file file for OGRDBstats analysis is <cite>final.tsv.gz</cite>. This contains the repertoire reads, annotated with the alleles IgDiscover has determined are
+present in the personalised germline database. It must be decompressed before use by OGRDBstats:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ unzip final.tsv.gz
 </pre></div>
 </div>
-<p>Ogrdbstats also requires the personalised germline database, containing the alleles IgDiscover has inferred to be in the repertoire. This is located in <cite>final/database</cite>,
+<p>OGRDBstats also requires the personalised germline database, containing the alleles IgDiscover has inferred to be in the repertoire. This is located in <cite>final/database</cite>,
 for example <cite>final/database/V.fasta</cite> for V-genes.</p>
-<p>For V-gene analysis, ogrdbstats requires the reference germline set to be aligned according to the <a class="reference external" href="https://www.imgt.org/IMGTScientificChart/Numbering/IMGTnumbering.html">IMGT unique numbering</a>.
+<p>For V-gene analysis, OGRDBstats requires the germline set to be aligned according to the <a class="reference external" href="https://www.imgt.org/IMGTScientificChart/Numbering/IMGTnumbering.html">IMGT unique numbering</a>.
 All alleles presented to IgDiscover in the <a class="reference external" href="http://docs.igdiscover.se/en/stable/guide.html#obtaining-a-v-d-j-database">initial V.fasta</a> must be present in this ‘gapped’ file.</p>
 <p>If the <cite>V.fasta</cite> file you used was downloaded from IMGT, you can <a class="reference external" href="https://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP">download a gapped version</a>.
-This command names the download <cite>IMGT_REF_GAPPED.fasta</cite>:</p>
+This command downloads the current gapped set from IMGT and names it <cite>IMGT_REF_GAPPED.fasta</cite>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ wget -O IMGT_REF_GAPPED.fasta https://www.imgt.org/download/GENE-DB/IMGTGENEDB-ReferenceSequences.fasta-nt-WithGaps-F+ORF+inframeP
 </pre></div>
 </div>
-<p>The entire IMGT gapped file, containing sequences for multiple species, can be presented to ogrdbstats without further processing. The species must be specified to enable ogrdbstats to find the appripriate records.
+<p>If you do not have ready access to an IMGT-aligned version,
+please see <a class="reference internal" href="gapped_v.html#gapped-v"><span class="std std-ref">Creating and using a gapped V germline set</span></a>. This describes a tool that can create a gapped file from your sequences, that would be specified in place of IMGT_REF_GAPPED.fasta in the example below.</p>
+<p>The entire IMGT file, containing sequences for multiple species, can be presented to OGRDBstats without further processing. The species must be specified to enable OGRDBstats to find the appripriate records.
 The two words in the species name, for example <cite>Homo sapiens</cite> are run together without spaces.</p>
 <p>The following command, run in the <cite>final/</cite> directory, would process V genes in the IgDiscover output, using the downloaded IMGT gapped sequences:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ Rscript ogrdbstats.R --inf_file database/V.fasta IMGT_REF_GAPPED.fasta Homosapiens filtered.tsv IGHV
 </pre></div>
 </div>
 <p>Output files will be <cite>V_ogrdb_report.csv</cite> and <cite>V_ogrdb_plots.pdf</cite>.</p>
-<p>If the starting <cite>V.fasta</cite> file you used with IgDiscover was not based on an IMGT set, and you do not have ready access to an IMGT-aligned version,
-please see <a class="reference internal" href="gapped_v.html#gapped-v"><span class="std std-ref">Creating and using a gapped V reference file</span></a>. This describes a tool that can create a gapped file from your sequences, that would be specified in place of IMGT_REF_GAPPED.fasta</p>
 <section id="creating-reports-for-d-or-j-genes">
 <h2>Creating reports for D- or J-genes<a class="headerlink" href="#creating-reports-for-d-or-j-genes" title="Permalink to this heading"></a></h2>
 <p>If you have <a class="reference external" href="http://docs.igdiscover.se/en/stable/changes.html?highlight=discoverj#v0-12-2020-01-20">discovered D- or J- genes</a>, the process is simpler
-as the reference set does not need to be gapped. Again, from the final/ directory:</p>
+as the germline set does not need to be gapped. Again, from the final/ directory:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ Rscript ogrdbstats.R --inf_file database/J.fasta ../database/J.fasta Homosapiens filtered.tab IGHJ
 </pre></div>
 </div>
@@ -126,8 +128,8 @@ as the reference set does not need to be gapped. Again, from the final/ director
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="tigger.html" class="btn btn-neutral float-left" title="Using TiGGER with OGRDBstats" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="all_novel.html" class="btn btn-neutral float-right" title="Producing a more complete report" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="tigger.html" class="btn btn-neutral float-left" title="Using OGRDBstats with TIgGER" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="partis.html" class="btn btn-neutral float-right" title="Using OGRDBstats with partis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
