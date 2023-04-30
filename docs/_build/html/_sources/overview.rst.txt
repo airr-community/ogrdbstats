@@ -6,7 +6,7 @@ Overview
 Scope and Features
 ******************
 
-OGRDBstats can provide allele usage statistics and plots for any annotated repertoires. The repertoires may be provided in either AIRR or legacy CHANGE-O format. 
+OGRDBstats can provide allele usage statistics and plots for AIRR-seq repertoires. 
 
 The statistics provide overall sequence count for each allele, mutation levels, and recombination statistics, for example the number of J-alleles found
 to combine with each allele, and the number of associated CDR3 sequences. An example can be found `here <https://github.com/airr-community/ogrdbstats/blob/master/example_ogrdbstats_genotype.csv>`_.

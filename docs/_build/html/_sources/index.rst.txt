@@ -1,8 +1,9 @@
 .. OGRDBstats documentation master file
 
-OGRDBstats: analyse gene and allele usage in adaptive immune receptor repertoires
-=================================================================================
-OGRDBstats is a command-line utility and associated R package that can be used to create an analysis of gene and allele usage in a adaptive immune receptor sequencing repertoire. 
+OGRDBstats
+==========
+
+OGRDBstats analyses allele usage and recombination in an adaptive immune receptor repertoire.
 
 
 .. toctree::
@@ -25,6 +26,7 @@ OGRDBstats is a command-line utility and associated R package that can be used t
   examples/impre
   examples/all_novel
   examples/gapped_v
+  examples/haplotyping
   
 .. toctree::
   :maxdepth: 1

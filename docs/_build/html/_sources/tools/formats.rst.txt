@@ -1,8 +1,12 @@
 .. _formats:
 
+File Formats
+============
 
-Detailed Description of Input Files
-===================================
+
+
+Input file formats in detail
+****************************
 
 `REF_FILE` - FASTA file containing the IMGT gap-aligned germline sequences.
 
@@ -30,3 +34,14 @@ Detailed Description of Input Files
     - The header should consist solely of the allele name as assigned by the inference tool.
     - V-gene sequences may either be IMGT gap-aligned or ungapped. If they are ungapped, the script will determine the nearest germline gene and use it as a template. If you are not satisfied with the resulting alignment, just align the sequence in the file as you prefer.
     - If a gene with the same name is present in both the germline file and the inferred file, its presence in the inferred file will be ignored. This makes it easier to use the script with inference tools that do not write the inferred sequences to a separate file.
+
+Columns in the statistics report
+********************************
+
+
+.. csv-table::
+   :file: genotype_fields.tsv
+   :delim: tab
+   :header-rows: 1
+   :widths: 25, 75
+   

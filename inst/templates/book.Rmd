@@ -81,7 +81,16 @@ title: OGRDBstats Report
 
 
 \newpage
-# Allele usage in potential haplotype anchor genes
+# Allele usage in potential haplotype anchor genesxx
+
+```{r, echo=FALSE}
+  
+  gridExtra::grid.arrange(a_allele_plot)
+
+```
+
+\newpage
+# Haplotype plots
 
 ```{r, echo=FALSE}
   

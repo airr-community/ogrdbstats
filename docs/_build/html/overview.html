@@ -7,6 +7,7 @@
   <title>Overview &mdash; OGRDBstats 0.5.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -21,7 +22,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Installation" href="install.html" />
-    <link rel="prev" title="OGRDBstats: analyse gene and allele usage in adaptive immune receptor repertoires" href="index.html" /> 
+    <link rel="prev" title="OGRDBstats" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -60,11 +61,12 @@
 <li class="toctree-l1"><a class="reference internal" href="examples/impre.html">Using OGRDBstats with IMPre</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/all_novel.html">Producing a more complete report</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/gapped_v.html">Creating and using a gapped V germline set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/haplotyping.html">Haplotyping</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Usage Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tools/ogrdbstats_r.html">ogrdbstats.R - command-line description</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tools/formats.html">Detailed Description of Input Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools/formats.html">File Formats</a></li>
 </ul>
 
         </div>
@@ -95,7 +97,7 @@
 <span id="overview-label"></span><h1>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h1>
 <section id="scope-and-features">
 <h2>Scope and Features<a class="headerlink" href="#scope-and-features" title="Permalink to this heading"></a></h2>
-<p>OGRDBstats can provide allele usage statistics and plots for any annotated repertoires. The repertoires may be provided in either AIRR or legacy CHANGE-O format.</p>
+<p>OGRDBstats can provide allele usage statistics and plots for AIRR-seq repertoires.</p>
 <p>The statistics provide overall sequence count for each allele, mutation levels, and recombination statistics, for example the number of J-alleles found
 to combine with each allele, and the number of associated CDR3 sequences. An example can be found <a class="reference external" href="https://github.com/airr-community/ogrdbstats/blob/master/example_ogrdbstats_genotype.csv">here</a>.</p>
 <p>The available plots provide read pile-up information for each allele, and plots showing the mutation levels and counts associated with each assigned allele. Only
@@ -157,7 +159,7 @@ specific usage information for tested tools. The tools we have currently tested 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="OGRDBstats: analyse gene and allele usage in adaptive immune receptor repertoires" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="OGRDBstats" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="install.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

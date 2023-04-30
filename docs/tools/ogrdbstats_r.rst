@@ -38,6 +38,7 @@ The description applies equally to the Dockerised command `run_ogrdbstats`.
 	  -f, --format          Output report format: pdf, html or none
 							[default: pdf]
 
+
 Positional Arguments:
 
 `REF_FILE` - pathname of a FASTA file containing IMGT gap-aligned germline sequences. Usually this would be downloaded from IMGT.
@@ -52,5 +53,5 @@ Optional Arguments:
 
 `INF_FILE` - pathname of a FASTA file containing sequences of inferred novel alleles. This file must be provided if the read file contains assignments to alleles that are not listed in REF_FILE.
 
-`HAP_GENE` - the gene to be used for haplotyping analysis (see haplotyping section below)
+`HAP_GENE` - the gene to be used for haplotyping analysis in the report (see :ref:`haplotyping`)
 

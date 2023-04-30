@@ -7,6 +7,7 @@
   <title>Using OGRDBstats with TIgGER &mdash; OGRDBstats 0.5.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -54,11 +55,12 @@
 <li class="toctree-l1"><a class="reference internal" href="impre.html">Using OGRDBstats with IMPre</a></li>
 <li class="toctree-l1"><a class="reference internal" href="all_novel.html">Producing a more complete report</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gapped_v.html">Creating and using a gapped V germline set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="haplotyping.html">Haplotyping</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Usage Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../tools/ogrdbstats_r.html">ogrdbstats.R - command-line description</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tools/formats.html">Detailed Description of Input Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/formats.html">File Formats</a></li>
 </ul>
 
         </div>
@@ -104,7 +106,7 @@
 <span class="c1"># Detect novel alleles in the sample repertoire</span>
 <span class="n">novel</span> <span class="o">&lt;-</span> <span class="nf">findNovelAlleles</span><span class="p">(</span><span class="n">AIRRDb</span><span class="p">,</span> <span class="n">SampleGermlineIGHV</span><span class="p">,</span> <span class="n">nproc</span><span class="o">=</span><span class="m">1</span><span class="p">)</span>
 
-<span class="c1"># Extract and rows that contain successful novel allele calls</span>
+<span class="c1"># Extract rows that contain successful novel allele calls</span>
 <span class="n">novel_rows</span> <span class="o">&lt;-</span> <span class="nf">selectNovel</span><span class="p">(</span><span class="n">novel</span><span class="p">)</span>
 
 <span class="c1"># Infer the individual&#39;s genotype, using only unmutated sequences and checking</span>

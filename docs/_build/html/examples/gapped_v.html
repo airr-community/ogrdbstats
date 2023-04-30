@@ -7,6 +7,7 @@
   <title>Creating and using a gapped V germline set &mdash; OGRDBstats 0.5.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -20,7 +21,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="ogrdbstats.R - command-line description" href="../tools/ogrdbstats_r.html" />
+    <link rel="next" title="Haplotyping" href="haplotyping.html" />
     <link rel="prev" title="Producing a more complete report" href="all_novel.html" /> 
 </head>
 
@@ -57,11 +58,12 @@
 <li class="toctree-l2"><a class="reference internal" href="#creating-and-using-a-gapped-v-germline-set-for-rhesus-macaque">Creating and using a gapped V germline set for Rhesus macaque</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="haplotyping.html">Haplotyping</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Usage Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../tools/ogrdbstats_r.html">ogrdbstats.R - command-line description</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tools/formats.html">Detailed Description of Input Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/formats.html">File Formats</a></li>
 </ul>
 
         </div>
@@ -112,11 +114,11 @@ You will be warned if any sequences in your set appear to be non-functional. The
 functionally correct sequences in the database as a template and ignore the ones it warns about.</p>
 <section id="creating-and-using-a-gapped-v-germline-set-for-rhesus-macaque">
 <h2>Creating and using a gapped V germline set for Rhesus macaque<a class="headerlink" href="#creating-and-using-a-gapped-v-germline-set-for-rhesus-macaque" title="Permalink to this heading"></a></h2>
-<p>IMGT’s alignment of rhesus macaque IGH, K and L germline sequences is non-canonical: all three alignments contain inserted codons relative to those defined in the <a class="reference external" href="https://www.imgt.org/IMGTScientificChart/Numbering/IMGTnumbering.html">IMGT unique
+<p>IMGT’s alignment of rhesus macaque IGH, K and L germline sequences is non-canonical: all three contain inserted codons relative to those defined in the <a class="reference external" href="https://www.imgt.org/IMGTScientificChart/Numbering/IMGTnumbering.html">IMGT unique
 numbering</a>. These cause problems for the functionality checking built in to OGRDBstats, and will cause
 problems with other tools that expect gapped sequences to follow the canonical alignment.</p>
-<p><a class="reference external" href="https://williamdlees.github.io/receptor_utils/_build/html/fix_macaque_gaps.html">receptor_utils</a> contains a command <a class="reference external" href="https://williamdlees.github.io/receptor_utils/_build/html/fix_macaque_gaps.html">fix_macaque_gaps</a> which will correct the alignment.
-This set of shell commands will download a Rhesus IGH gapped set from IMGT, and fix the alignment. Receptor_utils requires a recent version of Python.</p>
+<p><a class="reference external" href="https://williamdlees.github.io/receptor_utils/_build/html/fix_macaque_gaps.html">receptor_utils</a> contains a command <a class="reference external" href="https://williamdlees.github.io/receptor_utils/_build/html/fix_macaque_gaps.html">fix_macaque_gaps</a>.
+This set of shell commands will download a Rhesus IGH gapped set from IMGT, and convert to the canonical alignment. Receptor_utils requires a recent version of Python.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># download rhesus IGHV germline set from IMGT</span>
 extract_refs -L IGH <span class="s2">&quot;Rhesus macaque&quot;</span>
 
@@ -135,7 +137,7 @@ reported as being present in significant levels in AIRR-seq repertoires, or demo
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="all_novel.html" class="btn btn-neutral float-left" title="Producing a more complete report" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../tools/ogrdbstats_r.html" class="btn btn-neutral float-right" title="ogrdbstats.R - command-line description" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="haplotyping.html" class="btn btn-neutral float-right" title="Haplotyping" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

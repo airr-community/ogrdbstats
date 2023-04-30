@@ -23,7 +23,7 @@ The following R code, based on the `TIgGER vignette <https://tigger.readthedocs.
 	# Detect novel alleles in the sample repertoire
 	novel <- findNovelAlleles(AIRRDb, SampleGermlineIGHV, nproc=1)
 
-	# Extract and rows that contain successful novel allele calls
+	# Extract rows that contain successful novel allele calls
 	novel_rows <- selectNovel(novel)
 
 	# Infer the individual's genotype, using only unmutated sequences and checking

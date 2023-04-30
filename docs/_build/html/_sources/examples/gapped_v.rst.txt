@@ -31,12 +31,12 @@ functionally correct sequences in the database as a template and ignore the ones
 Creating and using a gapped V germline set for Rhesus macaque
 ---------------------------------------------------------------
 
-IMGT's alignment of rhesus macaque IGH, K and L germline sequences is non-canonical: all three alignments contain inserted codons relative to those defined in the `IMGT unique 
+IMGT's alignment of rhesus macaque IGH, K and L germline sequences is non-canonical: all three contain inserted codons relative to those defined in the `IMGT unique 
 numbering <https://www.imgt.org/IMGTScientificChart/Numbering/IMGTnumbering.html>`_. These cause problems for the functionality checking built in to OGRDBstats, and will cause 
 problems with other tools that expect gapped sequences to follow the canonical alignment.
 
-`receptor_utils <https://williamdlees.github.io/receptor_utils/_build/html/fix_macaque_gaps.html>`_ contains a command `fix_macaque_gaps <https://williamdlees.github.io/receptor_utils/_build/html/fix_macaque_gaps.html>`_ which will correct the alignment.
-This set of shell commands will download a Rhesus IGH gapped set from IMGT, and fix the alignment. Receptor_utils requires a recent version of Python.
+`receptor_utils <https://williamdlees.github.io/receptor_utils/_build/html/fix_macaque_gaps.html>`_ contains a command `fix_macaque_gaps <https://williamdlees.github.io/receptor_utils/_build/html/fix_macaque_gaps.html>`_.
+This set of shell commands will download a Rhesus IGH gapped set from IMGT, and convert to the canonical alignment. Receptor_utils requires a recent version of Python.
 
 .. code-block:: bash
 

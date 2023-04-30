@@ -6,7 +6,6 @@
 \.py
 \.csv
 \.pdf
-^ogrdbstats.R
 ^\.github$
 ^doc$
 ^Meta$
@@ -15,3 +14,11 @@
 ^cran-comments.md
 ^CRAN-SUBMISSION$
 run_tests$
+^Dockerfile$
+^docs$
+^make_sample_data$
+^run_ogrdbstats$
+^run_ogrdbstats_tests$
+^install_ogrdbstats.R$
+^make_sample_data.R$
+^ogrdbstats.R$

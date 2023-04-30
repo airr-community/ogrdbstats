@@ -22,7 +22,7 @@ If you are using the OGRDBstats Docker image, you can create these files in the 
 
 .. code-block:: bash
 
-    $ docker run -v $(pwd):/scratch ogrdbstats:latest make_sample_data
+    $ docker run -v $(pwd):/scratch ogrdbstats:stable make_sample_data
 	
 With these commands, the following sample files should be in the current directory and can be used to demonstrate the use of ogrdbstats on a repertoire:
 

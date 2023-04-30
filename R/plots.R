@@ -126,9 +126,9 @@ make_haplo_grobs = function(segment, haplo_details) {
   sa = haplo_details$sa
 
   if(segment == 'V') {
-    theme = theme(legend.title = element_blank(), plot.margin=margin(1,4,19,4, 'cm'), axis.text.x = element_text(angle = 270, hjust = 0,vjust=0.5))
+    theme = theme(legend.title = element_blank(), axis.text.x = element_text(angle = 270, hjust = 0,vjust=0.5))
   } else {
-    theme = theme(legend.title = element_blank(), plot.margin=margin(4,1,15,1, 'cm'), axis.text.x = element_text(angle = 270, hjust = 0,vjust=0.5, size=7))
+    theme = theme(legend.title = element_blank(), axis.text.x = element_text(angle = 270, hjust = 0,vjust=0.5))
   }
 
   # color_brewer doesn't work with large numbers of categories
@@ -150,10 +150,12 @@ make_haplo_grobs = function(segment, haplo_details) {
       theme
   }
 
+  a_g = ggplotGrob(a_allele_plot)
+
   haplo_grobs = lapply(a_genes, plot_differential, a_props=a_props, sa=sa, segment=segment)
   haplo_grobs = haplo_grobs[!is.na(haplo_grobs)]
 
-  return(list('haplo'=haplo_grobs, 'aplot'=a_allele_plot))
+  return(list('haplo'=haplo_grobs, 'aplot'=a_g))
 }
 
 
@@ -740,8 +742,8 @@ plot_differential = function(gene, a_props, sa, segment) {
          fill = 'Allele') +
     theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
           panel.background = element_blank(), axis.ticks = element_blank(), legend.position=c(0.9, 0.9),
-          axis.text=element_text(size=4), axis.title =element_text(size=15), axis.text.x = element_text(angle = 270, hjust = 0,vjust=0.5),
-          plot.margin=margin(1,margins,15,margins, 'cm'))
+          axis.text=element_text(size=4), axis.title =element_text(size=15), axis.text.x = element_text(angle = 270, hjust = 0,vjust=0.5)
+          )
   return(ggplotGrob(g))
 }
 
