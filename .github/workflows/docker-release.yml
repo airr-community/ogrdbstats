@@ -2,6 +2,7 @@ name: Docker Release CI
 
 on:
   release:
+    types: [published]
     branches: [ "master" ]
 
 jobs:
