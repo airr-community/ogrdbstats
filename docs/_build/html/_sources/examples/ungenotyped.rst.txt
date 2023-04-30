@@ -35,7 +35,7 @@ The following command will run OGRDBstats on these files:
 
     $ Rscript ogrdbstats.R v_germline_gapped.fasta Human rep_genotyped.tsv IGHV
 	
-Here the species is defined as Human, but is not used in this case. 
+The species is defined as Human.
 
 OGRDBstats will provide status as it runs. When processing is complete, there will be two output files: a CSV containing statistics and
 a pdf containing plots. The filenames follow the filename of the repertoire: in this case they will be called `rep_genotyped_ogrdb_report.csv`

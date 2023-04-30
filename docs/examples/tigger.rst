@@ -5,7 +5,7 @@ Using OGRDBstats with TIgGER
 
 To conduct a V-gene analysis with TIgGER:
 
-- Use findNovelAlleles to identify novel alleles in a Change-O-formatted data set. Write these to a FASTA file.
+- Use findNovelAlleles to identify novel alleles. Write these to a FASTA file.
 - Use inferGenotype or inferGenotypeBayesian to infer the genotype.
 - Use reassignAlleles to correct allele calls in the data set, based on the inferred genotype
 

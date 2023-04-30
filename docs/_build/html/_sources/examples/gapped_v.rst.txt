@@ -36,7 +36,7 @@ numbering <https://www.imgt.org/IMGTScientificChart/Numbering/IMGTnumbering.html
 problems with other tools that expect gapped sequences to follow the canonical alignment.
 
 `receptor_utils <https://williamdlees.github.io/receptor_utils/_build/html/fix_macaque_gaps.html>`_ contains a command `fix_macaque_gaps <https://williamdlees.github.io/receptor_utils/_build/html/fix_macaque_gaps.html>`_.
-This set of shell commands will download a Rhesus IGH gapped set from IMGT, and convert to the canonical alignment. Receptor_utils requires a recent version of Python.
+This set of shell commands will download a Rhesus IGH gapped set from IMGT, and convert to the canonical alignment.
 
 .. code-block:: bash
 
