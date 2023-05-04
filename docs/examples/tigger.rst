@@ -45,9 +45,9 @@ The following R code, based on the `TIgGER vignette <https://tigger.readthedocs.
 
 This code creates the following files:
 
-- `v_germline_gapped.fasta` - the germline sequences used in the annotation
-- `rep_genotyped.tsv` - the annotated reads, with a column V_GERMLINE_GAPPED containing the corrected (genotyped) V-call
-- `v_genotyped_seqs.fasta` - the set of germline sequences referenced in the annotated reads, including novel sequences
+- `v_germline_gapped.fasta` - the germline sequences used in the original annotation (before running Tigger)
+- `rep_genotyped.tsv` - the annotated reads, with a column V_GERMLINE_GAPPED containing the corrected (genotyped) V-call provided by Tigger
+- `v_genotyped_seqs.fasta` - the set of germline sequences referenced in the annotated reads, including inferred novel sequences
 
 These files can be provided to OGRDBstats in the following command:
 
