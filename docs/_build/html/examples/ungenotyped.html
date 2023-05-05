@@ -102,7 +102,7 @@ code will save the sample files to the current directory:</p>
 </pre></div>
 </div>
 <p>If you are using the OGRDBstats Docker image, you can create these files in the current directory with the command</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ docker run -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/scratch ogrdbstats:stable make_sample_data
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ docker run -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/scratch williamlees/ogrdbstats:stable make_sample_data
 </pre></div>
 </div>
 <p>With these commands, the following sample files should be in the current directory and can be used to demonstrate the use of ogrdbstats on a repertoire:</p>
@@ -112,6 +112,10 @@ code will save the sample files to the current directory:</p>
 </ul>
 <p>The following command will run OGRDBstats on these files:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ Rscript ogrdbstats.R v_germline_gapped.fasta Human rep_genotyped.tsv IGHV
+</pre></div>
+</div>
+<p>If you are using the OGRDBstats Docker image, the command is</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ docker run -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/scratch williamlees/ogrdbstats:stable run_ogrdbstats v_germline_gapped.fasta Human rep_genotyped.tsv IGHV
 </pre></div>
 </div>
 <p>The species is defined as Human.</p>

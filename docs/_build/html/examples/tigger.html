@@ -129,9 +129,9 @@
 </div>
 <p>This code creates the following files:</p>
 <ul class="simple">
-<li><p><cite>v_germline_gapped.fasta</cite> - the germline sequences used in the annotation</p></li>
-<li><p><cite>rep_genotyped.tsv</cite> - the annotated reads, with a column V_GERMLINE_GAPPED containing the corrected (genotyped) V-call</p></li>
-<li><p><cite>v_genotyped_seqs.fasta</cite> - the set of germline sequences referenced in the annotated reads, including novel sequences</p></li>
+<li><p><cite>v_germline_gapped.fasta</cite> - the germline sequences used in the original annotation (before running Tigger)</p></li>
+<li><p><cite>rep_genotyped.tsv</cite> - the annotated reads, with a column V_GERMLINE_GAPPED containing the corrected (genotyped) V-call provided by Tigger</p></li>
+<li><p><cite>v_genotyped_seqs.fasta</cite> - the set of germline sequences referenced in the annotated reads, including inferred novel sequences</p></li>
 </ul>
 <p>These files can be provided to OGRDBstats in the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ Rscript ogrdbstats.R --inf_file v_genotyped_seqs.fasta v_germline_gapped.fasta human rep_genotyped.tsv IGHV

@@ -22,7 +22,7 @@ If you are using the OGRDBstats Docker image, you can create these files in the 
 
 .. code-block:: bash
 
-    $ docker run -v $(pwd):/scratch ogrdbstats:stable make_sample_data
+    $ docker run -v $(pwd):/scratch williamlees/ogrdbstats:stable make_sample_data
 	
 With these commands, the following sample files should be in the current directory and can be used to demonstrate the use of ogrdbstats on a repertoire:
 
@@ -34,6 +34,12 @@ The following command will run OGRDBstats on these files:
 .. code-block:: bash
 
     $ Rscript ogrdbstats.R v_germline_gapped.fasta Human rep_genotyped.tsv IGHV
+	
+If you are using the OGRDBstats Docker image, the command is
+
+.. code-block:: bash
+	
+    $ docker run -v $(pwd):/scratch williamlees/ogrdbstats:stable run_ogrdbstats v_germline_gapped.fasta Human rep_genotyped.tsv IGHV
 	
 The species is defined as Human.
 
