@@ -3,7 +3,7 @@
 Creating and using a gapped V germline set
 ===========================================
 
-If the V-sequences you annotated with do not contain gaps, and you do not have ready access to an IMGT-aligned version, you can create a
+If the V-sequences you annotated with do not contain gaps, and you do not have ready access to an IMGT-aligned version, you can create 
 one using the `gap_sequences <https://williamdlees.github.io/receptor_utils/_build/html/gap_sequences.html>`_ command from the `receptor_utils <https://williamdlees.github.io/receptor_utils/_build/html/fix_macaque_gaps.html>`_ package. 
 Installation requires a recent version of Python. `gap_sequences` requires a gapped set of sequences to use as a template. The receptor_utils package 
 can download a gapped set from IMGT. The following shell commands will install the package, download a gapped human IGHV set to use as a template, and create 
