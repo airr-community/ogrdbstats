@@ -2,7 +2,7 @@
 title: OGRDBstats Report
 ---
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width="50%"}
   
   arrange_cols = function(grobs, cols) {
 	  for (i in 1:length(grobs)/cols) {
@@ -24,7 +24,7 @@ title: OGRDBstats Report
 
 `r if('SEQUENCE_IMGT' %in% names(input_sequences) && length(end_composition_grobs) > 0) {"## End-nucleotide composition"}`
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width="50%"}
     if('SEQUENCE_IMGT' %in% names(input_sequences) && length(end_composition_grobs) > 0) {
       arrange_cols(end_composition_grobs, 2)
     }
@@ -33,7 +33,7 @@ title: OGRDBstats Report
 
 `r if('SEQUENCE_IMGT' %in% names(input_sequences) && length(cons_composition_grobs) > 0) {"## Per-nucleotide consensus where previous nucleotides match the consensus"}`
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width="50%"}
     if('SEQUENCE_IMGT' %in% names(input_sequences) && length(cons_composition_grobs) > 0) {
       arrange_cols(cons_composition_grobs, 2)
     }
@@ -42,7 +42,7 @@ title: OGRDBstats Report
 
 `r if('SEQUENCE_IMGT' %in% names(input_sequences) && length(whole_composition_grobs) > 0) {"## Whole-sequence composition of each assigned read"}`
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width="50%"}
     if('SEQUENCE_IMGT' %in% names(input_sequences) && length(whole_composition_grobs) > 0) {
       arrange_cols(whole_composition_grobs, 1)
     }
@@ -52,7 +52,7 @@ title: OGRDBstats Report
 
 `r if('SEQUENCE_IMGT' %in% names(input_sequences) && length(triplet_composition_grobs) > 0) {"## Final three nucleotides: frequency of each observed triplet"}`
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width="50%"}
     if('SEQUENCE_IMGT' %in% names(input_sequences) && length(triplet_composition_grobs) > 0) {
       arrange_cols(triplet_composition_grobs, 2)
     }
@@ -62,7 +62,7 @@ title: OGRDBstats Report
 ## CDR3 length distribution, in assignments to novel alleles
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width="33%"}
   
 	arrange_cols(cdr3_dist_grobs, 3)
 
@@ -73,7 +73,7 @@ title: OGRDBstats Report
 # Variation from germline, in assignments to each allele
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width="33%"}
   
 	arrange_cols(barplot_grobs, 3)
 
@@ -81,20 +81,24 @@ title: OGRDBstats Report
 
 
 \newpage
-# Allele usage in potential haplotype anchor genesxx
+# Allele usage in potential haplotype anchor genes
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width="80%"}
   
-  gridExtra::grid.arrange(a_allele_plot)
+  gridExtra::grid.arrange(a_allele_plot, ncol=1)
 
 ```
 
 \newpage
 # Haplotype plots
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.width=10}
   
-	arrange_cols(haplo_grobs, 1)
+	if (length(haplo_grobs) > 0) {
+	  for (i in 1:length(haplo_grobs)) {
+		  gridExtra::grid.arrange(grobs=haplo_grobs[i],ncol=1)
+	  }
+	}
 
 ```
 
@@ -102,7 +106,7 @@ title: OGRDBstats Report
 \newpage
 # Configuration settings
 
-```{r, echo=FALSE, results='asis'}
+```{r, echo=FALSE, out.width="50%"}
   
 	m = gsub("\\\\", "/", message)
   cat(gsub("([*+-])", " ", m))

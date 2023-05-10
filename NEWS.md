@@ -6,3 +6,7 @@
 # ogrdbstats 0.5.1
 
 * Fixed a problem which prevented haplotyping plots from being produced.
+* Fixed various issues with report formatting
+
+* Added support for recent versions of IgDiscover, which now uses a AIRR format for filtered.tsv
+* Added automatic sequence gapping for the AIRR format column sequence_alignment, should it not be gapped (this was required for IgDIscover support)

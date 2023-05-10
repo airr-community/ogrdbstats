@@ -6,6 +6,10 @@ cd VH_tigger
 Rscript ../../ogrdbstats.R IMGT_REF_GAPPED.fasta Homosapiens TWO01A_naive_genotyped.tsv VH --inf_file TWO01A_naive_novel_ungapped.fasta --hap_gene IGHJ6
 cd ..
 
+cd VK_igdiscover_151
+Rscript ../../ogrdbstats.R V_ref_gapped.fasta Mouse filtered.tsv VK --inf_file V.fasta --hap_gene IGKJ3
+cd ..
+
 cd V_tigger_truncated
 Rscript ../../ogrdbstats.R IMGT_REF_GAPPED.fasta Homosapiens  TWO01A_naive_genotyped.tsv VH  --inf_file TWO01A_naive_novel_ungapped.fasta --hap_gene IGHJ6
 cd ..

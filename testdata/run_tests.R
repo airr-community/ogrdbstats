@@ -59,10 +59,25 @@ genotype_statistics_test = function(testdir, full=F) {
   hap_gene = 'IGHJ6'
   segment = 'V'
   chain_type = 'H'
-  generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
+  generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, FALSE)
   setwd('..')
 
   if(full) {
+
+    # VH - AIRR with no novel sequences
+    report('VH - AIRR no novel')
+    setwd('VH_airr_no_novel')
+    ref_filename = 'IMGT_REF_GAPPED.fasta'
+    species = 'Homosapiens'
+    inferred_filename = '-'
+    filename = 'P8_I1_S1_airr.tsv'
+    chain = 'IGHV'
+    hap_gene = 'IGHJ6'
+    segment = 'V'
+    chain_type = 'H'
+    generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, FALSE)
+    setwd('..')
+    gc()
 
     # VH - tigger with truncated sequences in IMGT alignment
     report('VH - tigger with truncated sequences in IMGT alignment')
@@ -71,11 +86,11 @@ genotype_statistics_test = function(testdir, full=F) {
     species = 'Homosapiens'
     inferred_filename = 'TWO01A_naive_novel_ungapped.fasta'
     filename = 'TWO01A_naive_genotyped.tsv'
-    chain = 'VH'
+    chain = 'IGHV'
     hap_gene = 'IGHJ6'
     segment = 'V'
     chain_type = 'H'
-    generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
+    generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, FALSE)
     setwd('..')
     gc()
 
@@ -86,11 +101,11 @@ genotype_statistics_test = function(testdir, full=F) {
     species = 'Homosapiens'
     inferred_filename = 'TWO01A_naive_novel.fasta'
     filename = 'TWO01A_naive.airr.tab'
-    chain = 'JH'
+    chain = 'IGHJ'
     hap_gene = 'IGHV2-5'
     segment = 'J'
     chain_type = 'H'
-    generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
+    generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, FALSE)
     setwd('..')
     gc()
 
@@ -101,11 +116,11 @@ genotype_statistics_test = function(testdir, full=F) {
     species = 'Homosapiens'
     inferred_filename = 'TWO01A_naive_novel.fasta'
     filename = 'TWO01A_naive.airr.tab'
-    chain = 'DH'
+    chain = 'IGHD'
     hap_gene = 'IGHJ6'
     segment = 'D'
     chain_type = 'H'
-    generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
+    generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, FALSE)
     setwd('..')
     gc()
 
@@ -116,11 +131,11 @@ genotype_statistics_test = function(testdir, full=F) {
     species = 'Homosapiens'
     inferred_filename = 'J.fasta'
     filename = 'filtered.tab'
-    chain = 'JH'
+    chain = 'IGHJ'
     hap_gene = 'IGHV2-5'
     segment = 'J'
     chain_type = 'H'
-    generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
+    generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, FALSE)
     setwd('..')
     gc()
 
@@ -132,11 +147,11 @@ genotype_statistics_test = function(testdir, full=F) {
     species = 'Homosapiens'
     inferred_filename = 'J.fasta'
     filename = 'filtered.tab'
-    chain = 'JK'
+    chain = 'IGKJ'
     hap_gene = 'IGHV2-5'
     segment = 'J'
     chain_type = 'L'
-    generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
+    generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, FALSE)
     setwd('..')
     gc()
 
@@ -152,7 +167,7 @@ genotype_statistics_test = function(testdir, full=F) {
     # hap_gene = 'IGHJ6'
     # segment = 'V'
     # chain_type = 'H'
-    # generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
+    # generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, FALSE)
     # setwd('..')
     gc()
 
@@ -163,11 +178,30 @@ genotype_statistics_test = function(testdir, full=F) {
     species = 'Homosapiens'
     inferred_filename = 'Inferred_file.fasta'
     filename = 'Read_file.tab'
-    chain = 'VK'
+    chain = 'IGKJ'
     hap_gene = 'IGHJ6'
     segment = 'V'
-    chain_type = 'K'
-    generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type)
+    chain_type = 'L'
+    generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, FALSE)
     setwd('..')
+
+    # VH - IgDiscover 1.51
+    # Recent versions of IgDiscover use IgBLAST output in filtered.tsv
+
+    report('VK_igdiscover_151')
+    setwd('VK_igdiscover_151')
+    ref_filename = 'V_ref_gapped.fasta'
+    species = 'Homosapiens'
+    inferred_filename = 'V_head.fasta'
+    filename = 'filtered_head.tsv'
+    inferred_filename = 'V.fasta'
+    filename = 'filtered.tsv'
+    chain = 'IGKV'
+    hap_gene = 'IGKJ3'
+    segment = 'V'
+    chain_type = 'L'
+    generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, FALSE)
+    setwd('..')
+
   }
 }

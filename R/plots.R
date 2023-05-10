@@ -432,6 +432,7 @@ label_5_nuc = function(pos, ref) {
 # if pos is negative, SEQUENCE_IMGT contains a certain number of trailing nucleotides. Plot them all.
 
 plot_base_composition = function(gene_name, recs, ref, pos=1, filter=TRUE, end_pos=999, r_justify=FALSE, all_inferred=FALSE) {
+  recs = recs[!is.na(recs)]
   nuc = NULL
   max_pos = nchar(ref)
 
@@ -490,6 +491,7 @@ plot_base_composition = function(gene_name, recs, ref, pos=1, filter=TRUE, end_p
 
 # As above, but plot a heatmap
 plot_base_heatmap = function(gene_name, recs, ref, pos=1, end_pos=999, r_justify=FALSE) {
+  recs = recs[!is.na(recs)]
   max_pos = nchar(ref)
 
   if(max_pos < pos || length(recs) < 1) {
@@ -522,6 +524,7 @@ plot_base_heatmap = function(gene_name, recs, ref, pos=1, end_pos=999, r_justify
 # Only include gaps, n nucleotides if filter=FALSE
 
 plot_cumulative_consensus_base_composition = function(gene_name, recs, ref, pos=1, filter=TRUE, end_pos=999, r_justify=FALSE, all_inferred=FALSE) {
+  recs = recs[!is.na(recs)]
   conc = NULL
 
   max_pos = nchar(ref)
@@ -592,6 +595,7 @@ plot_cumulative_consensus_base_composition = function(gene_name, recs, ref, pos=
 
 # Plot composition of a segment rather than the whole IMGT-aligned sequence
 plot_segment_composition = function(gene_name, recs, ref, pos=1,  filter=TRUE, end_pos=999, r_justify=FALSE) {
+  recs = recs[!is.na(recs)]
   nuc = NULL
   max_pos = nchar(ref)
 
@@ -668,6 +672,7 @@ extract_frag = function(rec, start_pos, length) {
 # Plot occurrence of each possible nucleotide sequence in the trailing triplet
 
 plot_trailing_triplet = function(gene_name, recs, ref) {
+  recs = recs[!is.na(recs)]
   aggregate = triplet = NULL
   start_pos = nchar(ref) - 2
   length = 3

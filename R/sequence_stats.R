@@ -97,7 +97,7 @@ apply_gaps = function(seq, tem) {
 # junction_start is the location of the first nucleotide of the cysteine preceding the CRD3
 # this is location 310 in the IMGT numbering scheme
 imgt_gap = function(sequence, cdr3_sequence, junction_start, ref_gene) {
-  if(is.na(ref_gene) || is.na(cdr3_sequence) || is.na(sequence)) {
+  if(is.na(ref_gene) || is.na(cdr3_sequence) || is.na(sequence) || is.na(junction_start)) {
     return(NA)
   }
 
