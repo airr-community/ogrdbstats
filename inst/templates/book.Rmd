@@ -3,7 +3,6 @@ title: OGRDBstats Report
 ---
 
 ```{r, echo=FALSE, out.width="50%"}
-  
   arrange_cols = function(grobs, cols) {
 	  for (i in 1:length(grobs)/cols) {
 		j = 1 + (i-1) * cols
@@ -26,7 +25,9 @@ title: OGRDBstats Report
 
 ```{r, echo=FALSE, fig.width=8, out.width="50%"}
     if('SEQUENCE_IMGT' %in% names(input_sequences) && length(end_composition_grobs) > 0) {
-      arrange_cols(end_composition_grobs, 2)
+		for (i in 1:length(end_composition_grobs)) {
+			gridExtra::grid.arrange(grobs=end_composition_grobs[i],ncol=1)
+		}
     }
 
 ```
@@ -35,7 +36,9 @@ title: OGRDBstats Report
 
 ```{r, echo=FALSE, fig.width=8, out.width="50%"}
     if('SEQUENCE_IMGT' %in% names(input_sequences) && length(cons_composition_grobs) > 0) {
-      arrange_cols(cons_composition_grobs, 2)
+		for (i in 1:length(cons_composition_grobs)) {
+			gridExtra::grid.arrange(grobs=cons_composition_grobs[i],ncol=1)
+		}
     }
 
 ```
@@ -52,9 +55,11 @@ title: OGRDBstats Report
 
 `r if('SEQUENCE_IMGT' %in% names(input_sequences) && length(triplet_composition_grobs) > 0) {"## Final three nucleotides: frequency of each observed triplet"}`
 
-```{r, echo=FALSE, fig.width=8, fig.height=4, out.width="30%"}
+```{r, echo=FALSE, fig.width=6, fig.height=3, out.width="30%"}
     if('SEQUENCE_IMGT' %in% names(input_sequences) && length(triplet_composition_grobs) > 0) {
-      arrange_cols(triplet_composition_grobs, 3)
+		for (i in 1:length(cdr3_dist_grobs)) {
+			gridExtra::grid.arrange(grobs=cdr3_dist_grobs[i],ncol=1)
+		}
     }
 
 ```
@@ -62,9 +67,13 @@ title: OGRDBstats Report
 ## CDR3 length distribution, in assignments to novel alleles
 
 
-```{r, echo=FALSE, fig.width=8, fig.height=8, out.width="30%"}
+```{r, echo=FALSE, fig.width=4, fig.height=4, out.width="30%"}
   
-	arrange_cols(cdr3_dist_grobs, 3)
+	if (length(cdr3_dist_grobs) > 0) {
+	  for (i in 1:length(cdr3_dist_grobs)) {
+		  gridExtra::grid.arrange(grobs=cdr3_dist_grobs[i],ncol=1)
+	  }
+	}
 
 ```
 
@@ -73,9 +82,13 @@ title: OGRDBstats Report
 # Variation from germline, in assignments to each allele
 
 
-```{r, echo=FALSE, fig.width=8, fig.height=8, out.width="30%"}
+```{r, echo=FALSE, fig.width=4, fig.height=4, out.width="30%"}
   
-	arrange_cols(barplot_grobs, 3)
+	if (length(barplot_grobs) > 0) {
+	  for (i in 1:length(barplot_grobs)) {
+		  gridExtra::grid.arrange(grobs=barplot_grobs[i],ncol=1)
+	  }
+	}
 
 ```
 
