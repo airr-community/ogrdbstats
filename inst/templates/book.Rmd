@@ -57,8 +57,8 @@ title: OGRDBstats Report
 
 ```{r, echo=FALSE, fig.width=6, fig.height=3, out.width="30%"}
     if('SEQUENCE_IMGT' %in% names(input_sequences) && length(triplet_composition_grobs) > 0) {
-		for (i in 1:length(cdr3_dist_grobs)) {
-			gridExtra::grid.arrange(grobs=cdr3_dist_grobs[i],ncol=1)
+		for (i in 1:length(triplet_composition_grobs)) {
+			gridExtra::grid.arrange(grobs=triplet_composition_grobs[i],ncol=1)
 		}
     }
 
