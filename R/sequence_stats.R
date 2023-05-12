@@ -96,6 +96,13 @@ apply_gaps = function(seq, tem) {
 # It will not handle indels, but it will try to spot them and set the aligned sequence to NA
 # junction_start is the location of the first nucleotide of the cysteine preceding the CRD3
 # this is location 310 in the IMGT numbering scheme
+#
+# NOTE - as at v0.15.1, IgDiscover does not always find the junction accurately because
+# it is using regular expression matching rather than IgBLAST junction analysis. This can
+# drive the alignment awry. IgDiscover-inferred alleles that have no unmutated reads
+# according to ogrdbstats are a symptom of this. Workaround is to re-annotate using IgBLAST
+# and run ogrdbstats on the IgBLAST output rather than running it on IgDiscover output.
+
 imgt_gap = function(sequence, cdr3_sequence, junction_start, ref_gene) {
   if(is.na(ref_gene) || is.na(cdr3_sequence) || is.na(sequence) || is.na(junction_start)) {
     return(NA)

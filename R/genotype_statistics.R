@@ -411,7 +411,11 @@ read_input_sequences = function(filename, segment, chain_type) {
     }
 
     if ('CDR3_START' %in% col_names) {
-      s$CDR3_START = s$CDR3_START - s$FWR1_START + 1    # make them indeces into the V sequence
+      s$CDR3_START = s$CDR3_START - s$FWR1_START    # make them indeces into the V sequence
+      if (dimnames(sort(table(substring(s$SEQUENCE_IMGT, s$CDR3_START, s$CDR3_START+2)),decreasing=TRUE))[[1]][1] == 'TGT') {
+        # we've actually found the junction not the CDR3!
+        s$CDR3_START = s$CDR3_START + 3
+      }
       s$JUNCTION_START = s$CDR3_START - 3
       names(s)[names(s) == 'SEQUENCE_IMGT'] = 'SEQUENCE'
     }
@@ -572,6 +576,11 @@ calc_haplo_details = function(segment, input_sequences) {
         'X'
       }
     })
+
+  if (nrow(sa) == 0) {
+    return(list())
+  }
+
   sa$a_gene = factor(sa$a_gene, sort_alleles(unique(sa$a_gene)))
 
   su = select(sa, A_CALL, a_gene, a_allele)

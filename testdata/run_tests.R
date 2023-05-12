@@ -188,6 +188,8 @@ genotype_statistics_test = function(testdir, full=F) {
     # VH - IgDiscover 1.51
     # Recent versions of IgDiscover use IgBLAST output in filtered.tsv
 
+    # VH - IgDiscover 1.51
+    # Recent versions of IgDiscover use IgBLAST output in filtered.tsv
     report('VK_igdiscover_151')
     setwd('VK_igdiscover_151')
     ref_filename = 'V_ref_gapped.fasta'
@@ -201,6 +203,36 @@ genotype_statistics_test = function(testdir, full=F) {
     segment = 'V'
     chain_type = 'L'
     generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, FALSE)
+    setwd('..')
+
+
+    report('VL_igdiscover_151')
+    setwd('VL_igdiscover_151')
+    ref_filename = 'V_gapped.fasta'
+    species = 'Homosapiens'
+    #inferred_filename = 'V_head.fasta'
+    #filename = 'filtered_1_01.tsv'
+    inferred_filename = 'V.fasta'
+    filename = 'filtered.tsv'
+    chain = 'IGLV'
+    hap_gene = ''
+    segment = 'V'
+    chain_type = 'L'
+    generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, FALSE)
+    setwd('..')
+
+    report('VL_mouse_igblast')
+    setwd('VL_mouse_igblast')
+    ref_filename = 'V_gapped.fasta'
+    species = 'Mouse'
+    filename = 'annotated_head.tsv'
+    #filename = 'annotated_full.tsv'
+    inferred_filename = '-'
+    chain = 'IGLV'
+    hap_gene = NA
+    segment = 'V'
+    chain_type = 'L'
+    generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, TRUE)
     setwd('..')
 
   }
