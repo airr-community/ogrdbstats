@@ -106,13 +106,13 @@ generate_ogrdb_report = function(ref_filename, inferred_filename, species, filen
   }
 
   rd = read_input_files(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, all_inferred)
-
-  file_prefix = basename(strsplit(filename, '.', fixed=TRUE)[[1]][1])
+  file_base = basename(filename)
+  file_splits = strsplit(file_base, '.', fixed=TRUE)[[1]]
+  file_prefix = paste(file_splits[1:length(file_splits)-1], sep='.', collapse='.')
   file_loc = dirname(filename)
 
-  report('writing genotype file')
   write_genotype_file(file.path(file_loc, paste0(file_prefix, '_ogrdb_report.csv')), segment, chain_type, rd$genotype)
-
+  report(paste0(file_prefix, '_ogrdb_report.csv'))
 
   all_inferred = FALSE
 

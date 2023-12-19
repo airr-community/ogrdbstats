@@ -10,3 +10,4 @@
 
 * Added support for recent versions of IgDiscover, which now uses a AIRR format for filtered.tsv
 * Added automatic sequence gapping for the AIRR format column sequence_alignment, should it not be gapped (this was required for IgDIscover support)
+* Fixed the creation of output files where the input file included more than one period in its name
