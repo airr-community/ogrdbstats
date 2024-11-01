@@ -17,7 +17,7 @@ infers a ‘personalised genotype’. Currently the following tools are
 supported:
 
 - [TIgGER](https://tigger.readthedocs.io/en/stable/)
-- [IgDiscover](http://docs.igdiscover.se/en/stable/)
+- [IgDiscover](https://igdiscover.se)
 - [partis](https://github.com/psathyrella/partis)
 - [IMPre](https://github.com/zhangwei2015/IMPre)
 

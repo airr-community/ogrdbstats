@@ -1,7 +1,7 @@
 Package: ogrdbstats
 Type: Package
 Title: Analysis of Adaptive Immune Receptor Repertoire Germ Line Statistics
-Version: 0.5.1
+Version: 0.5.2
 Authors@R: person(
   "William", "Lees",
   email = "william@lees.org.uk",
@@ -41,6 +41,6 @@ Imports:
 Suggests:
   knitr,
   rmarkdown
-VignetteBuilder: knitr
+VignetteBuilder: rmarkdown
 RoxygenNote: 7.2.3
 LazyData: true
