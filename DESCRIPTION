@@ -41,6 +41,6 @@ Imports:
 Suggests:
   knitr,
   rmarkdown
-VignetteBuilder: rmarkdown
+VignetteBuilder: knitr
 RoxygenNote: 7.2.3
 LazyData: true

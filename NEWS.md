@@ -5,13 +5,10 @@
 
 # ogrdbstats 0.5.1
 
-* Fixed a problem which prevented haplotyping plots from being produced.
-* Fixed various issues with report formatting
-
-* Added support for recent versions of IgDiscover, which now uses a AIRR format for filtered.tsv
-* Added automatic sequence gapping for the AIRR format column sequence_alignment, should it not be gapped (this was required for IgDIscover support)
-* Fixed the creation of output files where the input file included more than one period in its name
+* Added support for recent versions of IgDiscover, which now uses AIRR format for filtered.tsv.
+* The AIRR format sequence column may now be supplied ungapped, in which case ogrdbstats will gap the sequences before use.
+* Output files will be named correctly even if the input file includes more than one period in its name.
 
 # ogrdbstats 0.5.2
 
-* Fixed an error in the CRAN package checks:  `grobs` must be a single grob or a list of grobs, not a list.
+* Changed the Vignette builder from knitr to rmarkdown to avoid an error during package creation.
