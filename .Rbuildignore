@@ -22,3 +22,4 @@ run_tests$
 ^install_ogrdbstats.R$
 ^make_sample_data.R$
 ^ogrdbstats.R$
+^revdep$
