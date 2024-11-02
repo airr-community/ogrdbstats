@@ -1,7 +1,6 @@
-# ogrdbstats 0.5.0
+# ogrdbstats 0.5.2
 
-* This is the first packaged version available from CRAN, and also available as a Docker image. The documentation has been reworked, and R help has been added for externally callable functions.
-
+* The Vignette now resolves correctly with current versions of knitr.
 
 # ogrdbstats 0.5.1
 
@@ -9,6 +8,9 @@
 * The AIRR format sequence column may now be supplied ungapped, in which case ogrdbstats will gap the sequences before use.
 * Output files will be named correctly even if the input file includes more than one period in its name.
 
-# ogrdbstats 0.5.2
+# ogrdbstats 0.5.0
 
-* Changed the Vignette builder from knitr to rmarkdown to avoid an error during package creation.
+* This is the first packaged version available from CRAN, and also available as a Docker image. The documentation has been reworked, and R help has been added for externally callable functions.
+
+
+
