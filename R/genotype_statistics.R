@@ -568,7 +568,18 @@ calc_haplo_details = function(segment, input_sequences) {
     sa = rename(sa, A_CALL=V_CALL)
   }
 
-  sa$a_gene = sapply(sa$A_CALL, function(x) {strsplit(x, '*', fixed=TRUE)[[1]][[1]]})
+  sa$a_gene = sapply(sa$A_CALL, function(x) {
+      if (grepl('*', x, fixed=TRUE)) {
+        strsplit(x, '*', fixed=TRUE)[[1]][[1]]
+      } else {
+        'X'
+      }
+    })
+
+  if (nrow(sa) == 0) {
+    return(list())
+  }
+
   sa$a_allele = sapply(sa$A_CALL, function(x) {
       if (grepl('*', x, fixed=TRUE)) {
         strsplit(x, '*', fixed=TRUE)[[1]][[2]]

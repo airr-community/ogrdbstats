@@ -1,7 +1,7 @@
 Using ogrdbstats
 ================
 William Lees
-2023-03-08
+2024-11-22
 
 # Conducting a Genotype Analysis with ogrdbstats
 
@@ -368,7 +368,7 @@ rd = suppressMessages(
 barplot_grobs = make_barplot_grobs(rd$input_sequences, rd$genotype_db, rd$inferred_seqs, 
                                    rd$genotype, 'V', rd$calculated_NC)
 base_grobs = make_novel_base_grobs(rd$inferred_seqs, rd$input_sequences, 'V', FALSE)
-gridExtra::grid.arrange(grobs=list(barplot_grobs[3][[1]], base_grobs$end[1][[1]], 
+gridExtra::grid.arrange(grobs=list(barplot_grobs[2][[1]], base_grobs$end[1][[1]], 
                                    base_grobs$conc[1][[1]]),ncol=1)
 ```
 
