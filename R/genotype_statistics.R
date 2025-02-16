@@ -60,6 +60,7 @@ report_note = function(xx) {
 #' @param plot_unmutated Plot base composition using only unmutated sequences (V-chains only)
 #' @param all_inferred Treat all alleles as novel
 #' @param format The format for the plot file ('pdf', 'html' or 'none')
+#' @param custom_file_prefix custom prefix to use for output files. If not specified, the prefix is taken from the input file name
 #' @return None
 #' @export
 #' @examples
