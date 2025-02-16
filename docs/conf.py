@@ -9,7 +9,7 @@
 project = 'OGRDBstats'
 copyright = '2023, William Lees'
 author = 'William Lees'
-release = '0.5.0'
+release = '0.5.2'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

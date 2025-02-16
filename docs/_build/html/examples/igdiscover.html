@@ -4,14 +4,14 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Using OGRDBstats with IgDiscover &mdash; OGRDBstats 0.5.0 documentation</title>
+  <title>Using OGRDBstats with IgDiscover &mdash; OGRDBstats 0.5.2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-
+  
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
@@ -22,10 +22,10 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Using OGRDBstats with partis" href="partis.html" />
-    <link rel="prev" title="Using OGRDBstats with TIgGER" href="tigger.html" />
+    <link rel="prev" title="Using OGRDBstats with TIgGER" href="tigger.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
@@ -89,13 +89,13 @@
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-
+             
   <section id="using-ogrdbstats-with-igdiscover">
 <span id="igdiscover"></span><h1>Using OGRDBstats with IgDiscover<a class="headerlink" href="#using-ogrdbstats-with-igdiscover" title="Permalink to this heading"></a></h1>
 <p>When an IgDiscover run has completed, the results will be found in the <a class="reference external" href="https://igdiscover.se/guide.html#final-results">final/ directory</a>.</p>
 <p>The read file file for OGRDBstats analysis is <cite>final.tsv.gz</cite>. This contains the repertoire reads, annotated with the alleles IgDiscover has determined are
 present in the personalised germline database. It must be decompressed before use by OGRDBstats:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ unzip final.tsv.gz
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ gunzip final.tsv.gz
 </pre></div>
 </div>
 <p>OGRDBstats also requires the personalised germline database, containing the alleles IgDiscover has inferred to be in the repertoire. This is located in <cite>final/database</cite>,
@@ -143,7 +143,7 @@ as the germline set does not need to be gapped. Again, from the final/ directory
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
+   
 
 </footer>
         </div>
@@ -154,7 +154,7 @@ as the germline set does not need to be gapped. Again, from the final/ directory
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
+  </script> 
 
 </body>
 </html>

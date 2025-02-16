@@ -40,6 +40,7 @@ genotype_statistics_cmd = function(args=NULL) {
   p = argparser::add_argument(p, '--plot_unmutated', flag=TRUE, help='Plot base composition using only unmutated sequences (V-chains only)')
   p = argparser::add_argument(p, '--all_novel', flag=TRUE, help='Treat all alleles in reference set as if novel')
   p = argparser::add_argument(p, '--format', default='pdf', help='Output report format: pdf, html or none')
+  p = argparser::add_argument(p, '--file_prefix', default='', help='Prefix to use for output file names')
 
 
   if (is.null(args)) {
@@ -57,6 +58,7 @@ genotype_statistics_cmd = function(args=NULL) {
   plot_unmutated = argv$plot_unmutated
   all_inferred = argv$all_novel
   format = argv$format
+  file_prefix = argv$file_prefix
 
   if(!(format %in% c('pdf', 'html', 'none'))) {
     stop('Unrecognised format.')
@@ -102,7 +104,7 @@ genotype_statistics_cmd = function(args=NULL) {
     inferred_filename = '-'
   }
 
-  generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, plot_unmutated, all_inferred, format=format)
+  generate_ogrdb_report(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, plot_unmutated, all_inferred, format=format, file_prefix)
 }
 
 

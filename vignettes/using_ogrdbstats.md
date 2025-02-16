@@ -1,7 +1,7 @@
 Using ogrdbstats
 ================
 William Lees
-2024-11-22
+2025-02-16
 
 # Conducting a Genotype Analysis with ogrdbstats
 
@@ -171,7 +171,8 @@ brief overview.
 - `<READ_FILE>_ogrdb_plots.csv` - plots (see next section for details).
 
 `READ_FILE` is used as a prefix to the output file names. They will be
-written to the directory containing the read file.
+written to the directory containing the read file. If you dould like to
+specify a different prefix, use the `--file_prefix` option.
 
 If you are submitting inferences to OGRDB, you will be prompted to
 upload the genotype file. Please also upload the plots file as an

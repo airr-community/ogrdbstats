@@ -9,7 +9,8 @@ The description applies equally to the Dockerised command `run_ogrdbstats`.
 
 	usage: ogrdbstats.R [--] [--help] [--plot_unmutated] [--all_novel]
 		   [--opts OPTS] [--inf_file INF_FILE] [--hap_gene HAP_GENE]
-		   [--format FORMAT] REF_FILE SPECIES READ_FILE CHAIN
+		   [--format FORMAT] [--file_prefix FILE_PREFIX] REF_FILE SPECIES 
+		   READ_FILE CHAIN
 
 	Create genotype statistics
 
@@ -37,6 +38,7 @@ The description applies equally to the Dockerised command `run_ogrdbstats`.
 	  --hap_gene            haplotyping gene, e.g. IGHJ6
 	  -f, --format          Output report format: pdf, html or none
 							[default: pdf]
+	  --file_prefix         Prefix to use for output file names
 
 
 Positional Arguments:

@@ -15,7 +15,8 @@ generate_ogrdb_report(
   chain_type,
   plot_unmutated,
   all_inferred = FALSE,
-  format = "pdf"
+  format = "pdf",
+  custom_file_prefix = ""
 )
 }
 \arguments{

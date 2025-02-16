@@ -10,7 +10,7 @@ present in the personalised germline database. It must be decompressed before us
 
 .. code-block:: bash
 
-    $ unzip final.tsv.gz
+    $ gunzip final.tsv.gz
 
 OGRDBstats also requires the personalised germline database, containing the alleles IgDiscover has inferred to be in the repertoire. This is located in `final/database`,
 for example `final/database/V.fasta` for V-genes.

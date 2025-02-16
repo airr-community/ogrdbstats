@@ -77,7 +77,7 @@ report_note = function(xx) {
 #' outfile = file.path(tempdir(), 'ogrdbstats_example_repertoire_ogrdb_report.csv')
 #' file.remove(repfile)
 #' file.remove(outfile)
-generate_ogrdb_report = function(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, plot_unmutated, all_inferred=FALSE, format='pdf') {
+generate_ogrdb_report = function(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, plot_unmutated, all_inferred=FALSE, format='pdf', custom_file_prefix='') {
   if (format == 'none') {
     return(invisible())
   }
@@ -108,7 +108,13 @@ generate_ogrdb_report = function(ref_filename, inferred_filename, species, filen
   rd = read_input_files(ref_filename, inferred_filename, species, filename, chain, hap_gene, segment, chain_type, all_inferred)
   file_base = basename(filename)
   file_splits = strsplit(file_base, '.', fixed=TRUE)[[1]]
-  file_prefix = paste(file_splits[1:length(file_splits)-1], sep='.', collapse='.')
+
+  if (custom_file_prefix != '') {
+    file_prefix = custom_file_prefix
+  } else {
+    file_prefix = paste(file_splits[1:length(file_splits)-1], sep='.', collapse='.')
+  }
+
   file_loc = dirname(filename)
 
   write_genotype_file(file.path(file_loc, paste0(file_prefix, '_ogrdb_report.csv')), segment, chain_type, rd$genotype)

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Release Notes &mdash; OGRDBstats 0.5.0 documentation</title>
+  <title>Release Notes &mdash; OGRDBstats 0.5.2 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
@@ -89,13 +89,23 @@
              
   <section id="release-notes">
 <span id="news"></span><h1>Release Notes<a class="headerlink" href="#release-notes" title="Permalink to this heading"></a></h1>
-<p># ogrdbstats 0.5.0</p>
+<p># ogrdbstats 0.5.3</p>
 <ul class="simple">
-<li><p>This is the first packaged version available from CRAN, and also available as a Docker image. The documentation has been reworked, and R help has been added for externally callable functions.</p></li>
+<li><p>Added option –file_prefix to allow the user to specify a prefix for the output files.</p></li>
+</ul>
+<p># ogrdbstats 0.5.2</p>
+<ul class="simple">
+<li><p>The Vignette now resolves correctly with current versions of knitr.</p></li>
 </ul>
 <p># ogrdbstats 0.5.1</p>
 <ul class="simple">
-<li><p>Fixed a problem which prevented haplotyping plots from being produced.</p></li>
+<li><p>Added support for recent versions of IgDiscover, which now uses AIRR format for filtered.tsv.</p></li>
+<li><p>The AIRR format sequence column may now be supplied ungapped, in which case ogrdbstats will gap the sequences before use.</p></li>
+<li><p>Output files will be named correctly even if the input file includes more than one period in its name.</p></li>
+</ul>
+<p># ogrdbstats 0.5.0</p>
+<ul class="simple">
+<li><p>This is the first packaged version available from CRAN, and also available as a Docker image. The documentation has been reworked, and R help has been added for externally callable functions.</p></li>
 </ul>
 </section>
 

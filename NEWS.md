@@ -1,3 +1,7 @@
+# ogrdbstats 0.5.3
+
+* Added option --file_prefix to allow the user to specify a prefix for the output files.
+
 # ogrdbstats 0.5.2
 
 * The Vignette now resolves correctly with current versions of knitr.

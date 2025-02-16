@@ -49,7 +49,7 @@ The information that OGRDBstats provides can be particularly useful to assess th
 both those listed in the germline set, and those that are inferred. Because the tools provide information in a variety of formats, we have included
 specific usage information for tested tools. The tools we have currently tested are:
 
-- `IgDiscover <https://igdiscover.se>`_
+- `IgDiscover`_
 - `TIgGER <https://tigger.readthedocs.io/en/stable/>`_
 - `partis <https://github.com/psathyrella/partis>`_
 - `IMPre <https://github.com/zhangwei2015/IMPre>`_
