@@ -317,9 +317,9 @@ plot_cdr3_lengths = function(allele, seqs) {
     geom_bar(width=1.0) +
     labs(x='CDR3 AA Length (unmutated)',
          y='Count',
-         title=allele,
-         theme_classic(base_size=12)) +
-           theme(aspect.ratio = 1/1, plot.subtitle=element_text(size=8))
+         title=allele) +
+    theme_classic(base_size=12) +
+    theme(aspect.ratio = 1/1, plot.subtitle=element_text(size=8))
 
   return(ggplotGrob(g))
 }
