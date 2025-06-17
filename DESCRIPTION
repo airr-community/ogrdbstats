@@ -1,7 +1,7 @@
 Package: ogrdbstats
 Type: Package
 Title: Analysis of Adaptive Immune Receptor Repertoire Germ Line Statistics
-Version: 0.5.3
+Version: 0.5.4
 Authors@R: person(
   "William", "Lees",
   email = "william@lees.org.uk",
