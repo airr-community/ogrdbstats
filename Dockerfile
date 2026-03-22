@@ -1,4 +1,4 @@
-FROM immcantation/suite:4.4.0
+FROM immcantation/suite:4.7.0
 COPY --chmod=777 run_ogrdbstats /usr/local/bin
 COPY --chmod=777 run_ogrdbstats_tests /usr/local/bin
 COPY --chmod=777 make_sample_data /usr/local/bin
