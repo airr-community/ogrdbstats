@@ -19,7 +19,7 @@ Description: Multiple tools are now available for inferring the personalised
 License: CC BY-SA 4.0
 Encoding: UTF-8
 Depends:
-    R (>= 2.10)
+    R (>= 4.4)
 biocViews:
 Imports:
   dplyr (>= 0.8.3),
@@ -33,7 +33,7 @@ Imports:
   tidyr (>= 1.0.0),
   stringdist (>= 0.9.5.2),
   RColorBrewer (>= 1.1-2),
-  Biostrings (>= 2.52.0),
+  pwalign (>= 1.0.0),
   argparser (>= 0.4),
   ComplexHeatmap,
   bookdown,
@@ -42,5 +42,7 @@ Suggests:
   knitr,
   rmarkdown
 VignetteBuilder: knitr
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 LazyData: true
+Additional_repositories:
+ https://bioconductor.org/packages/release/bioc

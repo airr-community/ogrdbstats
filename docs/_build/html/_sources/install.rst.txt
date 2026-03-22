@@ -12,7 +12,7 @@ Installing from CRAN
 OGRDBstats requires a recent installation of `Pandoc <https://pandoc.org/>`_. If `Rstudio <https://www.rstudio.com/tags/rstudio-ide/>`_ is installed on your machine, Pandoc will already be installed. 
 Otherwise please follow the installation instructions on the Pandoc website, or install Rstudio.
 
-Once Pandoc is installed, please start the R interpreter and install ogrdbstats from CRAN:
+Once Pandoc is installed, please start the R interpreter and install ogrdbstats from CRAN. R >= 4.4 and Bioconductor >= 3.19 are required.
 
 .. code-block:: R
 

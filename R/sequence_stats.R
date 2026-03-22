@@ -148,7 +148,7 @@ imgt_gap_inferred = function(seqname, seqs, ref_genes) {
   # Find the closest reference gene
   r = data.frame(GENE=names(ref_genes),SEQ=ref_genes, stringsAsFactors = FALSE)
   r$SEQ = sapply(r$SEQ,stringr::str_replace_all,pattern='\\.',replacement='')
-  r$dist=sapply(r$SEQ, Biostrings::pairwiseAlignment, subject=seqs[seqname], scoreOnly=TRUE)
+  r$dist=sapply(r$SEQ, pwalign::pairwiseAlignment, subject=seqs[seqname], scoreOnly=TRUE)
   r = r[order(r$dist, decreasing=TRUE),]
 
   # Gap the sequence

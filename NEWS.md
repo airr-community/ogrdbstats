@@ -1,4 +1,9 @@
-# ogrdbstats 0.5.3
+# ogrdbstats 0.5.5
+
+Fix dependencies warning arising from changes in Bioconductor packages. This version of ogrdbstats requires R >= 4.4 and Bioconductor >= 3.19
+Updated installation instructions in the documentation to reflect this.
+
+# ogrdbstats 0.5.4
 
 package compatibility fix: fixed a typo in a call to ggplot2 which would break in a future release of that package.
 
