@@ -99,13 +99,16 @@
 <h2>Installing from CRAN<a class="headerlink" href="#installing-from-cran" title="Permalink to this heading"></a></h2>
 <p>OGRDBstats requires a recent installation of <a class="reference external" href="https://pandoc.org/">Pandoc</a>. If <a class="reference external" href="https://www.rstudio.com/tags/rstudio-ide/">Rstudio</a> is installed on your machine, Pandoc will already be installed.
 Otherwise please follow the installation instructions on the Pandoc website, or install Rstudio.</p>
-<p>Once Pandoc is installed, please start the R interpreter and install ogrdbstats from CRAN. R &gt;= 4.4 and Bioconductor &gt;= 3.19 are required.</p>
-<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;ogrdbstats&#39;</span><span class="p">)</span>
+<p>Once Pandoc is installed, please start the R interpreter and install ogrdbstats from CRAN. R &gt;= 4.4 and Bioconductor &gt;= 3.19 are required. For best results install ogrdbstats from Bioconductor, to handle dependencies automatically:</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nf">requireNamespace</span><span class="p">(</span><span class="s">&quot;BiocManager&quot;</span><span class="p">,</span> <span class="n">quietly</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">))</span> <span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;BiocManager&quot;</span><span class="p">)</span>
+<span class="n">BiocManager</span><span class="o">::</span><span class="nf">install</span><span class="p">(</span><span class="s">&quot;ogrdbstats&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Alternatively, you can install the development version from Github:</p>
-<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;devtools&#39;</span><span class="p">)</span>
-<span class="n">devtools</span><span class="o">::</span><span class="nf">install_github</span><span class="p">(</span><span class="s">&#39;https://github.com/airr-community/ogrdbstats&#39;</span><span class="p">)</span>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nf">requireNamespace</span><span class="p">(</span><span class="s">&quot;BiocManager&quot;</span><span class="p">,</span> <span class="n">quietly</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">))</span> <span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;BiocManager&quot;</span><span class="p">)</span>
+<span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nf">requireNamespace</span><span class="p">(</span><span class="s">&quot;remotes&quot;</span><span class="p">,</span> <span class="n">quietly</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">))</span> <span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;remotes&quot;</span><span class="p">)</span>
+<span class="nf">options</span><span class="p">(</span><span class="n">repos</span> <span class="o">=</span> <span class="n">BiocManager</span><span class="o">::</span><span class="nf">repositories</span><span class="p">())</span>
+<span class="n">remotes</span><span class="o">::</span><span class="nf">install_github</span><span class="p">(</span><span class="s">&quot;airr-community/ogrdbstats&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Once the package is installed, please download <a class="reference external" href="https://raw.githubusercontent.com/airr-community/ogrdbstats/master/ogrdbstats.R">ogrdbstats.R</a> to a directory of your choice. OGRDBstats is used from the command line via this script, for example:</p>

@@ -12,18 +12,21 @@ Installing from CRAN
 OGRDBstats requires a recent installation of `Pandoc <https://pandoc.org/>`_. If `Rstudio <https://www.rstudio.com/tags/rstudio-ide/>`_ is installed on your machine, Pandoc will already be installed. 
 Otherwise please follow the installation instructions on the Pandoc website, or install Rstudio.
 
-Once Pandoc is installed, please start the R interpreter and install ogrdbstats from CRAN. R >= 4.4 and Bioconductor >= 3.19 are required.
+Once Pandoc is installed, please start the R interpreter and install ogrdbstats from CRAN. R >= 4.4 and Bioconductor >= 3.19 are required. For best results install ogrdbstats from Bioconductor, to handle dependencies automatically:
 
 .. code-block:: R
 
-    install.packages('ogrdbstats')
+    if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager")
+    BiocManager::install("ogrdbstats")
 
 Alternatively, you can install the development version from Github:
 
 .. code-block:: R
 
-    install.packages('devtools')
-    devtools::install_github('https://github.com/airr-community/ogrdbstats')
+    if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager")
+    if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")
+    options(repos = BiocManager::repositories())
+    remotes::install_github("airr-community/ogrdbstats")
 
 Once the package is installed, please download `ogrdbstats.R <https://raw.githubusercontent.com/airr-community/ogrdbstats/master/ogrdbstats.R>`_ to a directory of your choice. OGRDBstats is used from the command line via this script, for example:
 
