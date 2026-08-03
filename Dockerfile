@@ -6,6 +6,7 @@ COPY inst/extdata /data/ogrdb_extdata
 COPY *.R /usr/local/bin
 WORKDIR /usr/local/bin
 RUN Rscript install_ogrdbstats.R
+WORKDIR /
 RUN curl -sSL "https://github.com/peak/s5cmd/releases/download/v2.3.0/s5cmd_2.3.0_Linux-64bit.tar.gz" | tar -xz -C /usr/local/bin s5cmd
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
     && unzip awscliv2.zip \
